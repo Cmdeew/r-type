@@ -1,0 +1,4 @@
+fenetre principale:
+-jouer
+-credits
+-regles
