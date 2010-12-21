@@ -1,5 +1,4 @@
 #include "Session.h"
-#include <Windows.h>
 
 Session::Session(AbsUDPNetwork *p, AbsThread *th)
 {

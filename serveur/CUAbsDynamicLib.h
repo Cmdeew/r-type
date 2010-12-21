@@ -1,17 +1,17 @@
-#ifndef _CWABSDYNAMICLIB_H_
-# define _CWABSDYNAMICLIB_H_
+#ifndef _CUABSDYNAMICLIB_H_
+# define _CUABSDYNAMICLIB_H_
 
-#ifdef _WIN32
+#ifndef _WIN32
 #include "AbsDynamicLib.h"
 
-class	CWAbsDynamicLib : public AbsDynamicLib
+class	CUAbsDynamicLib : public AbsDynamicLib
 {
  public:
   hand	AOpenLib(pstr name);
   bool	ACloseLib(hand lib);
   addr	ASymLib(hand lib, const char *symbol);
-  CWAbsDynamicLib();
-  ~CWAbsDynamicLib();
+  CUAbsDynamicLib();
+  ~CUAbsDynamicLib();
 };
 #endif
 
