@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include "gameclient.h"

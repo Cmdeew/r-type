@@ -3,7 +3,8 @@
 
 int main()
 {
-  gameClient gamer;
-  gamer.loopClient();
-  return (0);
+	std::cout << "coucou !" << std::endl;
+	gameClient gamer;
+	gamer.loopClient();
+	return (0);
 }
