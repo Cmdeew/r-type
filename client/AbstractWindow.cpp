@@ -3,6 +3,7 @@
 AbstractWindow::AbstractWindow()
 {
   _App.Create(sf::VideoMode(800, 600, 32), "Best r-type ever!");
+  _App.SetFramerateLimit(60);
   _backgroundImg.LoadFromFile("img/background1.jpg");
   _background.SetImage(_backgroundImg);
 }
