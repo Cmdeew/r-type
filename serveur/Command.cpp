@@ -162,6 +162,8 @@ int	Command::receiveConnect(Session *session)
 
 int	Command::receiveDisconnect(Session *session, unsigned char playerId)
 {
+  if (!(session->_tabPlayer[playerId - 1]))
+    return (1);
   session->_pingTime[playerId - 1] = 0;
   std::cout << "Disconnect" << std::endl;
   return (0);
@@ -170,6 +172,8 @@ int	Command::receiveDisconnect(Session *session, unsigned char playerId)
 
 int	Command::receivePing(Session *session, unsigned char playerId)
 {
+  if (!(session->_tabPlayer[playerId - 1]))
+    return (1);
   session->_pingTime[playerId - 1] = MAX_PING_TIME;
   std::cout << "Fill pingTime["<<playerId - 1 << "]" << std::endl;
   std::cout << "receive ping" << std::endl;
@@ -178,6 +182,8 @@ int	Command::receivePing(Session *session, unsigned char playerId)
 
 int	Command::receiveMove(Session *session, unsigned char playerId, unsigned char posx, unsigned char posy)
 {
+  if (!(session->_tabPlayer[playerId - 1]))
+    return (1);
   /*
   if (posy > 0)
     posy = 0;
