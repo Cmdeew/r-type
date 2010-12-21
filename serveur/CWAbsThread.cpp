@@ -62,6 +62,6 @@ bool	CWAbsThread::AMutexUnLock(thread_mutex mutext)
 
 void	CWAbsThread::ASleep(unsigned int seconds)
 {
-	Sleep(seconds);
+	Sleep(seconds * 0.0001);
 }
 #endif

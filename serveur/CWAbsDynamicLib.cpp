@@ -2,11 +2,11 @@
 
 #include "CWAbsDynamicLib.h"
 
-CUAbsDynamicLib::CWAbsDynamicLib()
+CWAbsDynamicLib::CWAbsDynamicLib()
 {
 }
 
-CUAbsDynamicLib::~CWAbsDynamicLib()
+CWAbsDynamicLib::~CWAbsDynamicLib()
 {
 }
 

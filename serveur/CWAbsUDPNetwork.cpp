@@ -92,6 +92,7 @@ int   CWAbsUDPNetwork::Send(const void *Buffer, size_t size)
 		std::cout << ERROR_SEND << std::endl;
 		return (0);
 	}
+  return (0);
 }
 
 int   CWAbsUDPNetwork::CloseSocket()

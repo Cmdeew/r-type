@@ -26,7 +26,6 @@ void  Session::sessionthread()
   int session = _session_n;
   Command           cmd;
 
-
   _pingTime[session] = MAX_PING_TIME;
   _tabPlayer[session] = new Player(session +1);
   std::cout << "New player assign on slot " << session << "..." << std::endl;
@@ -43,11 +42,10 @@ void  Session::sessionthread()
       //A 20 tours de boucles On fait un ping avec _cmd.sendPing()
       //Si la boucle recv principal ne recoit rien, on deco et on kill la thread
       
-
-      if (_pingTime[session] % 100 == 0)
+   if (_pingTime[session] % 100 == 0)
 	cmd.sendMove(_tabPlayer[session], _p);
 
-      if (_pingTime[session] == MID_PING_TIME)
+   if (_pingTime[session] == MID_PING_TIME)
 	{
 	  cmd.sendPing(_tabPlayer[session], _p);
 	  std::cout << "Sending ping to client (player " << session + 1 << ")..." << std::endl;
