@@ -21,9 +21,12 @@ SRCSCLT		=	Command.cpp\
 			AbsUDPNetwork.cpp\
 			CUAbsUDPNetwork.cpp\
 			CWAbsUDPNetwork.cpp\
+			AbsDynamicLib.cpp\
+			CUAbsDynamicLib.cpp\
+			CWAbsDynamicLib.cpp\
 			Player.cpp
 
-LIB		=	-lpthread
+LIB		=	-lpthread -ldl
 
 RM		=	rm -f
 
