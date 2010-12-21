@@ -1,0 +1,389 @@
+Request for Comments : 4242							      Olivier Hugon
+										      Paul-Baptiste Manot
+					 				              Clement Bauny
+										      Ludovic Chauvel
+										      Jean-Charles Le Goff
+Category : Experimental							              R-TYPE Group
+							       			      December 2010
+															
+															
+															
+			R-TYPE Client Server Protocol Transport over UDP
+			
+Abstract
+
+	This document describes how a R-TYPE Client Server Protocol (RCSP) communication is
+	set onto a single User Datagram Protocol (UDP) connection (see FRC 768 [6]). This
+	communication is based on a binary communication, and use 7 bytes.
+	
+Status of this memo
+
+	This memo defines an experimental Protocol for the developper community. This memo does
+	not define an Internet standard, just a protocol , in order to communicate between R-TYPE
+	client and R-TYPE server. Discussion and suggestions for improvement are requested.
+	Distribution of this memo is unlimited.
+
+Copyright Notice
+
+   Copyright (c) R-Type Group (2010) and the persons identified as the
+   document authors.  All rights reserved.
+ 
+ 
+Hugon                      Experimental                     	[Page 1]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+Table of Contents
+
+   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
+   2.   Interest . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+   3.   Status Report  . . . . . . . . . . . . . . . . . . . . . . . 2
+   4.   Message Format . . . . . . . . . . . . . . . . . . . . . . . 2
+   5.   Communication Protocol . . . . . . . . . . . . . . . . . . . 3
+      5a.  Client to Server . . . . . . . . . . . . . . . . . . . .  3
+      5b.  Server to Client  . . . . . . . . . . . . . . . . . . . . 5
+   6.   References . . . . . . . . . . . . . . . . . . . . . . . . . 8
+   7.   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . 8
+  
+    
+Hugon                      Experimental                      	[Page 2]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+1.  Introduction
+
+   This protocol is intended to provide the R-Type service, and be used
+   between clients and servers on host computers.
+   
+2.  Interest
+
+   This RFC is being distributed to members of the Internet community and
+   developpers to explain the R-Type networking protocol contained in it. 
+
+3.  Status Report
+    
+   In response to the need for maintenance of current information about
+   the status and progress of various projects in the Internet 
+   community, this RFC is issued for the benefit of community members. 
+   The information contained in this document is accurate as of the 
+   date of publication, but is subject to change.  Subsequent RFCs will
+   reflect such changes.
+
+4. Message format
+
+   The protocol message format is very simple. The length of the message
+   is 7 bytes for the client and for the server. Here is a schema of a 
+   message type:
+
+      SOURCE	   ID	     CMD	ATTR_1     ATTR_2    ATTR_3     ATTR_4
+   |__________|__________|__________|__________|__________|__________|__________|
+
+   The SOURCE corresponds to the source of the message.
+   The SOURCE are: 
+		- 0 (server)
+		- 1 (client)
+
+   The ID corresponds to the client (player) id.
+   The ID are: 
+		- 0 (non assigned)
+		- 1 (blue player)
+		- 2 (red player)
+		- 3 (yellow player)
+		- 4 (green player)
+		- 5 (all players Server Side Only)
+   The CMD corresponds to a command. Command are described below in
+   the Communication Protocol chapter.
+   The 4 last attributs (ATTR_n) are reserved for data of each command.
+
+
+Hugon                      Experimental                      	[Page 3]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+5. Communication Protocol
+
+5.1. Client to Server
+
+   The SOURCE corresponds to the client (client to server).
+   The ID (id) corresponds to each players (see above).
+   The CMD (commands) are:
+			   - 0 Connect
+			   - 1 Disconnect
+			   - 2 Ping
+			   - 3 Move
+			   - 4 Shoot
+    The ATTR (attributes) for each commands are:
+    +----------------------------------+
+    |	field	|  value | description |
+    +----------------------------------+
+    
+    +----------------------------------+
+    |	SOURCE	|    1   |    client   |
+    +----------------------------------+
+    |	ID	|    0   |    none     |    
+    +----------------------------------+
+    |	CMD	|    0   |   Connect   |
+    +----------------------------------+
+    |  ATTR_1   |    0   |    none     |
+    |  ATTR_2   |    0   |    none     |
+    |  ATTR_3   |    0   |    none     |
+    |  ATTR_4   |    0   |    none     |
+    +----------------------------------+
+
+    +----------------------------------+
+    |	SOURCE	|    1   |    client   |    
+    +----------------------------------+
+    |	ID	|    id  |  id player  |    
+    +----------------------------------+
+    |	CMD	|    1   |  Disconnect |
+    +----------------------------------+
+    |  ATTR_1   |    0   |    none     |
+    |  ATTR_2   |    0   |    none     |
+    |  ATTR_3   |    0   |    none     |
+    |  ATTR_4   |    0   |    none     |
+    +----------------------------------+
+
+    +----------------------------------+
+    |	SOURCE	|    1   |    client   |        
+    +----------------------------------+
+    |	ID	|    id  |  id player  |    
+    +----------------------------------+
+    |	CMD	|    2   |    Ping     |
+    +----------------------------------+
+    |  ATTR_1   |    0   |    none     |
+    |  ATTR_2   |    0   |    none     |
+    |  ATTR_3   |    0   |    none     |
+    |  ATTR_4   |    0   |    none     |
+    +----------------------------------+
+
+
+Hugon                      Experimental                      	[Page 4]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+    +-----------------------------------------------------------+
+    |	SOURCE	|    1   |    client				|    
+    +-----------------------------------------------------------+
+    |	ID	|    id  |    id player			        |    
+    +-----------------------------------------------------------+
+    |	CMD	|    3   |    Move		         	|
+    +-----------------------------------------------------------+
+    |  ATTR_1   |    x   |    horizontal position of the move   |
+    |  ATTR_2   |    y   |    vertical position of the move     |
+    |  ATTR_3   |    0   |    none		       	        |
+    |  ATTR_4   |    0   |    none				|
+    +-----------------------------------------------------------+
+
+    +-----------------------------------------------------------+
+    |	SOURCE	|    1   |    client			        |    
+    +-----------------------------------------------------------+
+    |	ID	|    id  |    id player			        |    
+    +-----------------------------------------------------------+
+    |	CMD	|    4   |    Shoot				|
+    +-----------------------------------------------------------+
+    |  ATTR_1   |    x   |    horizontal position of the shoot  |
+    |  ATTR_2   |    y   |    vertical position of the shoot    |
+    |  ATTR_3   |    0   |    none				|
+    |  ATTR_4   |    0   |    none				|
+    +-----------------------------------------------------------+
+
+    Note: ATTR_3 and ATTR_4 are always unused.
+
+Hugon                      Experimental                      	[Page 5]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+
+5.2. Server to Client
+
+   The SOURCE corresponds to the server (server to client).
+   The ID (id) corresponds to each clients (see above).
+   The CMD (commands) are:
+			   - 0 Connect
+			   - 1 Disconnect
+			   - 2 Ping
+			   - 3 Move
+			   - 4 Life
+			   - 5 Score
+			   - 6 Destroy
+
+    The ATTR (attributes) for each commands are:
+    +----------------------------------+
+    |	field	|  value | description |
+    +----------------------------------+
+    
+    +----------------------------------+
+    |	SOURCE	|    0   |    Server   |    
+    +----------------------------------+
+    |   ID	|    0	 |    none     |
+    +----------------------------------+
+    |	CMD	|    0   |   Connect   |
+    +----------------------------------+
+    |  ATTR_1   |    id  |    new id   |
+    |  ATTR_2   |    0   |    none     |
+    |  ATTR_3   |    0   |    none     |
+    |  ATTR_4   |    0   |    none     |
+    +----------------------------------+
+
+     +----------------------------------+
+    |	SOURCE	|    0   |    Server   |    
+    +----------------------------------+
+    |   ID	|    id	 |  id player  |
+    +----------------------------------+
+    |	CMD	|    1   |  Disconnect |
+    +----------------------------------+
+    |  ATTR_1   |    0   |    none     |
+    |  ATTR_2   |    0   |    none     |
+    |  ATTR_3   |    0   |    none     |
+    |  ATTR_4   |    0   |    none     |
+    +----------------------------------+
+
+    +----------------------------------+
+    |	SOURCE	|    0   |    Server   |    
+    +----------------------------------+
+    |   ID	|    id	 |  id player  |
+    +----------------------------------+
+    |	CMD	|    2   |    Ping     |
+    +----------------------------------+
+    |  ATTR_1   |    0   |    none     |
+    |  ATTR_2   |    0   |    none     |
+    |  ATTR_3   |    0   |    none     |
+    |  ATTR_4   |    0   |    none     |
+    +----------------------------------+
+
+
+Hugon                      Experimental                      	[Page 6]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+    +-----------------------------------------------------------+
+    |	SOURCE	|    0   |    Server			        |    
+    +-----------------------------------------------------------+
+    |   ID	|    5	 |    All players		        |
+    +-----------------------------------------------------------+
+    |	CMD	|    3   |    Move		         	|
+    +-----------------------------------------------------------+
+    |  ATTR_1   |    x   |    horizontal position of the move   |
+    |  ATTR_2   |    y   |    vertical position of the move     |
+    |  ATTR_3   | id_obj |    unique id of the object that moves|
+    |		|  	 |   (1 to 4 are reserved for players)  |
+    |		|	 |   (5 to 255 are reserved for objects)|
+    |  ATTR_4   |  type  |    type of the object		| 
+    |		|	 |		(description below) 	|
+    +-----------------------------------------------------------+
+
+    +-----------------------------------------------------------+
+    |	SOURCE	|    0   |    Server			        |    
+    +-----------------------------------------------------------+
+    |   ID	|    id	 |    id player			        |
+    +-----------------------------------------------------------+
+    |	CMD	|    4   |    Life				|
+    +-----------------------------------------------------------+
+    |  ATTR_1   |  life  |    player life		        |
+    |  ATTR_2   |    0   |    none			        |
+    |  ATTR_3   |    0   |    none		       	        |
+    |  ATTR_4   |    0   |    none				|
+    +-----------------------------------------------------------+
+
+    +-----------------------------------------------------------+
+    |	SOURCE	|    0   |    Server			        |    
+    +-----------------------------------------------------------+
+    |   ID	|    5	 |    All players		        |
+    +-----------------------------------------------------------+
+    |	CMD	|    5   |    Score				|
+    +-----------------------------------------------------------+
+    |  ATTR_1   |  score |    score value (on 2 bytes)	        |
+    |  ATTR_2   |  score |    score value (on 2 bytes)	        |
+    |  ATTR_3   |    0   |    none			        |
+    |  ATTR_4   |    0   |    none				|
+    +-----------------------------------------------------------+
+
+    +-----------------------------------------------------------+
+    |	SOURCE	|    0   |    Server			        |    
+    +-----------------------------------------------------------+
+    |   ID	|    5	 |    All players		        |
+    +-----------------------------------------------------------+
+    |	CMD	|    6   |    Destroy				|
+    +-----------------------------------------------------------+
+    |  ATTR_1   | id_obj1| unique id of the object that destroys|
+    |		| 	 |   (1 to 4 are reserved for players)  |
+    |		|	 |   (5 to 255 are reserved for objects)|
+    |  ATTR_2   | id_obj2| unique id of the object that destroys|
+    |		| 	 |   (1 to 4 are reserved for players)  |
+    |		|	 |   (5 to 255 are reserved for objects)|
+    |  ATTR_3   |    0   |    none			        |
+    |  ATTR_4   |    0   |    none				|
+    +-----------------------------------------------------------+
+
+Hugon                      Experimental                      	[Page 7]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+
+    Description of each object (only for (3) Move command)
+		- 0 none
+		- 1 blue player
+		- 2 red player
+		- 3 yellow player
+		- 4 green player
+		- 5 missile
+		- 6 meteorite
+		- 7 edge
+		- 8 [reserved]
+		- 9 [reserved]
+		- 10 [reserved]
+		- 11 ennemy_one
+		- 12 ennemy_two
+		- 13 ennemy_three
+		- 14 ennemy_four
+		- 15 ennemy_five
+		- 16 ennemy_six
+		- 17 ennemy_seven
+		- 18 ennemy_height
+		- 19 ennemy_nine
+		- 20 [reserved]
+		- 21 boss_one
+		- 22 boss_two
+		- 23 boss_three
+
+Hugon                      Experimental                      	[Page 8]
+
+RFC 4242          R-Type Client Server Protocol           December 2010
+
+6. References
+
+    [1]  Postel, J., Editor, "Internet Official Protocol Standards", STD
+         1, RFC 2200, June 1997.
+
+    [2]  Bradner, S., "The Internet Standards Process -- Revision 3", BCP
+         9, RFC 2026, October 1996.
+
+    [3]  Bradner, S., "Key words for use in RFCs to Indicate Requirement
+         Levels", BCP 14, RFC 2119, March 1997.
+
+    [4]  Malkin, G., and J. Reynolds, "F.Y.I. on F.Y.I Introduction to
+         the F.Y.I. Notes", FYI 1, RFC 1150, March 1990.
+
+    [5]  Postel, J., Li, T., and Y. Rekhter, "Best Current Practices",
+         BCP 1, RFC 1818, August 1995.
+
+    [6]  Postel, J., Editor, "Introduction to the STD Notes", RFC 1311,
+         March 1992.
+
+
+7. Authors' Addresses
+
+    Hugon Olivier
+    EMail: hugon_a@epitech.eu
+
+    Paul-Baptiste Manot
+    EMail: manot_p@epitech.eu
+
+    Ludovic Chauvel
+    EMail: chauve_l@epitech.eu
+
+    Jean-Charles Le Goff
+    EMail: le-gof_j@epitech.eu
+
+    Clement Bauny
+    Email: bauny_c@epitech.eu
