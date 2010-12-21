@@ -90,7 +90,7 @@ void		Element::setSprite(const std::list<sf::Image> &list)
 
 void			Element::setPosSprite(sf::Sprite &sprite)
 {
-  sprite.SetPosition((int)_posX * 4, (int)_posY * 4);
+  sprite.SetPosition((int)_posX * 8, (int)_posY * 8);
 }	
 
 std::list<sf::Sprite>	&Element::getSprite()

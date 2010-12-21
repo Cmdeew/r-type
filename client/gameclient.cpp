@@ -91,11 +91,10 @@ void		gameClient::mainClient()
       if (this->_network->getSocket().Receive(buffer, NBOCTETS, received,
                                               sender, port) == sf::Socket::Done)
 	{
-	  std::cout << "Commande recu: ";
-	  for (i = 0; i != NBOCTETS; i++)
-	    std::cout << (int)buffer[i];
-	  std::cout << std::endl;
-	  findCommand(buffer);
+	  if (received == 7)
+	    findCommand(buffer);
+	  else
+	    std::cout << "Error: Bad size buffer" <<std::endl;
 	}
       nb = 0;
       while (_window.IsAnEvent())
