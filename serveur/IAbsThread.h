@@ -21,6 +21,7 @@ public:
   virtual bool	AMutexLock(thread_mutex mutext) = 0;
   virtual bool	AMutexTryLock(thread_mutex mutext) = 0;
   virtual bool	AMutexUnLock(thread_mutex mutext) = 0;
+  virtual void	ASleep(unsigned int seconds) = 0;
 };
 
 #endif //_IABSTHREAD_H_

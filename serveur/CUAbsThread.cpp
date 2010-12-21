@@ -72,4 +72,8 @@ bool	CUAbsThread::AMutexUnLock(thread_mutex mutext)
     return (false);
 }
 
+void	CUAbsThread::ASleep(unsigned int seconds)
+{
+	usleep(seconds);
+}
 #endif

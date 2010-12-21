@@ -137,6 +137,7 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
     {
       std::cout << "Bad command (size)..." << std::endl;
     }
+  return (0);
 }
 
 int	Command::receiveConnect(Session *session)
@@ -156,12 +157,14 @@ int	Command::receiveConnect(Session *session)
     }
   if (i == 4)
     std::cout << "No session available..." << std::endl;
+  return (0);
 }
 
 int	Command::receiveDisconnect(Session *session, unsigned char playerId)
 {
   session->_pingTime[playerId - 1] = 0;
   std::cout << "Disconnect" << std::endl;
+  return (0);
 }
 
 
@@ -170,6 +173,7 @@ int	Command::receivePing(Session *session, unsigned char playerId)
   session->_pingTime[playerId - 1] = MAX_PING_TIME;
   std::cout << "Fill pingTime["<<playerId - 1 << "]" << std::endl;
   std::cout << "receive ping" << std::endl;
+  return (0);
 }
 
 int	Command::receiveMove(Session *session, unsigned char playerId, unsigned char posx, unsigned char posy)
@@ -183,4 +187,5 @@ int	Command::receiveMove(Session *session, unsigned char playerId, unsigned char
   session->_tabPlayer[playerId - 1]->setPosx(posx);
   session->_tabPlayer[playerId - 1]->setPosy(posy);
   std::cout << "receiveMove for player " << (int)playerId << ". New position is " << (int)posx << " "<< (int)posy  << std::endl;
+  return (0);
 }

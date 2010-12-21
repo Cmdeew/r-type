@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 
-int	main()
+/*int	main()
 {
   MainWindow	test;
   
@@ -18,4 +18,4 @@ int	main()
       test.Display();
     }
   return (0);
-}
+}*/

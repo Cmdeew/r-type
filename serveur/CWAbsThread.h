@@ -16,6 +16,7 @@ class	CWAbsThread : public AbsThread
   bool	AMutexLock(thread_mutex mutext);
   bool	AMutexTryLock(thread_mutex mutext);
   bool	AMutexUnLock(thread_mutex mutext);
+  void	ASleep(unsigned int seconds);
   CWAbsThread();
   ~CWAbsThread();
 };

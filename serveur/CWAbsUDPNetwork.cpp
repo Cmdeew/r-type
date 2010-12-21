@@ -2,7 +2,6 @@
 
 #include	<iostream>
 #include 	<sys/types.h>
-#include 	<unistd.h>
 #include	<WinSock2.h>
 #include	<windows.h>
 #include	<stdio.h>
@@ -60,7 +59,7 @@ Socket CWAbsUDPNetwork::CreateSocket()
 	  std::cout << SOCKET_OK <<std::endl;
 
 	my_addr->sin_family=AF_INET;
-	my_addr->sin_addr.s_addr=inet_addr(GROUP);
+	my_addr->sin_addr.s_addr=inet_addr(_broadcast);
 	my_addr->sin_port=htons(_port);
 	return (0);
 }
@@ -76,7 +75,7 @@ int   CWAbsUDPNetwork::Receive(void *Buffer)
 		std::cout << ERROR_RECV << std::endl;
 		return (0);
 	}
-	return (recvfrom((int)_socket, (char *)Buffer, 500, 0, (struct sockaddr *)addr_r, &a));
+	return (recvfrom((int)_socket, (char *)Buffer, 500, 0, (struct sockaddr *)&addr_r, &a));
 }
 
 int   CWAbsUDPNetwork::Send(const void *Buffer, size_t size)
@@ -97,7 +96,8 @@ int   CWAbsUDPNetwork::Send(const void *Buffer, size_t size)
 
 int   CWAbsUDPNetwork::CloseSocket()
 {
-  close((int) _socket);
+  CloseHandle((HANDLE) _socket);
+  return (0);
 }
 
 void	CWAbsUDPNetwork::Bind()
@@ -109,7 +109,7 @@ void	CWAbsUDPNetwork::Bind()
       exit(0);
     }
     std::cout << BIND_OK << std::endl;
-	my_addr->sin_addr.s_addr=inet_addr(GROUP);
+	my_addr->sin_addr.s_addr=inet_addr(_broadcast);
 }
 
 #endif

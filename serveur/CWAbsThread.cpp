@@ -49,10 +49,7 @@ bool	CWAbsThread::AMutexLock(thread_mutex mutext)
 
 bool	CWAbsThread::AMutexTryLock(thread_mutex mutext)
 {
-  CRITICAL_SECTION	c_mutext;
-
-  c_mutext = (CRITICAL_SECTION) mutext;
-  if (TryEnterCriticalSection((LPCRITICAL_SECTION)c_mutext) == TRUE)
+  if (TryEnterCriticalSection((LPCRITICAL_SECTION)mutext) == TRUE)
 	return (true);
   return (false);
 }
@@ -61,5 +58,10 @@ bool	CWAbsThread::AMutexUnLock(thread_mutex mutext)
 {
   LeaveCriticalSection((LPCRITICAL_SECTION)mutext);
   return (true);
+}
+
+void	CWAbsThread::ASleep(unsigned int seconds)
+{
+	Sleep(seconds);
 }
 #endif

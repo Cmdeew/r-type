@@ -1,4 +1,5 @@
 #include "Session.h"
+#include <Windows.h>
 
 Session::Session(AbsUDPNetwork *p, AbsThread *th)
 {
@@ -58,7 +59,7 @@ void  Session::sessionthread()
 	  std::cout << "Sending ping to client (player " << session + 1 << ") (WARNING LAST PING BEFORE DISCONNECT)..." << std::endl;
 	}
       _pingTime[session] -= 1;
-      usleep(500);
+      _th->ASleep(500);
     }
   cmd.sendDisconnect(_tabPlayer[session], _p);
   std::cout << "Disconnecting client (player " << session + 1 << ") on slot " << session << "." << std::endl;
@@ -70,4 +71,5 @@ void  Session::sessionthread()
 void	*Session::sessionthreadInit(Session *sess)
 {
   sess->sessionthread();
+  return (NULL);
 }
