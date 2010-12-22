@@ -32,46 +32,6 @@ bool	CUAbsThread::AExitThread(thread_attr ThreadAttr)
   return (true);
 }
 
-bool	CUAbsThread::AMutexInit(thread_mutex mutext)
-{
-  if (pthread_mutex_init((pthread_mutex_t *)mutext, NULL) == 0)
-    return (true);
-  else
-    return (false);
-}
-
-bool	CUAbsThread::AMutexDestroy(thread_mutex mutext)
-{
-  if (pthread_mutex_destroy((pthread_mutex_t *)mutext) == 0)
-    return (true);
-  else
-    return (false);
-}
-
-bool	CUAbsThread::AMutexLock(thread_mutex mutext)
-{
-  if (pthread_mutex_lock((pthread_mutex_t *)mutext) == 0)
-    return (true);
-  else
-    return (false);
-}
-
-bool	CUAbsThread::AMutexTryLock(thread_mutex mutext)
-{
-  if (pthread_mutex_trylock((pthread_mutex_t *)mutext) == 0)
-    return (true);
-  else
-    return (false);
-}
-
-bool	CUAbsThread::AMutexUnLock(thread_mutex mutext)
-{
-  if (pthread_mutex_unlock((pthread_mutex_t *)mutext) == 0)
-    return (true);
-  else
-    return (false);
-}
-
 void	CUAbsThread::ASleep(unsigned int seconds)
 {
 	usleep(seconds);
