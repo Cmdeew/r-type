@@ -5,16 +5,13 @@
 
 class	AbsThread : public IAbsThread
 {
-  private:
+ private:
   hand				Handle;
-  thread_mutex		mutex;
  public:
   AbsThread();
   ~AbsThread();
   hand			getHandle() const;
   void			setHandle(hand Hand);
-  thread_mutex	getMutex() const;
-  void			setMutex(thread_mutex M);
 };
 
 

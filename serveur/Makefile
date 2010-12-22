@@ -17,6 +17,8 @@ SRCSCLT		=	Command.cpp\
 			AbsThread.cpp\
 			CUAbsThread.cpp\
 			CWAbsThread.cpp\
+			AbsMutex.cpp\
+			CUAbsMutex.cpp\
 			main.cpp\
 			AbsUDPNetwork.cpp\
 			CUAbsUDPNetwork.cpp\

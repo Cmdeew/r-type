@@ -10,11 +10,6 @@ class	CUAbsThread : public AbsThread
   hand  ACreateThread(thread Thread, thread_attr ThreadAttr,
 		     typefunc StartRoutine, typeparam Param);
   bool	AExitThread(thread_attr ThreadAttr);
-  bool	AMutexInit(thread_mutex mutext);
-  bool	AMutexDestroy(thread_mutex mutext);
-  bool	AMutexLock(thread_mutex mutext);
-  bool	AMutexTryLock(thread_mutex mutext);
-  bool	AMutexUnLock(thread_mutex mutext);
   void	ASleep(unsigned int seconds);
   CUAbsThread();
   ~CUAbsThread();
