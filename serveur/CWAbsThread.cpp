@@ -29,37 +29,6 @@ bool	CWAbsThread::AExitThread(thread_attr ThreadAttr)
   return (false);
 }
 
-bool	CWAbsThread::AMutexInit(thread_mutex mutext)
-{
-  InitializeCriticalSection((LPCRITICAL_SECTION)mutext);
-  return (true);
-}
-
-bool	CWAbsThread::AMutexDestroy(thread_mutex mutext)
-{
- DeleteCriticalSection((LPCRITICAL_SECTION)mutext);
- return(true);
-}
-
-bool	CWAbsThread::AMutexLock(thread_mutex mutext)
-{
-  EnterCriticalSection((LPCRITICAL_SECTION)mutext);
-  return (true);
-}
-
-bool	CWAbsThread::AMutexTryLock(thread_mutex mutext)
-{
-  if (TryEnterCriticalSection((LPCRITICAL_SECTION)mutext) == TRUE)
-	return (true);
-  return (false);
-}
-
-bool	CWAbsThread::AMutexUnLock(thread_mutex mutext)
-{
-  LeaveCriticalSection((LPCRITICAL_SECTION)mutext);
-  return (true);
-}
-
 void	CWAbsThread::ASleep(unsigned int seconds)
 {
 	Sleep(seconds * 0.001);
