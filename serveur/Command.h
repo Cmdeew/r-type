@@ -22,11 +22,13 @@
 #include "AbsUDPNetwork.h"
 #include "Player.h"
 #include "Session.h"
+#include "Map.h"
 
 class	Command
 {
  private:
   char    buffer[CMD_SIZE];
+  Map	*m;
  public:
   Command();
   ~Command();

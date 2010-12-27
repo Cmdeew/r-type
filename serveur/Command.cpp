@@ -2,7 +2,7 @@
 
 Command::Command()
 {
-
+	m = new Map();
 }
 
 
@@ -124,7 +124,13 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 	receivePing(session, playerId);
       
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_MOVE)
-	receiveMove(session, playerId, buffer[3], buffer[4]);
+		{
+			m->DisplayCase(buffer[3], buffer[4]);
+			m->UpdateMap(session->_tabPlayer[playerId - 1]->getPosx(),
+						session->_tabPlayer[playerId - 1]->getPosy(),
+						buffer[3], buffer[4], playerId);
+			receiveMove(session, playerId, buffer[3], buffer[4]);
+		}
       /*else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_SHOOT)
 	{
 	  //TODO
@@ -133,10 +139,10 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
       else
 	std::cout << "Bad command..." << std::endl;
     }
-  else 
+  /*else 
     {
       std::cout << "Bad command (size)..." << std::endl;
-    }
+    }*/
   return (0);
 }
 
