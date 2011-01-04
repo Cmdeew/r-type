@@ -100,6 +100,17 @@ int	Command::sendNoSession(AbsUDPNetwork *p)
   return p->Send(buffer, CMD_SIZE);
 }
 
+int	Command::sendDestroy(unsigned char id_one, unsigned char id_two, AbsUDPNetwork *p)
+{
+  buffer[0] = SERVER;
+  buffer[1] = 5;
+  buffer[2] = SERVER_CMD_DESTROY;
+  buffer[3] = id_one;
+  buffer[4] = id_two;
+  buffer[5] = 0;
+  buffer[6] = 0;
+  return p->Send(buffer, CMD_SIZE);
+}
 
 int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
 {
@@ -135,15 +146,7 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_PING && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
 	receivePing(session, playerId);
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_MOVE)
-		{
-		  /*
-			m->DisplayCase(buffer[3], buffer[4]);
-			m->UpdateMap(session->_tabPlayer[playerId - 1]->getPosx(),
-						session->_tabPlayer[playerId - 1]->getPosy(),
-						buffer[3], buffer[4], playerId);
-		  */
-			receiveMove(session, playerId, buffer[3], buffer[4]);
-		}
+	receiveMove(session, playerId, buffer[3], buffer[4]);
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_SHOOT)
 	receiveShoot(session, playerId);
       else
@@ -159,10 +162,13 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 int	Command::receiveShoot(Session *session, unsigned char playerId)
 {
   Object *o;
+  static int id = 11; //TO CHANGE
  
   std::cout << "shoot" << std::endl;
-  o = new Object(10, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
+  o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
   session->_listObj.push_back(o);
+
+  id++;
 }
 
 int	Command::receiveConnect(Session *session)

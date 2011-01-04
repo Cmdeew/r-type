@@ -8,6 +8,7 @@
 #define SERVER_CMD_MOVE 3
 #define SERVER_CMD_LIFE 4
 #define SERVER_CMD_SCORE 5
+#define SERVER_CMD_DESTROY 6
 
 
 #define CLIENT_CMD_CONNECT 0
@@ -38,6 +39,7 @@ class	Command
   int	sendLife(Player *, AbsUDPNetwork *);
   int	sendScore(Player *, AbsUDPNetwork *);
   int	sendNoSession(AbsUDPNetwork *);
+  int	sendDestroy(unsigned char id_one, unsigned char id_two, AbsUDPNetwork *p);
   int	sendObjMove(Object *o, AbsUDPNetwork *p);
 
 

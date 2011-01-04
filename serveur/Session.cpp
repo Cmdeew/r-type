@@ -1,4 +1,5 @@
 #include "Session.h"
+#include <stdlib.h>
 
 Session::Session(AbsUDPNetwork *p, AbsThread *th)
 {
@@ -69,41 +70,112 @@ void  Session::sessionthreadElems()
   int i = 0;
   Command           cmd;
   Object	*obj;
+  Object	*obj2;
   std::list<Object *>::iterator it;
+
+  std::list<Object *>::iterator it2;
 
 
   //creer la liste des objs tout les x secondes et setter leur positions
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
   //      obj = new Object(5, 46, 16, 11);
   int a = 0;
+  /*
   while (a < 2)
     {
       obj = new Object(a + 5, 46, 8 + a * 5, 11);
       _listObj.push_back(obj);
       a++;
     }
-  obj = new Object(a + 5, 46, 8 + a * 5, 12);
+  */
+  //  static unsigned char id = 200; // TO CHANGE
+
+  obj = new Object(5, 55, 16, 12);
   _listObj.push_back(obj);
 
+  /*
+  obj = new Object(6, 55, 8, 11);
+  _listObj.push_back(obj);
+  */
 
   std::cout << "Success for threadElems" << std::endl;
   while (1) // On envoie des elements à l'infini
     {
-      if (i == 1000)
-	i = 0;
+      if (i == 10000)
+	{
+	  i = 0;
+	}
+
+      if (i % 100 == 0)
+	{
+
+	  //Detection des collisions
+	  it = _listObj.begin();
+	  while (it != _listObj.end())
+	    {
+	      it2 = _listObj.begin();
+	      while (it2 != _listObj.end())
+		{
+		  obj = *it;
+		  obj2 = *it2;
+		  if ((obj != obj2) &&
+			obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
+			obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
+		    {
+		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		      _listObj.erase(it);
+		      _listObj.erase(it2);
+		      obj = new Object(5, 55, 16, 11 + ((int)rand() %2));
+		      _listObj.push_back(obj);
+		      it = _listObj.begin();
+		      it2 = _listObj.begin();
+		    }
+		  it2++;
+		}
+	      it++;
+	    }
+	  // Fin detection des collisions
+
+
+	  it = _listObj.begin();
+	  while (it != _listObj.end())
+	    {
+
+	      obj = *it;
+	      if (obj->getType() == 5 || obj->getType() == 6)
+		{
+		  obj->move(); //Mouvement des missiles
+		  if (obj->getX() > 50) //Missile depassant la fenetre
+		    {
+		      cmd.sendDestroy(obj->getId() , 0, _p);
+		      _listObj.erase(it);
+		      it = _listObj.begin();
+		    }
+		}
+	      it++;
+	    }
+	}
 
       if (i % 500 == 0)
 	{
-	  std::cout << "Sending each objs position --- TEST ----" << std::endl;
+	  std::cout << "Sending each objs position" << std::endl;
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
 	      obj = *it;
 	      obj->move();
 	      cmd.sendObjMove(obj, _p);
+	      if (obj->getX() == 0) // depassant la fenetre
+		{
+		  cmd.sendDestroy(obj->getId() , 0, _p);
+		  _listObj.erase(it);
+		  it = _listObj.begin();
+		}
 	      it++;
 	    }
 	}
+
+
       _th->ASleep(500);
       i++;
     }
