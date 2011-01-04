@@ -71,7 +71,7 @@ void		gameClient::loopClient()
   mainClient();
 }
 
-void		gameClient::mainClient()
+int		gameClient::mainClient()
 {
   std::size_t           received;
   sf::IPAddress         sender;
@@ -109,10 +109,16 @@ void		gameClient::mainClient()
 	    nb +=2;
 	  if (nb != 0)
 	    requestMove(nb);
+	  if (_window.Quit())
+	    {
+	      requestDisconnect();
+	      return 0;
+	    }
 	}
       _window.Clear();
       _window.MoveBackground();
       _window.Draw(_object);
       _window.Display();
     }
+  return 0;
 }

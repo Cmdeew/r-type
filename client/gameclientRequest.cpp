@@ -75,7 +75,7 @@ void			gameClient::requestDisconnect()
 {
   char                  buffer[NBOCTETS];
 
-  buffer[0] = 0;
+  buffer[0] = 1;
   buffer[1] = _idPlayer;
   buffer[2] = 1;
   for(int i=3;i<NBOCTETS;i++)

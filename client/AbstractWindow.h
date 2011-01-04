@@ -22,6 +22,7 @@ class	AbstractWindow
   void	Clear();
   void	Draw(const std::list<Element *> &list);
   void	Display();
+  bool	Quit();
   bool	IsAnEvent();
   bool	IsLaunch();
   bool	IsKeyUp();

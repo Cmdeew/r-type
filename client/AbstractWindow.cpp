@@ -44,6 +44,16 @@ void	AbstractWindow::Display()
   _App.Display();
 }
 
+bool	AbstractWindow::Quit()
+{
+  if (_event.Type == sf::Event::Closed)
+    {
+      _App.Close();
+      return true;
+    }
+  return false;
+}
+
 bool	AbstractWindow::IsLaunch()
 {
   return _App.IsOpened();
