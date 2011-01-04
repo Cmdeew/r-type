@@ -109,6 +109,8 @@ int		gameClient::mainClient()
 	    nb +=2;
 	  if (nb != 0)
 	    requestMove(nb);
+	  if (_window.IsShooting())
+	    ;
 	  if (_window.Quit())
 	    {
 	      requestDisconnect();
