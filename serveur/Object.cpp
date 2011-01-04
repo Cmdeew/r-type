@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Object.h"
 
 Object::Object(const char id, const char x, const char y, const char type)
@@ -13,9 +14,22 @@ Object::~Object()
 
 }
 
-void Object::Move()
+void Object::move()
 {
-	
+	int	nb;
+
+	if (m_type == 11 || m_type == 12 || m_type == 13 || m_type == 14)
+	{
+		nb = 1 + int(double(rand()) / (double(2) + 1 ) * 10.0 );
+		if (nb < 0)
+			m_y++;
+		else
+			m_y--;
+		if (m_y > 34)
+			m_y = 34;
+		m_x--;
+
+	}
 }
 
 char Object::getId()
