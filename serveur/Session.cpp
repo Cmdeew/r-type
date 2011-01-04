@@ -67,6 +67,8 @@ void  Session::sessionthread()
 void  Session::sessionthreadElems()
 {
   int i = 0;
+  Command           cmd;
+
   //creer la liste des objs tout les x secondes et setter leur positions
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
 
@@ -84,6 +86,7 @@ void  Session::sessionthreadElems()
 	  //Changer les positions en random sur - en x (pour les bordures)
 
 	  std::cout << "Sending each objs position --- TEST ----" << std::endl;
+	  cmd.sendObjMove(_p); //TEST
 	  //Faire une fonction qui parcours la liste des objets et qui envoie les positions
 	  // SOURCE 0
 	  // ID 5  (tout les players)

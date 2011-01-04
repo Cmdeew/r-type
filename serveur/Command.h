@@ -38,6 +38,8 @@ class	Command
   int	sendLife(Player *, AbsUDPNetwork *);
   int	sendScore(Player *, AbsUDPNetwork *);
   int	sendNoSession(AbsUDPNetwork *);
+  int	sendObjMove(AbsUDPNetwork *p);
+
   int	receiveFromClient(Session *session, AbsUDPNetwork *);
   int	receiveConnect(Session *session);
   int	receiveDisconnect(Session *session, unsigned char playerId);
