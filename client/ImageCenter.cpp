@@ -55,6 +55,10 @@ ImageCenter::ImageCenter()
   _lplayer4.push_back(img);
   img.LoadFromFile("sprite/player4_up1.png");
   _lplayer4.push_back(img);
+
+  img.LoadFromFile("sprite/monster11.png");
+  _lmonster1.push_back(img);
+
 }
 
 const std::list<sf::Image>    &ImageCenter::getLplayer1() const
