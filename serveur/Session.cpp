@@ -89,6 +89,13 @@ void  Session::sessionthreadElems()
       if (i % 100 == 0)
 	{
 
+<<<<<<< HEAD
+=======
+
+	  //Changer les positions en random sur y + ou - et - en x (pour les ennemis)
+	  //Changer les positions en random sur - en x (pour les bordures)
+
+>>>>>>> 42c05a6bfefb4994f29317d170b4f35e53c956b6
 	  std::cout << "Sending each objs position --- TEST ----" << std::endl;
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
@@ -113,9 +120,6 @@ void  Session::sessionthreadElems()
 	  //Du genre	cmd.sendObjMove(listObj, _p);
 	  // PROTO cmd.sendObjMove(List<Object> *, AbsUDPNetwork *);
 	}
-
-
-
       _th->ASleep(500);
       i++;
     }
@@ -127,9 +131,11 @@ void  Session::sessionthreadElems()
 void	*Session::sessionthreadElemsInit(Session *sess)
 {
   sess->sessionthreadElems();
+  return (NULL);
 }
 
 void	*Session::sessionthreadInit(Session *sess)
 {
   sess->sessionthread();
+  return (NULL);
 }
