@@ -59,6 +59,15 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/monster11.png");
   _lmonster1.push_back(img);
 
+  img.LoadFromFile("sprite/monster12.png");
+  _lmonster2.push_back(img);
+
+  img.LoadFromFile("sprite/shoot5.png");
+  _lweapon1.push_back(img);
+
+  img.LoadFromFile("sprite/shoot6.png");
+  _lweapon2.push_back(img);
+
 }
 
 const std::list<sf::Image>    &ImageCenter::getLplayer1() const
@@ -84,6 +93,11 @@ const std::list<sf::Image>    &ImageCenter::getLplayer4() const
 const std::list<sf::Image>    &ImageCenter::getLweapon1() const
 {
   return _lweapon1;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLweapon2() const
+{
+  return _lweapon2;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmeteor1() const
