@@ -41,11 +41,13 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
     case 5:
       {
 	nElement = new Element(posx, posy, 1, id, type);
+	nElement->setSprite(_imgCenter->getLweapon1());
 	break;
       }
     case 6:
       {
 	nElement = new Element(posx, posy, 1, id, type);
+	nElement->setSprite(_imgCenter->getLweapon2());
 	break;
       }
     case 7:
@@ -62,6 +64,7 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
     case 12:
       {
 	nElement = new Element(posx, posy, 1, id, type);
+	nElement->setSprite(_imgCenter->getLmonster2());
 	break;
       }
     case 13:
