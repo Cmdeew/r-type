@@ -110,7 +110,7 @@ int		gameClient::mainClient()
 	  if (nb != 0)
 	    requestMove(nb);
 	  if (_window.IsShooting())
-	    ;
+	    requestShoot();
 	  if (_window.Quit())
 	    {
 	      requestDisconnect();
