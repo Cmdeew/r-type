@@ -187,7 +187,7 @@ bool                    gameClient::replyConnect(char buffer[NBOCTETS])
 
 void			gameClient::replyDisconnect(char buffer[NBOCTETS])
 {
-  if(buffer[1] == _idPlayer)
+  if(buffer[1] == _idPlayer && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
     {
       std::cout << "On va exit le game" <<std::endl;
       exit(0);
