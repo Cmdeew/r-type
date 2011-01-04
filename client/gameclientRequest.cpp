@@ -131,7 +131,8 @@ void			gameClient::requestMove(int nb)
       buffer[4] +=1;
       buffer[3] -= 1;
     }
-
+  temp->setPosX(buffer[3]);
+  temp->setPosY(buffer[4]);
   for(int i=5;i<NBOCTETS;i++)
     buffer[i] = 0;
   this->_network->sendMessage(buffer);
