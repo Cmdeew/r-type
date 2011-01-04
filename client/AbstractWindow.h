@@ -29,6 +29,7 @@ class	AbstractWindow
   bool	IsKeyDown();
   bool	IsKeyLeft();
   bool	IsKeyRight();
+  bool	IsShooting();
   void	MoveBackground();
 };
 

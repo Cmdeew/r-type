@@ -56,6 +56,7 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
     case 11:
       {
 	nElement = new Element(posx, posy, 1, id, type);
+	nElement->setSprite(_imgCenter->getLmonster1());
 	break;
       }
     case 12:
