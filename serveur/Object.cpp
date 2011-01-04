@@ -27,9 +27,15 @@ void Object::move()
 			m_y--;
 		if (m_y > 34)
 			m_y = 34;
+		if (m_y < 0)
+			m_y = 0;
+		m_x--;
+	}
+	else if (m_type == 5)
+		m_x++;
+	else if (m_type == 6)
 		m_x--;
 
-	}
 }
 
 char Object::getId()
