@@ -2,7 +2,6 @@
 
 Command::Command()
 {
-  //	m = new Map();
   threadObjFlag = 0;
 }
 
@@ -101,6 +100,21 @@ int	Command::sendNoSession(AbsUDPNetwork *p)
   return p->Send(buffer, CMD_SIZE);
 }
 
+
+int	Command::sendObjMove(AbsUDPNetwork *p)
+{
+  //TEST
+  buffer[0] = SERVER;
+  buffer[1] = 5;
+  buffer[2] = SERVER_CMD_MOVE;
+  buffer[3] = 12;
+  buffer[4] = 12;
+  buffer[5] = 5;
+  buffer[6] = 3; //TOCHANGE
+  std::cout << "Send move ennemies " << 5 << " to all client" << std::endl;
+  return p->Send(buffer, CMD_SIZE);
+}
+
 int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 {
   int	cc;
@@ -117,10 +131,8 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
       playerId = buffer[1];
       if (playerId == 0 && buffer[2] == CLIENT_CMD_CONNECT && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
 	receiveConnect(session);
-      /*
-      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_DISCONNECT)
+      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_DISCONNECT && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
 	receiveDisconnect(session, playerId);
-      */
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_PING && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
 	receivePing(session, playerId);
       
@@ -184,7 +196,7 @@ int	Command::receiveDisconnect(Session *session, unsigned char playerId)
   if (!(session->_tabPlayer[playerId - 1]))
     return (1);
   session->_pingTime[playerId - 1] = 0;
-  std::cout << "Disconnect" << std::endl;
+  std::cout << "Disconnecting player " << (int)playerId << std::endl;
   return (0);
 }
 
