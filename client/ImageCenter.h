@@ -15,6 +15,7 @@ class	ImageCenter
   std::list<sf::Image>	_lplayer3;
   std::list<sf::Image>	_lplayer4;
   std::list<sf::Image>	_lweapon1;
+  std::list<sf::Image>	_lweapon2;
   std::list<sf::Image>	_lmeteor1;
   std::list<sf::Image>	_ledge1;
   std::list<sf::Image>	_lmonster1;
@@ -37,6 +38,7 @@ class	ImageCenter
   const std::list<sf::Image>	&getLplayer3() const;
   const std::list<sf::Image>	&getLplayer4() const;
   const std::list<sf::Image>	&getLweapon1() const;
+  const std::list<sf::Image>	&getLweapon2() const;
   const std::list<sf::Image>	&getLmeteor1() const;
   const std::list<sf::Image>	&getLedge1() const;
   const std::list<sf::Image>	&getLmonster1() const;

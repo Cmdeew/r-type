@@ -79,6 +79,10 @@ bool	AbstractWindow::IsKeyRight()
   return _App.GetInput().IsKeyDown(sf::Key::Right);
 }
 
+bool	AbstractWindow::IsShooting()
+{
+  return _App.GetInput().IsKeyDown(sf::Key::Space);
+}
 
 void	AbstractWindow::MoveBackground()
 {
