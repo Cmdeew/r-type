@@ -40,11 +40,14 @@ class	Command
   int	sendNoSession(AbsUDPNetwork *);
   int	sendObjMove(Object *o, AbsUDPNetwork *p);
 
+
   int	receiveFromClient(Session *session, AbsUDPNetwork *);
   int	receiveConnect(Session *session);
   int	receiveDisconnect(Session *session, unsigned char playerId);
   int	receivePing(Session *session, unsigned char playerId);
-  int	receiveMove(Session *session, unsigned char playerId,unsigned char posx, unsigned char posy);
+  int	receiveMove(Session *session, unsigned char playerId,unsigned char posx
+, unsigned char posy);
+  int	receiveShoot(Session *session, unsigned char PlayerId);
 };
 
 #endif
