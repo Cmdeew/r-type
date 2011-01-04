@@ -31,13 +31,15 @@ void Object::move()
 		if (m_y <= 3)
 			m_y = 3;
 		m_x--;
-
-		//Respawn de TEST
 		if (m_x == 0)
 		  {
 		    m_x = 46;
 		  }
 	}
+	else if (m_type == 5)
+		m_x++;
+	else if (m_type == 6)
+		m_x--;
 }
 
 char Object::getId()
