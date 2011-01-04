@@ -110,7 +110,7 @@ int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
   buffer[4] = o->getY();
   buffer[5] = o->getId();
   buffer[6] = o->getType();
-  std::cout << "Send move ennemy " << (int)o->getId() << " type(" << (int)o->getType() << ") to all client" << std::endl;
+  std::cout << "Send move ennemy " << (int)o->getId() << " type(" << (int)o->getType() << ") in position (" << (int)o->getX() << " " << (int)o->getY() << ") to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
@@ -144,11 +144,8 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 		  */
 			receiveMove(session, playerId, buffer[3], buffer[4]);
 		}
-      /*else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_SHOOT)
-	{
-	  //TODO
-	}
-      */
+      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_SHOOT)
+	receiveShoot(session, playerId);
       else
 	std::cout << "Bad command..." << std::endl;
     }
@@ -157,6 +154,15 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
       std::cout << "Bad command (size)..." << std::endl;
     }*/
   return (0);
+}
+
+int	Command::receiveShoot(Session *session, unsigned char playerId)
+{
+  Object *o;
+ 
+  std::cout << "shoot" << std::endl;
+  o = new Object(10, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
+  session->_listObj.push_back(o);
 }
 
 int	Command::receiveConnect(Session *session)

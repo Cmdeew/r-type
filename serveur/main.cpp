@@ -1,5 +1,7 @@
 #include <iostream>
+#include <stdlib.h>
 #include <vector>
+#include <time.h>
 #include "Factory.h"
 
 #include "Command.h"
@@ -17,8 +19,9 @@ int	main(int ac, char **argv)
 	p->setArg(argv);
 	p->CreateSocket();
 	p->Bind();
+	srand(time(NULL));
 
-
+	
 	AbsThread *th;
 	th = f->n_thread();
 	thread  threads[4];
