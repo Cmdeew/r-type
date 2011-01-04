@@ -285,7 +285,6 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  break;
 	}
     }
-
   nElem = _factory.FactoryMethod(24, id, posx, posy);
   if (nElem != NULL)
     _object.push_back(nElem);

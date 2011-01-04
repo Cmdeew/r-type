@@ -68,6 +68,9 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/shoot6.png");
   _lweapon2.push_back(img);
 
+  img.LoadFromFile("sprite/explo1.png");
+  _lexplo1.push_back(img);
+
 }
 
 const std::list<sf::Image>    &ImageCenter::getLplayer1() const
