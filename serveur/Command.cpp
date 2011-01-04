@@ -110,7 +110,7 @@ int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
   buffer[4] = o->getY();
   buffer[5] = o->getId();
   buffer[6] = o->getType();
-  std::cout << "Send move ennemy " << o->getId() << " type(" << o->getType() << ") to all client" << std::endl;
+  std::cout << "Send move ennemy " << (int)o->getId() << " type(" << (int)o->getType() << ") to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
