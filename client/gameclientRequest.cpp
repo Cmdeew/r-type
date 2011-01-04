@@ -259,7 +259,6 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
   std::list<Element *>::iterator lit;
   unsigned char			posx;
   unsigned char			posy;
-  unsigned char			id;
   Element		*nElem;
 
   lit = _object.begin();
@@ -270,7 +269,6 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	{
 	  posx = temp->getPosX();
 	  posy = temp->getPosY();
-	  id = buffer[3];
 	  _object.erase(lit);
 	  delete temp;
 	  break;
@@ -289,8 +287,32 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	      break;
 	    }
 	}
-      nElem = _factory.FactoryMethod(24, id, posx, posy);
+      nElem = _factory.FactoryMethod(24, 0, posx, posy);
       if (nElem != NULL)
 	_object.push_back(nElem);
+    }
+}
+
+void			gameClient::cleanexplosion()
+{
+  int			flag;
+  Element		*temp;
+  std::list<Element *>::iterator lit;
+
+  flag = 1;
+  while (flag == 1)
+    {
+      flag = 0;
+      lit = _object.begin();
+      for(;lit!=_object.end() && flag != 1;++lit)
+	{
+	  temp = *lit;
+	  if (temp->getID() == 0)
+	    {
+	      _object.erase(lit);
+	      flag = 1;
+	      delete temp;
+	    }
+	}
     }
 }

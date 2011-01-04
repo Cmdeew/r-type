@@ -25,6 +25,7 @@ class gameClient
   std::list<Element*>	_object;
   gameClient();
   ~gameClient();
+  void		cleanexplosion();
   void		readServer(void *userData);
   void		loopClient();
   int		mainClient();

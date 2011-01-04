@@ -89,10 +89,11 @@ int		gameClient::mainClient()
   weaponloop = 0;
   while (_window.IsLaunch())
     {
-      if (weaponloop >= 70)
+      if (weaponloop >= 50)
 	{
 	  weapondispo = 1;
 	  weaponloop = 0;
+	  cleanexplosion();
 	}
       _music.PlayMusic();
       for (i = 0; i != NBOCTETS; i++)
