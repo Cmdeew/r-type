@@ -131,7 +131,8 @@ void			gameClient::requestMove(int nb)
       buffer[4] +=1;
       buffer[3] -= 1;
     }
-
+  temp->setPosX(buffer[3]);
+  temp->setPosY(buffer[4]);
   for(int i=5;i<NBOCTETS;i++)
     buffer[i] = 0;
   this->_network->sendMessage(buffer);
@@ -271,21 +272,25 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  posy = temp->getPosY();
 	  id = buffer[3];
 	  _object.erase(lit);
+	  delete temp;
 	  break;
 	}
     }
-  lit = _object.begin();
-  for(;lit!=_object.end();++lit)
+  if (buffer[4] != 0)
     {
-      temp = *lit;
-      if(temp->getID() == buffer[4])
+      lit = _object.begin();
+      for(;lit!=_object.end();++lit)
 	{
-	  _object.erase(lit);
-	  break;
+	  temp = *lit;
+	  if(temp->getID() == buffer[4])
+	    {
+	      _object.erase(lit);
+	      delete temp;
+	      break;
+	    }
 	}
+      nElem = _factory.FactoryMethod(24, id, posx, posy);
+      if (nElem != NULL)
+	_object.push_back(nElem);
     }
-
-  nElem = _factory.FactoryMethod(24, id, posx, posy);
-  if (nElem != NULL)
-    _object.push_back(nElem);
 }

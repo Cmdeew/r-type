@@ -5,7 +5,7 @@
 ## Login   <hugon_a@epitech.net>
 ## 
 ## Started on  Tue Dec 21 14:22:45 2010 olivier hugon
-## Last update Tue Dec 21 14:25:26 2010 olivier hugon
+## Last update Tue Jan  4 16:26:45 2011 olivier hugon
 ##
 
 
@@ -28,7 +28,7 @@ RM		=	rm -f
 CC		=	g++ -o
 
 all		:
-		$(CC) $(NAMECLT) $(SRCSCLT) $(LIB)
+		$(CC) $(NAMECLT) $(SRCSCLT) $(LIB) -W -Wall -Werror
 
 clean		:
 		$(RM) *~

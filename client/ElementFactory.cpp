@@ -120,6 +120,8 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
     case 24:
       {
 	nElement = new Element(posx, posy, 0, id, type);
+	nElement->setSprite(_imgCenter->getLexplo1());
+	break;
       }
     default:
       return NULL;
