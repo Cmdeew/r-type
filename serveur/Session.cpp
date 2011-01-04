@@ -74,47 +74,35 @@ void  Session::sessionthreadElems()
 
   //creer la liste des objs tout les x secondes et setter leur positions
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
-
-  obj = new Object(5, 12, 12, 11);
-
+  //      obj = new Object(5, 46, 16, 11);
+  int a = 0;
+  while (a < 2)
+    {
+      obj = new Object(a + 5, 46, 8 + a * 5, 11);
+      _listObj.push_back(obj);
+      a++;
+    }
+  obj = new Object(a + 5, 46, 8 + a * 5, 12);
   _listObj.push_back(obj);
 
 
   std::cout << "Success for threadElems" << std::endl;
-
   while (1) // On envoie des elements à l'infini
     {
       if (i == 1000)
 	i = 0;
 
-      if (i % 100 == 0)
+      if (i % 500 == 0)
 	{
-	  //Changer les positions en random sur y + ou - et - en x (pour les ennemis)
-	  //Changer les positions en random sur - en x (pour les bordures)
-
 	  std::cout << "Sending each objs position --- TEST ----" << std::endl;
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
-	      //Changer les positions en random sur y + ou - et - en x (pour les ennemis)
-	      //Changer les positions en random sur - en x (pour les bordures)
 	      obj = *it;
 	      obj->move();
 	      cmd.sendObjMove(obj, _p);
 	      it++;
 	    }
-
-
-	  //Faire une fonction qui parcours la liste des objets et qui envoie les positions
-	  // SOURCE 0
-	  // ID 5  (tout les players)
-	  // CMD 3
-	  // x
-	  // y
-	  // id_obj (unique > 4)
-	  // type (5missile 11 ennemy_one)
-	  //Du genre	cmd.sendObjMove(listObj, _p);
-	  // PROTO cmd.sendObjMove(List<Object> *, AbsUDPNetwork *);
 	}
       _th->ASleep(500);
       i++;
