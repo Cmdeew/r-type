@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include "AbsUDPNetwork.h"
 #include "AbsThread.h"
 #include "Player.h"
-
+#include "Object.h"
 
 #define MAX_PING_TIME 30000
 #define MID_PING_TIME 20000
@@ -25,6 +26,7 @@ class	Session
   int			_pingTime[4];
 
   int			_session_n;
+  std::list<Object *>	_listObj;
 
   Session(AbsUDPNetwork *, AbsThread *);
   ~Session();
