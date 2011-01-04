@@ -79,12 +79,21 @@ int		gameClient::mainClient()
   char			buffer[NBOCTETS];
   int			i;
   int			nb;
+  int			weapondispo;
+  int			weaponloop;
 
   std::cout << "id:" << (int)_idPlayer << std::endl;
   _score = 0;
   _music.LoadMusic();
+  weapondispo = 0;
+  weaponloop = 0;
   while (_window.IsLaunch())
     {
+      if (weaponloop >= 70)
+	{
+	  weapondispo = 1;
+	  weaponloop = 0;
+	}
       _music.PlayMusic();
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;
@@ -109,8 +118,11 @@ int		gameClient::mainClient()
 	    nb +=2;
 	  if (nb != 0)
 	    requestMove(nb);
-	  if (_window.IsShooting())
-	    requestShoot();
+	  if (_window.IsShooting() && weapondispo == 1)
+	    {
+	      weapondispo = 0;
+	      requestShoot();
+	    }
 	  if (_window.Quit())
 	    {
 	      requestDisconnect();
@@ -121,6 +133,7 @@ int		gameClient::mainClient()
       _window.MoveBackground();
       _window.Draw(_object);
       _window.Display();
+      weaponloop++;
     }
   return 0;
 }
