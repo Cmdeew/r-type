@@ -76,7 +76,8 @@ void  Session::sessionthreadElems()
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
 
   obj = new Object(5, 12, 12, 11);
-  _listObj.insert(obj);
+
+  _listObj.push_back(obj);
 
 
   std::cout << "Success for threadElems" << std::endl;
@@ -88,14 +89,9 @@ void  Session::sessionthreadElems()
 
       if (i % 100 == 0)
 	{
-
-<<<<<<< HEAD
-=======
-
 	  //Changer les positions en random sur y + ou - et - en x (pour les ennemis)
 	  //Changer les positions en random sur - en x (pour les bordures)
 
->>>>>>> 42c05a6bfefb4994f29317d170b4f35e53c956b6
 	  std::cout << "Sending each objs position --- TEST ----" << std::endl;
 	  it = _listObj.begin();
 	  while (it != _listObj.end())

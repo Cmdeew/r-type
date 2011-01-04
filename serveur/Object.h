@@ -11,7 +11,7 @@ private:
 public:
 	Object(char id, char x, char y, char type);
 	~Object();
-	void	Move();
+	void	move();
 	char	getId();
 	char	getX();
 	char	getY();

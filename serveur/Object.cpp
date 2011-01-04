@@ -13,7 +13,7 @@ Object::~Object()
 
 }
 
-void Object::Move()
+void Object::move()
 {
 	
 }
