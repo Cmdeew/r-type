@@ -135,7 +135,6 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 	receiveDisconnect(session, playerId);
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_PING && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
 	receivePing(session, playerId);
-      
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_MOVE)
 		{
 		  /*
