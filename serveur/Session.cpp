@@ -64,9 +64,54 @@ void  Session::sessionthread()
   _th->AExitThread(handles[session]);
 }
 
+void  Session::sessionthreadElems()
+{
+  int i = 0;
+  //creer la liste des objs tout les x secondes et setter leur positions
+  //Mettre une liste d'obj dans la classe Session List<Object> listObj;
+
+  std::cout << "Success for threadElems" << std::endl;
+
+  while (1) // On envoie des elements à l'infini
+    {
+      if (i == 1000)
+	i = 0;
+
+      if (i % 100 == 0)
+	{
+
+	  //Changer les positions en random sur y + ou - et - en x (pour les ennemis)
+	  //Changer les positions en random sur - en x (pour les bordures)
+
+	  std::cout << "Sending each objs position --- TEST ----" << std::endl;
+	  //Faire une fonction qui parcours la liste des objets et qui envoie les positions
+	  // SOURCE 0
+	  // ID 5  (tout les players)
+	  // CMD 3
+	  // x
+	  // y
+	  // id_obj (unique > 4)
+	  // type (5missile 11 ennemy_one)
+	  //Du genre	cmd.sendObjMove(listObj, _p);
+	  // PROTO cmd.sendObjMove(List<Object> *, AbsUDPNetwork *);
+	}
+
+
+
+      _th->ASleep(500);
+      i++;
+    }
+
+
+}
+
+
+void	*Session::sessionthreadElemsInit(Session *sess)
+{
+  sess->sessionthreadElems();
+}
 
 void	*Session::sessionthreadInit(Session *sess)
 {
   sess->sessionthread();
-  return (NULL);
 }

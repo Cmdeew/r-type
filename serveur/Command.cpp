@@ -2,7 +2,8 @@
 
 Command::Command()
 {
-	m = new Map();
+  //	m = new Map();
+  threadObjFlag = 0;
 }
 
 
@@ -125,10 +126,12 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
       
       else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_MOVE)
 		{
+		  /*
 			m->DisplayCase(buffer[3], buffer[4]);
 			m->UpdateMap(session->_tabPlayer[playerId - 1]->getPosx(),
 						session->_tabPlayer[playerId - 1]->getPosy(),
 						buffer[3], buffer[4], playerId);
+		  */
 			receiveMove(session, playerId, buffer[3], buffer[4]);
 		}
       /*else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_SHOOT)
@@ -150,6 +153,16 @@ int	Command::receiveConnect(Session *session)
 {
   int	i = 0;
   std::cout << "receiving connect" << std::endl;
+
+  if (threadObjFlag == 0)
+    {
+      std::cout << "*** Lauching elements thread (monsters, edges, ...) ***" << std::endl;
+      i = 4;
+      session->_session_n = i;
+      session->_th->ACreateThread(&session->threads[i], NULL, (typefunc)session->sessionthreadElemsInit, session);
+      threadObjFlag = 1;
+    }
+  i = 0;
   while (i < 4)
     {
       if (session->_pingTime[i] == 0)

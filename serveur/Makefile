@@ -26,8 +26,7 @@ SRCSCLT		=	Command.cpp\
 			AbsDynamicLib.cpp\
 			CUAbsDynamicLib.cpp\
 			CWAbsDynamicLib.cpp\
-			Player.cpp \
-			Map.cpp
+			Player.cpp
 
 LIB		=	-lpthread -ldl
 

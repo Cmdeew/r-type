@@ -30,6 +30,9 @@ class	Session
   ~Session();
   void sessionthread();
   static void    *sessionthreadInit(Session *sess);
+
+  void sessionthreadElems();
+  static void    *sessionthreadElemsInit(Session *sess);
 };
 
 #include "Command.h"
