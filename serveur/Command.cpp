@@ -122,7 +122,7 @@ int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
   buffer[5] = o->getId();
   buffer[6] = o->getType();
 
-  std::cout << "Bufffer 5 : " << o->getId() <<  std::endl;
+
   
   //std::cout << "Send move ennemy " << (int)o->getId() << " type(" << (int)o->getType() << ") in position (" << (int)o->getX() << " " << (int)o->getY() << ") to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
@@ -165,11 +165,11 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 int	Command::receiveShoot(Session *session, unsigned char playerId)
 {
   Object *o;
-  static int id = 11; //TO CHANGE
+  static int id = 51; //TO CHANGE
 
   //  std::cout << "shoot" << std::endl;
   o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
-<<<<<<< HEAD
+
   session->_listObj.push_back(o);
   
   id++;
@@ -179,7 +179,7 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
 
   id++;
   if (id > 127)
-    id = 11;
+    id = 51;
 }
 
 int	Command::receiveConnect(Session *session)

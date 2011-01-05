@@ -59,6 +59,7 @@ void  Session::sessionthread()
       _pingTime[session] -= 1;
       _th->ASleep(500);
     }
+  cmd.sendDestroy(_tabPlayer[session]->getId(), 0,  _p);
   cmd.sendDisconnect(_tabPlayer[session], _p);
   std::cout << "Disconnecting client (player " << session + 1 << ") on slot " << session << "." << std::endl;
   std::cout << "The slot " << session << " is now free." << std::endl;
@@ -88,20 +89,21 @@ void  Session::sessionthreadElems()
       a++;
     }
   */
-  //  static unsigned char id = 200; // TO CHANGE
+  //    static unsigned char k = 5; // TO CHANGE
+
+
 
   obj = new Object(5, 55, 16, 12);
   _listObj.push_back(obj);
 
   
+  /*
   obj = new Object(6, 55, 8, 11);
     _listObj.push_back(obj);
+  */
 
 
-
-  int	k;
-
-  k = 6;
+  //  k = 7;
   std::cout << "Success for threadElems" << std::endl;
   while (1) // On envoie des elements à l'infini
     {
@@ -129,8 +131,8 @@ void  Session::sessionthreadElems()
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
 		      _listObj.erase(it2);
-		      //obj = new Object(5, 55, 16, 11 + ((int)rand() %2));
-		      obj = new Object(k++, 55, 16, 11 + ((int)rand() %2));
+		      obj = new Object(5, 55, 16, 11 + ((int)rand() %2));
+		      //obj = new Object(k++, 55, 16, 11 + ((int)rand() %2));
 		      _listObj.push_back(obj);
 		      it = _listObj.begin();
 		      it2 = _listObj.begin();
