@@ -60,7 +60,7 @@ int	Command::sendMove(Player *player, AbsUDPNetwork *p)
   buffer[4] = player->getPosy();
   buffer[5] = player->getId();
   buffer[6] = player->getId();
-  std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
+  //  std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
@@ -121,7 +121,10 @@ int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
   buffer[4] = o->getY();
   buffer[5] = o->getId();
   buffer[6] = o->getType();
-  std::cout << "Send move ennemy " << (int)o->getId() << " type(" << (int)o->getType() << ") in position (" << (int)o->getX() << " " << (int)o->getY() << ") to all client" << std::endl;
+
+  std::cout << "Bufffer 5 : " << o->getId() <<  std::endl;
+  
+  //std::cout << "Send move ennemy " << (int)o->getId() << " type(" << (int)o->getType() << ") in position (" << (int)o->getX() << " " << (int)o->getY() << ") to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
@@ -163,15 +166,20 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
 {
   Object *o;
   static int id = 11; //TO CHANGE
- 
-  std::cout << "shoot" << std::endl;
+
+  //  std::cout << "shoot" << std::endl;
   o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
+<<<<<<< HEAD
+  session->_listObj.push_back(o);
+  
+  id++;
+  //std::cout << "shoot : " << id << std::endl;
   if (o)
     session->_listObj.push_back(o);
 
   id++;
-  if (id == 240)
-    id = 12;
+  if (id > 127)
+    id = 11;
 }
 
 int	Command::receiveConnect(Session *session)
@@ -236,6 +244,6 @@ int	Command::receiveMove(Session *session, unsigned char playerId, unsigned char
   */
   session->_tabPlayer[playerId - 1]->setPosx(posx);
   session->_tabPlayer[playerId - 1]->setPosy(posy);
-  std::cout << "receiveMove for player " << (int)playerId << ". New position is " << (int)posx << " "<< (int)posy  << std::endl;
+  //std::cout << "receiveMove for player " << (int)playerId << ". New position is " << (int)posx << " "<< (int)posy  << std::endl;
   return (0);
 }

@@ -93,11 +93,15 @@ void  Session::sessionthreadElems()
   obj = new Object(5, 55, 16, 12);
   _listObj.push_back(obj);
 
-  /*
+  
   obj = new Object(6, 55, 8, 11);
-  _listObj.push_back(obj);
-  */
+    _listObj.push_back(obj);
 
+
+
+  int	k;
+
+  k = 6;
   std::cout << "Success for threadElems" << std::endl;
   while (1) // On envoie des elements à l'infini
     {
@@ -125,7 +129,8 @@ void  Session::sessionthreadElems()
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
 		      _listObj.erase(it2);
-		      obj = new Object(5, 55, 16, 11 + ((int)rand() %2));
+		      //obj = new Object(5, 55, 16, 11 + ((int)rand() %2));
+		      obj = new Object(k++, 55, 16, 11 + ((int)rand() %2));
 		      _listObj.push_back(obj);
 		      it = _listObj.begin();
 		      it2 = _listObj.begin();
@@ -140,7 +145,6 @@ void  Session::sessionthreadElems()
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
-
 	      obj = *it;
 	      if (obj->getType() == 5 || obj->getType() == 6)
 		{
