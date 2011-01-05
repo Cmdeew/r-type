@@ -46,7 +46,7 @@ void	AbstractWindow::Display()
 
 bool	AbstractWindow::Quit()
 {
-  if (_event.Type == sf::Event::Closed)
+  if (_event.Type == sf::Event::Closed || _App.GetInput().IsKeyDown(sf::Key::Escape))
     {
       _App.Close();
       return true;
