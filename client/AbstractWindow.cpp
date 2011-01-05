@@ -86,5 +86,9 @@ bool	AbstractWindow::IsShooting()
 
 void	AbstractWindow::MoveBackground()
 {
-  _background.Move(-0.2, 0);
+  sf::Sprite	background;
+
+  if (_background.GetPosition().x == -1100)
+    _background.SetX(0);
+  _background.Move(-1, 0);
 }
