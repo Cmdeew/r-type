@@ -131,11 +131,14 @@ void			gameClient::requestMove(int nb)
       buffer[4] +=1;
       buffer[3] -= 1;
     }
-  temp->setPosX(buffer[3]);
-  temp->setPosY(buffer[4]);
-  for(int i=5;i<NBOCTETS;i++)
-    buffer[i] = 0;
-  this->_network->sendMessage(buffer);
+  if (buffer[3] >= MINX && buffer[3] <= MAXX && buffer[4] >= MINY && buffer[4] <= MAXY)
+    {
+      temp->setPosX(buffer[3]);
+      temp->setPosY(buffer[4]);
+      for(int i=5;i<NBOCTETS;i++)
+	buffer[i] = 0;
+      this->_network->sendMessage(buffer);
+    }
 }
 
 void			gameClient::requestShoot()
