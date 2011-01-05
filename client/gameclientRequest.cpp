@@ -131,11 +131,14 @@ void			gameClient::requestMove(int nb)
       buffer[4] +=1;
       buffer[3] -= 1;
     }
-  temp->setPosX(buffer[3]);
-  temp->setPosY(buffer[4]);
-  for(int i=5;i<NBOCTETS;i++)
-    buffer[i] = 0;
-  this->_network->sendMessage(buffer);
+  if (buffer[3] >= MINX && buffer[3] <= MAXX && buffer[4] >= MINY && buffer[4] <= MAXY)
+    {
+      temp->setPosX(buffer[3]);
+      temp->setPosY(buffer[4]);
+      for(int i=5;i<NBOCTETS;i++)
+	buffer[i] = 0;
+      this->_network->sendMessage(buffer);
+    }
 }
 
 void			gameClient::requestShoot()
@@ -187,7 +190,7 @@ bool                    gameClient::replyConnect(char buffer[NBOCTETS])
 
 void			gameClient::replyDisconnect(char buffer[NBOCTETS])
 {
-  if(buffer[1] == _idPlayer)
+  if(buffer[1] == _idPlayer && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
     {
       std::cout << "On va exit le game" <<std::endl;
       exit(0);
@@ -287,9 +290,12 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	      break;
 	    }
 	}
-      nElem = _factory.FactoryMethod(24, 0, posx, posy);
-      if (nElem != NULL)
-	_object.push_back(nElem);
+      if (posx != 0 && posy != 0)
+	{
+	  nElem = _factory.FactoryMethod(24, 0, posx, posy);
+	  if (nElem != NULL)
+	    _object.push_back(nElem);
+	}
     }
 }
 
@@ -307,7 +313,7 @@ void			gameClient::cleanexplosion()
       for(;lit!=_object.end() && flag != 1;++lit)
 	{
 	  temp = *lit;
-	  if (temp->getID() == 0)
+	  if (temp->getID() == 0)// || temp->getType() == 5)
 	    {
 	      _object.erase(lit);
 	      flag = 1;

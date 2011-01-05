@@ -11,6 +11,11 @@
 #include <SFML/Network.hpp>
 #include <list>
 
+#define MINX 0
+#define MAXX 48
+#define MINY 0
+#define MAXY 36
+
 class gameClient
 {
  private:

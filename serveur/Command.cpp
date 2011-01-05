@@ -169,10 +169,15 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
 
   //  std::cout << "shoot" << std::endl;
   o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
+<<<<<<< HEAD
   session->_listObj.push_back(o);
   
   id++;
   //std::cout << "shoot : " << id << std::endl;
+  if (o)
+    session->_listObj.push_back(o);
+
+  id++;
   if (id > 127)
     id = 11;
 }
