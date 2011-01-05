@@ -46,7 +46,7 @@ void	AbstractWindow::Display()
 
 bool	AbstractWindow::Quit()
 {
-  if (_event.Type == sf::Event::Closed)
+  if (_event.Type == sf::Event::Closed || _App.GetInput().IsKeyDown(sf::Key::Escape))
     {
       _App.Close();
       return true;
@@ -86,5 +86,9 @@ bool	AbstractWindow::IsShooting()
 
 void	AbstractWindow::MoveBackground()
 {
-  _background.Move(-0.2, 0);
+  sf::Sprite	background;
+
+  if (_background.GetPosition().x == -1100)
+    _background.SetX(0);
+  _background.Move(-1, 0);
 }
