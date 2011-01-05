@@ -290,9 +290,12 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	      break;
 	    }
 	}
-      nElem = _factory.FactoryMethod(24, 0, posx, posy);
-      if (nElem != NULL)
-	_object.push_back(nElem);
+      if (posx != 0 && posy != 0)
+	{
+	  nElem = _factory.FactoryMethod(24, 0, posx, posy);
+	  if (nElem != NULL)
+	    _object.push_back(nElem);
+	}
     }
 }
 
@@ -310,7 +313,7 @@ void			gameClient::cleanexplosion()
       for(;lit!=_object.end() && flag != 1;++lit)
 	{
 	  temp = *lit;
-	  if (temp->getID() == 0)
+	  if (temp->getID() == 0)// || temp->getType() == 5)
 	    {
 	      _object.erase(lit);
 	      flag = 1;
