@@ -23,8 +23,14 @@ class	MainWindow
  public:
   MainWindow();
   ~MainWindow();
-  void	InitText();
-  void	InitBackground();
+  void	InitMenu();
+  void	InitCredits();
+  void	InitGameList();
+
+  void	MainMenuLoop();
+  int	GameListLoop();
+  int	CreditsLoop();
+
   void	DrawAll();
   bool	IsOpened();
   bool	GetEvent();
