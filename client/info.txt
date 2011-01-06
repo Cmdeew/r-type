@@ -1,0 +1,7 @@
+revoir prediction touche on envoi changement de direction
+peut etre augmenter le nombre de ping avant deco
+display graphic ou son au meme endroit
+un methode qui gere les event
+chaque element update lui meme sa position (allege le reseau a mort)
+prevoir les sous class de element pour le faire
+
