@@ -14,38 +14,41 @@ Command::~Command()
 int	Command::sendConnect(Player *player, AbsUDPNetwork *p)
 {  
   std::cout << "sendConnect OK " << std::endl;
-  buffer[0] = SERVER;
-  buffer[1] = 0;
-  buffer[2] = SERVER_CMD_CONNECT;
-  buffer[3] = player->getId();
-  buffer[4] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = 0;
+  buffer[3] = SERVER_CMD_CONNECT;
+  buffer[4] = player->getId();
   buffer[5] = 0;
   buffer[6] = 0;
+  buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
 }
 
 int	Command::sendDisconnect(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = player->getId();
-  buffer[2] = SERVER_CMD_DISCONNECT;
-  buffer[3] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = player->getId();
+  buffer[3] = SERVER_CMD_DISCONNECT;
   buffer[4] = 0;
   buffer[5] = 0;
   buffer[6] = 0;
+  buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
 }
 
 
 int	Command::sendPing(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = player->getId();
-  buffer[2] = SERVER_CMD_PING;
-  buffer[3] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = player->getId();
+  buffer[3] = SERVER_CMD_PING;
   buffer[4] = 0;
   buffer[5] = 0;
   buffer[6] = 0;
+  buffer[7] = 0;
   std::cout << "PING for player " << (int)player->getId() << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
@@ -53,74 +56,80 @@ int	Command::sendPing(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendMove(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = 5;
-  buffer[2] = SERVER_CMD_MOVE;
-  buffer[3] = player->getPosx();
-  buffer[4] = player->getPosy();
-  buffer[5] = player->getId();
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = 5;
+  buffer[3] = SERVER_CMD_MOVE;
+  buffer[4] = player->getPosx();
+  buffer[5] = player->getPosy();
   buffer[6] = player->getId();
+  buffer[7] = player->getId();
   //  std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
 int	Command::sendLife(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = player->getId();
-  buffer[2] = SERVER_CMD_LIFE;
-  buffer[3] = player->getLife();
-  buffer[4] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = player->getId();
+  buffer[3] = SERVER_CMD_LIFE;
+  buffer[4] = player->getLife();
   buffer[5] = 0;
   buffer[6] = 0;
+  buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
 }
 
 int	Command::sendScore(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = 5;
-  buffer[2] = SERVER_CMD_SCORE;
-  buffer[3] = 0; // TODO
-  buffer[4] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = 5;
+  buffer[3] = SERVER_CMD_SCORE;
+  buffer[4] = 0; // TODO
   buffer[5] = 0;
   buffer[6] = 0;
+  buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
 }
 
 int	Command::sendNoSession(AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = 0;
-  buffer[2] = SERVER_CMD_CONNECT;
-  buffer[3] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = 0;
+  buffer[3] = SERVER_CMD_CONNECT;
   buffer[4] = 0;
   buffer[5] = 0;
   buffer[6] = 0;
+  buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
 }
 
 int	Command::sendDestroy(unsigned char id_one, unsigned char id_two, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = 5;
-  buffer[2] = SERVER_CMD_DESTROY;
-  buffer[3] = id_one;
-  buffer[4] = id_two;
-  buffer[5] = 0;
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = 5;
+  buffer[3] = SERVER_CMD_DESTROY;
+  buffer[4] = id_one;
+  buffer[5] = id_two;
   buffer[6] = 0;
+  buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
 }
 
 int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
 {
-  buffer[0] = SERVER;
-  buffer[1] = 5;
-  buffer[2] = SERVER_CMD_MOVE;
-  buffer[3] = o->getX();
-  buffer[4] = o->getY();
-  buffer[5] = o->getId();
-  buffer[6] = o->getType();
+  buffer[0] = 0;
+  buffer[1] = SERVER;
+  buffer[2] = 5;
+  buffer[3] = SERVER_CMD_MOVE;
+  buffer[4] = o->getX();
+  buffer[5] = o->getY();
+  buffer[6] = o->getId();
+  buffer[7] = o->getType();
 
 
   
@@ -139,18 +148,18 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
   cc = p->Receive(buffer);
   //  std::cout << "size cc:" << cc << std::endl;
   //  std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
-  if (cc == CMD_SIZE && buffer[0] == CLIENT)
+  if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
-      playerId = buffer[1];
-      if (playerId == 0 && buffer[2] == CLIENT_CMD_CONNECT && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
+      playerId = buffer[2];
+      if (playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
 	receiveConnect(session);
-      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_DISCONNECT && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
+      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
 	receiveDisconnect(session, playerId);
-      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_PING && buffer[3] == 0 && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0)
+      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
 	receivePing(session, playerId);
-      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_MOVE)
-	receiveMove(session, playerId, buffer[3], buffer[4]);
-      else if (playerId > 0 && playerId < 5 && buffer[2] == CLIENT_CMD_SHOOT)
+      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_MOVE)
+	receiveMove(session, playerId, buffer[4], buffer[5]);
+      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_SHOOT)
 	receiveShoot(session, playerId);
       else
 	std::cout << "Bad command..." << std::endl;
@@ -167,13 +176,10 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
   Object *o;
   static int id = 51; //TO CHANGE
 
-  //  std::cout << "shoot" << std::endl;
   o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
 
   session->_listObj.push_back(o);
-  
-  id++;
-  //std::cout << "shoot : " << id << std::endl;
+
   if (o)
     session->_listObj.push_back(o);
 
@@ -208,8 +214,11 @@ int	Command::receiveConnect(Session *session)
       i++;
     }
   if (i == 4)
-    std::cout << "No session available..." << std::endl;
-  return (0);
+    {
+      std::cout << "No session available..." << std::endl;
+      return (0);
+    }
+  return (1);
 }
 
 int	Command::receiveDisconnect(Session *session, unsigned char playerId)
@@ -236,12 +245,7 @@ int	Command::receiveMove(Session *session, unsigned char playerId, unsigned char
 {
   if (!(session->_tabPlayer[playerId - 1]))
     return (1);
-  /*
-  if (posy > 0)
-    posy = 0;
-  if (posy > 150)
-    posy = 150;
-  */
+ 
   session->_tabPlayer[playerId - 1]->setPosx(posx);
   session->_tabPlayer[playerId - 1]->setPosy(posy);
   //std::cout << "receiveMove for player " << (int)playerId << ". New position is " << (int)posx << " "<< (int)posy  << std::endl;
