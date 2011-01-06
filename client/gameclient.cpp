@@ -76,7 +76,6 @@ void		gameClient::loopClient()
 	    }
 	}
     }
-  this->_network->getSocket().SetBlocking(false);
   mainClient();
 }
 
@@ -96,11 +95,17 @@ int		gameClient::keyEvent()
       if (_window.IsKeyRight())
 	nb +=2;
       if (nb != 0)
-	requestMove(nb);
+	{
+	  _mutex.Lock();
+	  requestMove(nb);
+	  _mutex.Unlock();
+	}
       if (_window.IsShooting() && _weapondispo == 1)
 	{
 	  _weapondispo = 0;
+	  _mutex.Lock();
 	  requestShoot();
+	  _mutex.Unlock();
 	}
       if (_window.Quit())
 	{
@@ -119,7 +124,7 @@ void		socketLoop(void * UserData)
   char			buffer[NBOCTETS];
   int			i;
   gameClient* Object = static_cast<gameClient*>(UserData);
-
+  //  Object->_network->getSocket().SetBlocking(false);
   while(1)
     {
       for (i = 0; i != NBOCTETS; i++)
@@ -127,8 +132,10 @@ void		socketLoop(void * UserData)
       if (Object->_network->getSocket().Receive(buffer, NBOCTETS, received,
 						sender, port) == sf::Socket::Done)
 	{
+	  Object->_mutex.Lock();
 	  if (received == NBOCTETS && buffer[0] == Object->getGame())
 	    Object->findCommand(buffer);
+	  Object->_mutex.Unlock();
 	}
     }
 }
@@ -144,7 +151,7 @@ int		gameClient::mainClient()
   Thread.Launch();
   while (_window.IsLaunch())
     {
-      if (_weaponloop >= 50)
+      if (_weaponloop >= 10)
 	{
 	  _weapondispo = 1;
 	  _weaponloop = 0;
@@ -155,7 +162,9 @@ int		gameClient::mainClient()
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
+      _mutex.Lock();
       _window.Draw(_object);
+      _mutex.Unlock();
       _window.Display();
       _weaponloop++;
     }

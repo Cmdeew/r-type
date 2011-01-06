@@ -53,6 +53,7 @@ void			gameClient::requestPing()
 {
   char			buffer[NBOCTETS];
 
+  std::cout <<"send ping" << std::endl;
   buffer[0] = _game;
   buffer[1] = 1;
   buffer[2] = _idPlayer;
@@ -200,10 +201,9 @@ bool                    gameClient::replyConnect(char buffer[NBOCTETS])
 void			gameClient::replyDisconnect(char buffer[NBOCTETS])
 {
   if(buffer[2] == _idPlayer && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0
-     && buffer[7] == 0 && buffer[8] == 0)
+     && buffer[7] == 0)
     {
-      //affichage des credits
-      std::cout << "On va exit le game" <<std::endl;
+      std::cout << "Exit the game" <<std::endl;
       exit(0);
     }
 }

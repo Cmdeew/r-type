@@ -29,10 +29,9 @@ class gameClient
   MainWindow		_mainWindow;
   int			_weapondispo;
   int			_weaponloop;
-  // protected:
   public:
+  sf::Mutex		_mutex;
   udpNetwork	*_network;
-  // public:
   std::list<Element*>	_object;
   gameClient();
   ~gameClient();
