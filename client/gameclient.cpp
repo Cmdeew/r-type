@@ -55,6 +55,8 @@ void		gameClient::loopClient()
   //affichage menu choix de la partie
   //while(menu)
   //{
+  //if (window.select())
+  //{
   this->requestConnect(1);
   while(flag == 0 &&
 	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
@@ -72,6 +74,7 @@ void		gameClient::loopClient()
     }
   this->_network->getSocket().SetBlocking(false);
   mainClient();
+  //}
   //}
 }
 
