@@ -1,7 +1,7 @@
 #ifndef UDPNETWORK_H_
 #define UDPNETWORK_H_
 
-#define NBOCTETS 7
+#define NBOCTETS 8
 #include <SFML/Network.hpp>
 #include <iostream>
 

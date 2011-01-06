@@ -20,10 +20,13 @@ class gameClient
 {
  private:
   int			_idPlayer;
+  unsigned char	        _game;
   int			_score;
   AbstractWindow	_window;
   AbstractMusic		_music;
   ElementFactory	_factory;
+  int			_weapondispo;
+  int			_weaponloop;
  protected:
   udpNetwork	*_network;
  public:
@@ -34,8 +37,9 @@ class gameClient
   void		readServer(void *userData);
   void		loopClient();
   int		mainClient();
+  int		keyEvent();
   void		fillnetwork(udpNetwork*);
-  void		requestConnect();
+  void		requestConnect(unsigned char nb);
   void		requestPing();
   void		requestDisconnect();
   void		requestMove(int nb);

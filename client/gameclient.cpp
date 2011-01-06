@@ -49,16 +49,19 @@ void		gameClient::loopClient()
   this->fillnetwork(_network);
   if (!(_network->getSocket().Bind(_network->getPort())))
     {
-      std::cout << "Error: Socket Listen!" << std::endl;
+      std::cout << "Error: Socket Listen! You must change the port." << std::endl;
       exit(0);
     }
-  this->requestConnect();
+  //affichage menu choix de la partie
+  //while(menu)
+  //{
+  this->requestConnect(1);
   while(flag == 0 &&
 	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
 					    sender, port) == sf::Socket::Done)
     {
       std::cout << "Awaiting connection to the server..." <<std::endl;
-      if (buffer[2] == 0 && buffer[0] == 0)
+      if (buffer[3] == 0 && buffer[1] == 0)
 	{
 	  if (!(flag = replyConnect(buffer)))
 	    {
@@ -69,6 +72,38 @@ void		gameClient::loopClient()
     }
   this->_network->getSocket().SetBlocking(false);
   mainClient();
+  //}
+}
+
+int		gameClient::keyEvent()
+{
+  int		nb;
+
+  nb = 0;
+  while (_window.IsAnEvent())
+    {
+      if (_window.IsKeyUp())
+	nb +=1;
+      if (_window.IsKeyDown())
+	nb +=4;
+      if (_window.IsKeyLeft())
+	nb +=8;
+      if (_window.IsKeyRight())
+	nb +=2;
+      if (nb != 0)
+	requestMove(nb);
+      if (_window.IsShooting() && _weapondispo == 1)
+	{
+	  _weapondispo = 0;
+	  requestShoot();
+	}
+      if (_window.Quit())
+	{
+	  requestDisconnect();
+	  return 0;
+	}
+    }
+  return (1);
 }
 
 int		gameClient::mainClient()
@@ -78,63 +113,35 @@ int		gameClient::mainClient()
   unsigned short        port;
   char			buffer[NBOCTETS];
   int			i;
-  int			nb;
-  int			weapondispo;
-  int			weaponloop;
 
-  std::cout << "id:" << (int)_idPlayer << std::endl;
   _score = 0;
+  _weapondispo = 0;
+  _weaponloop = 0;
   _music.LoadMusic();
-  weapondispo = 0;
-  weaponloop = 0;
   while (_window.IsLaunch())
     {
-      if (weaponloop >= 50)
+      if (_weaponloop >= 50)
 	{
-	  weapondispo = 1;
-	  weaponloop = 0;
+	  _weapondispo = 1;
+	  _weaponloop = 0;
 	  cleanexplosion();
 	}
-      _music.PlayMusic();
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;
       if (this->_network->getSocket().Receive(buffer, NBOCTETS, received,
                                               sender, port) == sf::Socket::Done)
 	{
-	  if (received == 7)
+	  if (received == NBOCTETS && buffer[0] == this->_game)
 	    findCommand(buffer);
-	  else
-	    std::cout << "Error: Bad size buffer" <<std::endl;
 	}
-      nb = 0;
-      while (_window.IsAnEvent())
-	{
-	  if (_window.IsKeyUp())
-	    nb +=1;
-	  if (_window.IsKeyDown())
-	    nb +=4;
-	  if (_window.IsKeyLeft())
-	    nb +=8;
-	  if (_window.IsKeyRight())
-	    nb +=2;
-	  if (nb != 0)
-	    requestMove(nb);
-	  if (_window.IsShooting() && weapondispo == 1)
-	    {
-	      weapondispo = 0;
-	      requestShoot();
-	    }
-	  if (_window.Quit())
-	    {
-	      requestDisconnect();
-	      return 0;
-	    }
-	}
+      if (!(keyEvent()))
+	return (0);
+      _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
       _window.Draw(_object);
       _window.Display();
-      weaponloop++;
+      _weaponloop++;
     }
   return 0;
 }
