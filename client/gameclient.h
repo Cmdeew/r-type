@@ -25,6 +25,8 @@ class gameClient
   AbstractWindow	_window;
   AbstractMusic		_music;
   ElementFactory	_factory;
+  int			_weapondispo;
+  int			_weaponloop;
  protected:
   udpNetwork	*_network;
  public:
@@ -35,7 +37,7 @@ class gameClient
   void		readServer(void *userData);
   void		loopClient();
   int		mainClient();
-  void		keyEvent();
+  int		keyEvent();
   void		fillnetwork(udpNetwork*);
   void		requestConnect(unsigned char nb);
   void		requestPing();
