@@ -20,6 +20,7 @@ class gameClient
 {
  private:
   int			_idPlayer;
+  unsigned char	        _game;
   int			_score;
   AbstractWindow	_window;
   AbstractMusic		_music;
@@ -35,7 +36,7 @@ class gameClient
   void		loopClient();
   int		mainClient();
   void		fillnetwork(udpNetwork*);
-  void		requestConnect();
+  void		requestConnect(unsigned char nb);
   void		requestPing();
   void		requestDisconnect();
   void		requestMove(int nb);

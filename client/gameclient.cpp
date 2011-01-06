@@ -52,13 +52,16 @@ void		gameClient::loopClient()
       std::cout << "Error: Socket Listen!" << std::endl;
       exit(0);
     }
-  this->requestConnect();
+  //affichage menu choix de la partie
+  //while(menu)
+  //{
+  this->requestConnect(1);
   while(flag == 0 &&
 	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
 					    sender, port) == sf::Socket::Done)
     {
       std::cout << "Awaiting connection to the server..." <<std::endl;
-      if (buffer[2] == 0 && buffer[0] == 0)
+      if (buffer[3] == 0 && buffer[1] == 0)
 	{
 	  if (!(flag = replyConnect(buffer)))
 	    {
@@ -69,6 +72,7 @@ void		gameClient::loopClient()
     }
   this->_network->getSocket().SetBlocking(false);
   mainClient();
+  //}
 }
 
 int		gameClient::mainClient()
@@ -82,11 +86,10 @@ int		gameClient::mainClient()
   int			weapondispo;
   int			weaponloop;
 
-  std::cout << "id:" << (int)_idPlayer << std::endl;
   _score = 0;
-  _music.LoadMusic();
   weapondispo = 0;
   weaponloop = 0;
+  _music.LoadMusic();
   while (_window.IsLaunch())
     {
       if (weaponloop >= 50)
@@ -95,16 +98,13 @@ int		gameClient::mainClient()
 	  weaponloop = 0;
 	  cleanexplosion();
 	}
-      _music.PlayMusic();
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;
       if (this->_network->getSocket().Receive(buffer, NBOCTETS, received,
                                               sender, port) == sf::Socket::Done)
 	{
-	  if (received == 7)
+	  if (received == NBOCTETS && buffer[0] == this->_game)
 	    findCommand(buffer);
-	  else
-	    std::cout << "Error: Bad size buffer" <<std::endl;
 	}
       nb = 0;
       while (_window.IsAnEvent())
@@ -130,6 +130,7 @@ int		gameClient::mainClient()
 	      return 0;
 	    }
 	}
+      _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
       _window.Draw(_object);
