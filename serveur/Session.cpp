@@ -1,7 +1,7 @@
 #include "Session.h"
 #include <stdlib.h>
 
-Session::Session(AbsUDPNetwork *p, AbsThread *th)
+Session::Session(AbsUDPNetwork *p, AbsThread *th, int nbGame)
 {
   std::vector<Player *>     tabPlayer(4);
   _tabPlayer = tabPlayer;
@@ -11,6 +11,7 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th)
   _pingTime[1] = 0;
   _pingTime[2] = 0;
   _pingTime[3] = 0;
+  _game_n = nbGame;
 }
 
 
@@ -25,11 +26,11 @@ void  Session::sessionthread()
   int cc;
   char buffer[6];
   int session = _session_n;
-  Command           cmd;
+  Command           cmd(_game_n);
 
   _pingTime[session] = MAX_PING_TIME;
   _tabPlayer[session] = new Player(session +1);
-  std::cout << "New player assign on slot " << session << "..." << std::endl;
+  std::cout << "New player assign on slot " << session << "... Partie " << _game_n << std::endl;
   cmd.sendConnect(_tabPlayer[session], _p);
   //  cmd.sendMove(_tabPlayer[session], _p);
   //  std::cout << "En attente des nouvelles positions du client..." << std::endl;
@@ -69,7 +70,7 @@ void  Session::sessionthread()
 void  Session::sessionthreadElems()
 {
   int i = 0;
-  Command           cmd;
+  Command           cmd(_game_n);
   Object	*obj;
   Object	*obj2;
   std::list<Object *>::iterator it;

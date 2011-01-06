@@ -16,7 +16,6 @@ public:
   unsigned char	getPosx();
   unsigned char	getPosy();
   unsigned char	getLife();
-  
 private:
   unsigned char	_id;
   unsigned char	_posx;

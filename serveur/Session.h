@@ -17,7 +17,7 @@ class	Session
 {
  private:
  public:
-  AbsUDPNetwork		*_p;
+  AbsUDPNetwork			*_p;
   AbsThread			*_th;
   thread			threads[4];
   hand				handles[4];
@@ -28,7 +28,7 @@ class	Session
   std::list<Object *>	_listObj;
   int				_game_n;
 
-  Session(AbsUDPNetwork *, AbsThread *);
+  Session(AbsUDPNetwork *, AbsThread *, int);
   ~Session();
   void sessionthread();
   static void    *sessionthreadInit(Session *sess);

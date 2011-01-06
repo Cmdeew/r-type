@@ -1,8 +1,9 @@
 #include "Command.h"
 
-Command::Command()
+Command::Command(int _id_game)
 {
   threadObjFlag = 0;
+  id_game = (unsigned char)_id_game;
 }
 
 
@@ -14,7 +15,7 @@ Command::~Command()
 int	Command::sendConnect(Player *player, AbsUDPNetwork *p)
 {  
   std::cout << "sendConnect OK " << std::endl;
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 0;
   buffer[3] = SERVER_CMD_CONNECT;
@@ -27,7 +28,7 @@ int	Command::sendConnect(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendDisconnect(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = player->getId();
   buffer[3] = SERVER_CMD_DISCONNECT;
@@ -41,7 +42,7 @@ int	Command::sendDisconnect(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendPing(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = player->getId();
   buffer[3] = SERVER_CMD_PING;
@@ -56,7 +57,7 @@ int	Command::sendPing(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendMove(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 5;
   buffer[3] = SERVER_CMD_MOVE;
@@ -70,7 +71,7 @@ int	Command::sendMove(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendLife(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = player->getId();
   buffer[3] = SERVER_CMD_LIFE;
@@ -83,7 +84,7 @@ int	Command::sendLife(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendScore(Player *player, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 5;
   buffer[3] = SERVER_CMD_SCORE;
@@ -96,7 +97,7 @@ int	Command::sendScore(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendNoSession(AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 0;
   buffer[3] = SERVER_CMD_CONNECT;
@@ -109,7 +110,7 @@ int	Command::sendNoSession(AbsUDPNetwork *p)
 
 int	Command::sendDestroy(unsigned char id_one, unsigned char id_two, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 5;
   buffer[3] = SERVER_CMD_DESTROY;
@@ -122,7 +123,7 @@ int	Command::sendDestroy(unsigned char id_one, unsigned char id_two, AbsUDPNetwo
 
 int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
 {
-  buffer[0] = 0;
+  buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 5;
   buffer[3] = SERVER_CMD_MOVE;
@@ -142,6 +143,7 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
   int	cc;
   unsigned char playerId;
   int i;
+  int game;
 
   for (i = 0; i < CMD_SIZE; i++)
     buffer[i] = 0;
@@ -150,16 +152,25 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
   //  std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
   if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
+      game = buffer[1];
       playerId = buffer[2];
-      if (playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+      std::cout << game << std::endl;
+      if ((int)game == session->_game_n && playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT &&
+	  buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
 	receiveConnect(session);
-      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 && buffer[5] == 0 &&
+	       buffer[6] == 0 && buffer[7] == 0)
 	receiveDisconnect(session, playerId);
-      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 &&
+	       buffer[7] == 0)
 	receivePing(session, playerId);
-      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_MOVE)
+      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_MOVE)
 	receiveMove(session, playerId, buffer[4], buffer[5]);
-      else if (playerId > 0 && playerId < 5 && buffer[3] == CLIENT_CMD_SHOOT)
+      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_SHOOT)
 	receiveShoot(session, playerId);
       else
 	std::cout << "Bad command..." << std::endl;

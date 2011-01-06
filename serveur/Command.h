@@ -10,7 +10,6 @@
 #define SERVER_CMD_SCORE 5
 #define SERVER_CMD_DESTROY 6
 
-
 #define CLIENT_CMD_CONNECT 0
 #define CLIENT_CMD_DISCONNECT 1
 #define CLIENT_CMD_PING 2
@@ -27,10 +26,11 @@
 class	Command
 {
  private:
-  char    buffer[CMD_SIZE];
-  int	  threadObjFlag;
+  char			buffer[CMD_SIZE];
+  int			threadObjFlag;
+  unsigned char		id_game;
  public:
-  Command();
+  Command(int _id_game);
   ~Command();
   int	sendConnect(Player *, AbsUDPNetwork *);
   int	sendDisconnect(Player *, AbsUDPNetwork *);
