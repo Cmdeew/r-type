@@ -180,6 +180,7 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
   id++;
   if (id > 127)
     id = 51;
+  return (0);
 }
 
 int	Command::receiveConnect(Session *session)
