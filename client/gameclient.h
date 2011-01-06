@@ -7,6 +7,7 @@
 #include "AbstractWindow.h"
 #include "AbstractMusic.h"
 #include "ElementFactory.h"
+#include "MainWindow.h"
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 #include <list>
@@ -25,6 +26,7 @@ class gameClient
   AbstractWindow	_window;
   AbstractMusic		_music;
   ElementFactory	_factory;
+  MainWindow		_mainWindow;
   int			_weapondispo;
   int			_weaponloop;
  protected:

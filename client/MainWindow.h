@@ -27,8 +27,8 @@ class	MainWindow
   void	InitCredits();
   void	InitGameList();
 
-  void	MainMenuLoop();
-  int	GameListLoop();
+  unsigned char	MainMenuLoop();
+  unsigned char	GameListLoop();
   int	CreditsLoop();
 
   void	DrawAll();
