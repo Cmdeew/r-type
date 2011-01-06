@@ -24,17 +24,14 @@ int	main(int ac, char **argv)
 	
 	AbsThread *th;
 	th = f->n_thread();
-	thread  threads[4];
+	//thread  threads[4];
 	int ctr = 0;
 
 
 	Session *session = new Session(p, th);
 	Command cmd;
-
-
 	while (1)
 	{
-
 	  /*
 	  buffer[0] = 0;
 	  buffer[1] = 0;
@@ -46,9 +43,6 @@ int	main(int ac, char **argv)
 	  */
 	  //	  p->Send("HELLO", 5);
 	  cmd.receiveFromClient(session, p);
-
-
-
 	  /*
 	  cc = p->Receive(buffer);
 	  std::cout << "Incoming connection..." << std::endl;

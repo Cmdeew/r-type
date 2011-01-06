@@ -18,15 +18,15 @@ class	Session
  private:
  public:
   AbsUDPNetwork		*_p;
-  AbsThread		*_th;
-  thread		threads[4];
-  hand			handles[4];
+  AbsThread			*_th;
+  thread			threads[4];
+  hand				handles[4];
   std::vector<Player *>	_tabPlayer;
   //  Command		_cmd;
-  int			_pingTime[4];
-
-  int			_session_n;
+  int				_pingTime[4];
+  int				_session_n;
   std::list<Object *>	_listObj;
+  int				_game_n;
 
   Session(AbsUDPNetwork *, AbsThread *);
   ~Session();
