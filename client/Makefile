@@ -13,6 +13,7 @@ NAMECLT		=	client
 
 SRCSCLT		=	AbstractMusic.cpp\
 			AbstractWindow.cpp\
+			MainWindow.cpp\
 			Element.cpp\
 			ElementFactory.cpp\
 			gameclient.cpp\

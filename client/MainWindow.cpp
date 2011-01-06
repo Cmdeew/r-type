@@ -212,11 +212,11 @@ int	MainWindow::GameListLoop()
 	      Close();
 	    }
 	  if (_mainWindow.GetInput().IsKeyDown(sf::Key::Num1))
-	    ;//join party one
+	    break;//join party one
 	  if (_mainWindow.GetInput().IsKeyDown(sf::Key::Num2))
-	    ;//join party two
+	    break;//join party two
 	  if (_mainWindow.GetInput().IsKeyDown(sf::Key::Num3))
-	    ;//join party three
+	    break;//join party three
 	  if (_mainWindow.GetInput().IsKeyDown(sf::Key::Num4))
 	    return 0;
 	}
@@ -245,4 +245,5 @@ int	MainWindow::CreditsLoop()
       DrawAll();
       Display();
     }
+  return 0;
 }
