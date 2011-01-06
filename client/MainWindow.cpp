@@ -3,6 +3,7 @@
 MainWindow::MainWindow()
 {
   _mainWindow.Create(sf::VideoMode(800, 600, 32), "Best R-Type ever!!");
+  _mainWindow.SetFramerateLimit(60);
 }
 
 MainWindow::~MainWindow()

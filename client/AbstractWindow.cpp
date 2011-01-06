@@ -4,7 +4,15 @@ AbstractWindow::AbstractWindow()
 {
   _App.Create(sf::VideoMode(800, 600, 32), "Best r-type ever!");
   _App.SetFramerateLimit(60);
-  _backgroundImg.LoadFromFile("img/background1.jpg");
+  if (!_backgroundImg.LoadFromFile("img/background1.jpg"))
+    std::cerr << "Error: Unable to load background" << std::endl;
+  if (!_font.LoadFromFile("font/score.ttf"))
+    std::cerr << "Error: Unable to load font" << std::endl;
+  else
+    _score.SetFont(_font);
+  _score.SetSize(10);
+  _score.SetPosition(0, 500);
+  _score.SetColor(sf::Color(255, 255, 255));
   _background.SetImage(_backgroundImg);
 }
 
@@ -91,4 +99,9 @@ void	AbstractWindow::MoveBackground()
   if (_background.GetPosition().x == -1100)
     _background.SetX(0);
   _background.Move(-1, 0);
+}
+
+void	AbstractWindow::SetScore(int score)
+{
+  _score.SetText("score:" + score);
 }

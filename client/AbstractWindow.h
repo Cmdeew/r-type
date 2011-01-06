@@ -15,6 +15,8 @@ class	AbstractWindow
   sf::Sprite		_background;
   sf::Event		_event;
   sf::RenderWindow	_App;
+  sf::Font		_font;
+  sf::String		_score;
 
  public:
 
@@ -31,6 +33,7 @@ class	AbstractWindow
   bool	IsKeyRight();
   bool	IsShooting();
   void	MoveBackground();
+  void	SetScore(int score);
 };
 
 #endif //!ABSTRACTWINDOW_H
