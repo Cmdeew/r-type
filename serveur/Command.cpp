@@ -14,7 +14,7 @@ Command::~Command()
 
 int	Command::sendConnect(Player *player, AbsUDPNetwork *p)
 {  
-  std::cout << "sendConnect OK " << std::endl;
+  //  std::cout << "sendConnect OK " << std::endl;
   buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 0;
@@ -50,7 +50,7 @@ int	Command::sendPing(Player *player, AbsUDPNetwork *p)
   buffer[5] = 0;
   buffer[6] = 0;
   buffer[7] = 0;
-  std::cout << "PING for player " << (int)player->getId() << std::endl;
+  //std::cout << "PING for player " << (int)player->getId() << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
@@ -58,6 +58,9 @@ int	Command::sendPing(Player *player, AbsUDPNetwork *p)
 int	Command::sendMove(Player *player, AbsUDPNetwork *p)
 {
   buffer[0] = id_game;
+
+  std::cout << "ID PARTY : " << (int)id_game << std::endl;
+
   buffer[1] = SERVER;
   buffer[2] = 5;
   buffer[3] = SERVER_CMD_MOVE;
@@ -65,7 +68,7 @@ int	Command::sendMove(Player *player, AbsUDPNetwork *p)
   buffer[5] = player->getPosy();
   buffer[6] = player->getId();
   buffer[7] = player->getId();
-  //  std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
+  //std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
@@ -148,7 +151,7 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
   for (i = 0; i < CMD_SIZE; i++)
     buffer[i] = 0;
   cc = p->Receive(buffer);
-  //  std::cout << "size cc:" << cc << std::endl;
+  std::cout << "size cc:" << cc << std::endl;
   //  std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
   if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
@@ -172,8 +175,8 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
       else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
 	       buffer[3] == CLIENT_CMD_SHOOT)
 	receiveShoot(session, playerId);
-      else
-	std::cout << "Bad command..." << std::endl;
+      //else
+      //std::cout << "Bad command..." << std::endl;
     }
   /*else 
     {

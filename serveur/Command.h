@@ -1,7 +1,7 @@
 #ifndef COMMANDRTYPE_H_
 #define COMMANDRTYPE_H_
 
-#define CMD_SIZE 7
+#define CMD_SIZE 8
 #define SERVER_CMD_CONNECT 0
 #define SERVER_CMD_DISCONNECT 1
 #define SERVER_CMD_PING 2

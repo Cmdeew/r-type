@@ -70,7 +70,7 @@ int	CUAbsUDPNetwork::Receive(void *Buffer)
     std::cout << "Error" << std::endl;
     return (0);
   }
-  return (recvfrom((int)_socket, Buffer, 7, 0, (struct sockaddr *)&addr_r, (socklen_t *)&a));
+  return (recvfrom((int)_socket, Buffer, CMD_SIZE, 0, (struct sockaddr *)&addr_r, (socklen_t *)&a));
 }
 
 int	CUAbsUDPNetwork::Send(const void *Buffer, size_t size)
