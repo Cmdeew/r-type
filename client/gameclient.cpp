@@ -52,11 +52,7 @@ void		gameClient::loopClient()
       std::cout << "Error: Socket Listen! You must change the port." << std::endl;
       exit(0);
     }
-  //affichage menu choix de la partie
-  //while(menu)
-  //{
-  //if (window.select())
-  //{
+  _mainWindow.MainMenuLoop();
   this->requestConnect(1);
   while(flag == 0 &&
 	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
@@ -74,8 +70,6 @@ void		gameClient::loopClient()
     }
   this->_network->getSocket().SetBlocking(false);
   mainClient();
-  //}
-  //}
 }
 
 int		gameClient::keyEvent()
