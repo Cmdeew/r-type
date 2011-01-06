@@ -305,6 +305,8 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  nElem = _factory.FactoryMethod(24, 0, posx, posy);
 	  if (nElem != NULL)
 	    _object.push_back(nElem);
+	  _score += 10;
+	  std::cout << "Score: "<< _score << std::endl;
 	}
     }
 }
