@@ -14,7 +14,7 @@ Abstract
 
 	This document describes how a R-TYPE Client Server Protocol (RCSP) communication is
 	set onto a single User Datagram Protocol (UDP) connection (see FRC 768 [6]). This
-	communication is based on a binary communication, and use 7 bytes.
+	communication is based on a binary communication, and use 8 bytes.
 	
 Status of this memo
 
@@ -72,11 +72,13 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 4. Message format
 
    The protocol message format is very simple. The length of the message
-   is 7 bytes for the client and for the server. Here is a schema of a 
+   is 8 bytes for the client and for the server. Here is a schema of a 
    message type:
 
-      SOURCE	   ID	     CMD	ATTR_1     ATTR_2    ATTR_3     ATTR_4
-   |__________|__________|__________|__________|__________|__________|__________|
+      GAME	 SOURCE	      ID	CMD	  ATTR_1     ATTR_2     ATTR_3     ATTR_4
+   |__________|__________|__________|__________|__________|__________|__________|__________|
+
+   The GAME corresponds to the number of the game.
 
    The SOURCE corresponds to the source of the message.
    The SOURCE are: 
@@ -104,6 +106,7 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 
 5.1. Client to Server
 
+   The GAME corresponds to the number of the game.
    The SOURCE corresponds to the client (client to server).
    The ID (id) corresponds to each players (see above).
    The CMD (commands) are:
@@ -112,11 +115,20 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 			   - 2 Ping
 			   - 3 Move
 			   - 4 Shoot
+   The direction of the MOVE corresponds to:
+       		    	     - 0 middle
+			     - 1 left
+			     - 2 up
+			     - 3 right
+			     - 4 down
+
     The ATTR (attributes) for each commands are:
     +----------------------------------+
     |	field	|  value | description |
     +----------------------------------+
     
+    +----------------------------------+
+    |	GAME	|    id  |    game     |
     +----------------------------------+
     |	SOURCE	|    1   |    client   |
     +----------------------------------+
@@ -131,6 +143,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     +----------------------------------+
 
     +----------------------------------+
+    |	GAME	|    id  |    game     |
+    +----------------------------------+
     |	SOURCE	|    1   |    client   |    
     +----------------------------------+
     |	ID	|    id  |  id player  |    
@@ -143,6 +157,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     |  ATTR_4   |    0   |    none     |
     +----------------------------------+
 
+    +----------------------------------+
+    |	GAME	|    id  |    game     |
     +----------------------------------+
     |	SOURCE	|    1   |    client   |        
     +----------------------------------+
@@ -162,18 +178,22 @@ Hugon                      Experimental                      	[Page 4]
 RFC 4242          R-Type Client Server Protocol           December 2010
 
     +-----------------------------------------------------------+
-    |	SOURCE	|    1   |    client				|    
+    |	GAME	|    id   |    game			        |
     +-----------------------------------------------------------+
-    |	ID	|    id  |    id player			        |    
+    |	SOURCE	|    1    |    client				|    
     +-----------------------------------------------------------+
-    |	CMD	|    3   |    Move		         	|
+    |	ID	|    id   |    id player			|    
     +-----------------------------------------------------------+
-    |  ATTR_1   |    x   |    horizontal position of the move   |
-    |  ATTR_2   |    y   |    vertical position of the move     |
-    |  ATTR_3   |    0   |    none		       	        |
-    |  ATTR_4   |    0   |    none				|
+    |	CMD	|    3    |    Move		         	|
+    +-----------------------------------------------------------+
+    |  ATTR_1   |    x    |    horizontal position of the move  |
+    |  ATTR_2   |    y    |    vertical position of the move    |
+    |  ATTR_3   |direction|    direction of the move		|
+    |  ATTR_4   |    0    |    none				|
     +-----------------------------------------------------------+
 
+    +-----------------------------------------------------------+
+    |	GAME	|    id  |    game			        |
     +-----------------------------------------------------------+
     |	SOURCE	|    1   |    client			        |    
     +-----------------------------------------------------------+
@@ -196,6 +216,7 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 
 5.2. Server to Client
 
+   The GAME corresponds to the game.
    The SOURCE corresponds to the server (server to client).
    The ID (id) corresponds to each clients (see above).
    The CMD (commands) are:
@@ -213,6 +234,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     +----------------------------------+
     
     +----------------------------------+
+    |	GAME	|    id  |   game      |
+    +----------------------------------+
     |	SOURCE	|    0   |    Server   |    
     +----------------------------------+
     |   ID	|    0	 |    none     |
@@ -225,7 +248,9 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     |  ATTR_4   |    0   |    none     |
     +----------------------------------+
 
-     +----------------------------------+
+    +----------------------------------+
+    |	GAME	|    id  |   game      |
+    +----------------------------------+
     |	SOURCE	|    0   |    Server   |    
     +----------------------------------+
     |   ID	|    id	 |  id player  |
@@ -238,6 +263,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     |  ATTR_4   |    0   |    none     |
     +----------------------------------+
 
+    +----------------------------------+
+    |	GAME	|    id  |   game      |
     +----------------------------------+
     |	SOURCE	|    0   |    Server   |    
     +----------------------------------+
@@ -257,6 +284,8 @@ Hugon                      Experimental                      	[Page 6]
 RFC 4242          R-Type Client Server Protocol           December 2010
 
     +-----------------------------------------------------------+
+    |	GAME	|    id  |   game			        |
+    +-----------------------------------------------------------+
     |	SOURCE	|    0   |    Server			        |    
     +-----------------------------------------------------------+
     |   ID	|    5	 |    All players		        |
@@ -273,6 +302,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     +-----------------------------------------------------------+
 
     +-----------------------------------------------------------+
+    |	GAME	|    id  |   game			        |
+    +-----------------------------------------------------------+
     |	SOURCE	|    0   |    Server			        |    
     +-----------------------------------------------------------+
     |   ID	|    id	 |    id player			        |
@@ -286,6 +317,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     +-----------------------------------------------------------+
 
     +-----------------------------------------------------------+
+    |	GAME	|    id  |   game			        |
+    +-----------------------------------------------------------+
     |	SOURCE	|    0   |    Server			        |    
     +-----------------------------------------------------------+
     |   ID	|    5	 |    All players		        |
@@ -298,6 +331,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
     |  ATTR_4   |    0   |    none				|
     +-----------------------------------------------------------+
 
+    +-----------------------------------------------------------+
+    |	GAME	|    id  |   game			        |
     +-----------------------------------------------------------+
     |	SOURCE	|    0   |    Server			        |    
     +-----------------------------------------------------------+
