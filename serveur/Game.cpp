@@ -36,6 +36,7 @@ void Game::startGame(int id)
 
 void *Game::startMultiGame(Game *g)
 {
+  std::cout << g->id << std::endl;
   g->startGame(g->id);
   return (NULL);
 }

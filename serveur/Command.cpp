@@ -15,6 +15,7 @@ Command::~Command()
 int	Command::sendConnect(Player *player, AbsUDPNetwork *p)
 {  
   //  std::cout << "sendConnect OK " << std::endl;
+  std::cout << "ID PARTY : " << (int)id_game << std::endl;
   buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 0;
@@ -151,11 +152,11 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
   for (i = 0; i < CMD_SIZE; i++)
     buffer[i] = 0;
   cc = p->Receive(buffer);
-  std::cout << "size cc:" << cc << std::endl;
+  //  std::cout << "size cc:" << cc << std::endl;
   //  std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
   if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
-      game = buffer[1];
+      game = buffer[0];
       playerId = buffer[2];
       std::cout << game << std::endl;
       if ((int)game == session->_game_n && playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT &&
