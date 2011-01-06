@@ -35,6 +35,7 @@ class gameClient
   void		readServer(void *userData);
   void		loopClient();
   int		mainClient();
+  void		keyEvent();
   void		fillnetwork(udpNetwork*);
   void		requestConnect(unsigned char nb);
   void		requestPing();

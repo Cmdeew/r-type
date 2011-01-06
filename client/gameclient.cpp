@@ -49,7 +49,7 @@ void		gameClient::loopClient()
   this->fillnetwork(_network);
   if (!(_network->getSocket().Bind(_network->getPort())))
     {
-      std::cout << "Error: Socket Listen!" << std::endl;
+      std::cout << "Error: Socket Listen! You must change the port." << std::endl;
       exit(0);
     }
   //affichage menu choix de la partie
@@ -75,6 +75,22 @@ void		gameClient::loopClient()
   //}
 }
 
+void		gameClient::keyEvent()
+{
+  int		nb;
+  nb = 0;
+  if (_window.IsKeyUp())
+    nb +=1;
+  if (_window.IsKeyDown())
+    nb +=4;
+  if (_window.IsKeyLeft())
+    nb +=8;
+  if (_window.IsKeyRight())
+    nb +=2;
+  if (nb != 0)
+    requestMove(nb);
+}
+
 int		gameClient::mainClient()
 {
   std::size_t           received;
@@ -82,7 +98,6 @@ int		gameClient::mainClient()
   unsigned short        port;
   char			buffer[NBOCTETS];
   int			i;
-  int			nb;
   int			weapondispo;
   int			weaponloop;
 
@@ -106,19 +121,9 @@ int		gameClient::mainClient()
 	  if (received == NBOCTETS && buffer[0] == this->_game)
 	    findCommand(buffer);
 	}
-      nb = 0;
       while (_window.IsAnEvent())
 	{
-	  if (_window.IsKeyUp())
-	    nb +=1;
-	  if (_window.IsKeyDown())
-	    nb +=4;
-	  if (_window.IsKeyLeft())
-	    nb +=8;
-	  if (_window.IsKeyRight())
-	    nb +=2;
-	  if (nb != 0)
-	    requestMove(nb);
+	  keyEvent();
 	  if (_window.IsShooting() && weapondispo == 1)
 	    {
 	      weapondispo = 0;
