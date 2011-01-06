@@ -29,13 +29,15 @@ class gameClient
   MainWindow		_mainWindow;
   int			_weapondispo;
   int			_weaponloop;
- protected:
+  // protected:
+  public:
   udpNetwork	*_network;
- public:
+  // public:
   std::list<Element*>	_object;
   gameClient();
   ~gameClient();
   void		cleanexplosion();
+  unsigned char	getGame();
   void		readServer(void *userData);
   void		loopClient();
   int		mainClient();

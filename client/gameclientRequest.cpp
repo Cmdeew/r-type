@@ -193,6 +193,7 @@ bool                    gameClient::replyConnect(char buffer[NBOCTETS])
   if (nElem != NULL)
   _object.push_back(nElem);
   _game = buffer[0];
+  std::cout << "game:"<< (int)_game<< std::endl;
   return(true);
 }
 

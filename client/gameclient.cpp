@@ -15,6 +15,11 @@ gameClient::~gameClient()
   ;
 }
 
+unsigned char	gameClient::getGame()
+{
+  return(_game);
+}
+
 void		gameClient::fillnetwork(udpNetwork* network)
 {
   std::ifstream	stream;
@@ -106,18 +111,37 @@ int		gameClient::keyEvent()
   return (1);
 }
 
-int		gameClient::mainClient()
+void		socketLoop(void * UserData)
 {
   std::size_t           received;
   sf::IPAddress         sender;
   unsigned short        port;
   char			buffer[NBOCTETS];
   int			i;
+  gameClient* Object = static_cast<gameClient*>(UserData);
+
+  while(1)
+    {
+      for (i = 0; i != NBOCTETS; i++)
+	buffer[i] = 0;
+      if (Object->_network->getSocket().Receive(buffer, NBOCTETS, received,
+						sender, port) == sf::Socket::Done)
+	{
+	  if (received == NBOCTETS && buffer[0] == Object->getGame())
+	    Object->findCommand(buffer);
+	}
+    }
+}
+
+int		gameClient::mainClient()
+{
+  sf::Thread		Thread(&socketLoop, this);
 
   _score = 0;
   _weapondispo = 0;
   _weaponloop = 0;
   _music.LoadMusic();
+  Thread.Launch();
   while (_window.IsLaunch())
     {
       if (_weaponloop >= 50)
@@ -126,16 +150,8 @@ int		gameClient::mainClient()
 	  _weaponloop = 0;
 	  cleanexplosion();
 	}
-      for (i = 0; i != NBOCTETS; i++)
-	buffer[i] = 0;
-      if (this->_network->getSocket().Receive(buffer, NBOCTETS, received,
-                                              sender, port) == sf::Socket::Done)
-	{
-	  if (received == NBOCTETS && buffer[0] == this->_game)
-	    findCommand(buffer);
-	}
       if (!(keyEvent()))
-	return (0);
+	exit(0);
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
@@ -143,5 +159,6 @@ int		gameClient::mainClient()
       _window.Display();
       _weaponloop++;
     }
+  Thread.Terminate();
   return 0;
 }
