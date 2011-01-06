@@ -3,6 +3,7 @@
 
 #include "AbsUDPNetwork.h"
 #define	ERROR_SOCKET "Error in Socket"
+#define CMD_SIZE	8
 
 class	CUAbsUDPNetwork : public AbsUDPNetwork
 {
