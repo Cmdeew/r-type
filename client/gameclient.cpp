@@ -44,6 +44,7 @@ void		gameClient::loopClient()
   unsigned short        port;
   char			buffer[NBOCTETS];
   int			flag = 0;
+  int			temp;
 
   this->_network = new udpNetwork();
   this->fillnetwork(_network);
@@ -52,8 +53,10 @@ void		gameClient::loopClient()
       std::cout << "Error: Socket Listen! You must change the port." << std::endl;
       exit(0);
     }
-  _mainWindow.MainMenuLoop();
-  this->requestConnect(1);
+  if (!(temp = _mainWindow.MainMenuLoop()))
+      exit(0);
+  _mainWindow.Close();
+  this->requestConnect(temp);
   while(flag == 0 &&
 	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
 					    sender, port) == sf::Socket::Done)
