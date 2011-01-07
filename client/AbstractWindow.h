@@ -13,10 +13,15 @@ class	AbstractWindow
  private:
   sf::Image		_backgroundImg;
   sf::Sprite		_background;
+  sf::Image		_lifeImg;
+  sf::Sprite		_lifeSprite;
   sf::Event		_event;
   sf::RenderWindow	_App;
   sf::Font		_font;
   sf::String		_score;
+  sf::String		_life;
+  sf::String		_id;
+  sf::Sprite		_player;
 
  public:
 
@@ -33,7 +38,7 @@ class	AbstractWindow
   bool	IsKeyRight();
   bool	IsShooting();
   void	MoveBackground();
-  void	SetScore(int score);
+  void	SetText(int score, int life, int id);
 };
 
 #endif //!ABSTRACTWINDOW_H

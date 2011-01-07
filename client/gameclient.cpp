@@ -30,6 +30,11 @@ unsigned char	gameClient::getGame()
   return(_game);
 }
 
+int		gameClient::getId()
+{
+  return _idPlayer;
+}
+
 void		gameClient::fillnetwork(udpNetwork* network)
 {
   std::ifstream	stream;
@@ -182,7 +187,7 @@ int		gameClient::mainClient()
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
-      _window.SetScore(_score);
+      _window.SetText(_score, getLife(), getId());
       _mutex.Lock();
       _window.Draw(_object);
       _mutex.Unlock();

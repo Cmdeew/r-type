@@ -40,6 +40,7 @@ class gameClient
   void		setLife(unsigned char nb);
   unsigned char	getLife();
   unsigned char	getGame();
+  int		getId();
   void		readServer(void *userData);
   void		choosePort(int nb);
   void		loopClient();
