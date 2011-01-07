@@ -30,7 +30,6 @@ Game::Game(Factory *_f, char **argv)
   s[0] = new Session(p, th, mt, 1);
   s[1] = new Session(p1, th, mt, 2);
   s[2] = new Session(p2, th, mt, 3);
-  s[0]->_mt->AMutexInit(&priority);
 }
 
 Game::~Game()
@@ -49,7 +48,7 @@ void Game::startGame(int id)
 
   std::cout << "Partie : " << id << std::endl;
   while (1)
-    cmd.receiveFromClient(s[id - 1], s[id - 1]->_p, &priority);
+    cmd.receiveFromClient(s[id - 1], s[id - 1]->_p);
 }
 
 void *Game::startMultiGame(Game *g)

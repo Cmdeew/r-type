@@ -39,11 +39,10 @@ void	CWAbsUDPNetwork::setArg(char **argv)
     }
 }
 
-Socket CWAbsUDPNetwork::CreateSocket()
+Socket CWAbsUDPNetwork::CreateSocket(int port)
 {
 	WSADATA	wsadata;
 	my_addr = new struct sockaddr_in;
-	
 	if (WSAStartup(MAKEWORD(2,2), &wsadata) != 0)
 	  {
 	    std::cout << ERROR_INIT_SOCKET << std::endl;
@@ -60,8 +59,8 @@ Socket CWAbsUDPNetwork::CreateSocket()
 
 	my_addr->sin_family=AF_INET;
 	my_addr->sin_addr.s_addr=inet_addr(_broadcast);
-	my_addr->sin_port=htons(_port);
-	return (0);
+	my_addr->sin_port=htons(port);
+	return (_socket);
 }
 
 int   CWAbsUDPNetwork::Receive(void *Buffer)
@@ -101,10 +100,10 @@ int   CWAbsUDPNetwork::CloseSocket()
   return (0);
 }
 
-void	CWAbsUDPNetwork::Bind()
+void	CWAbsUDPNetwork::Bind(Socket sock)
 {
 	my_addr->sin_addr.s_addr=INADDR_ANY;
-  if (bind((int)_socket,(struct sockaddr *)my_addr, sizeof(struct sockaddr_in)) < 0)
+  if (bind((int)sock,(struct sockaddr *)my_addr, sizeof(struct sockaddr_in)) < 0)
     {
       std::cout << ERROR_BIND << std::endl;
       exit(0);

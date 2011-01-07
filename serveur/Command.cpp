@@ -142,8 +142,7 @@ int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
   return p->Send(buffer, CMD_SIZE);
 }
 
-int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p,
-				   CRITICAL_SECTION *priority)
+int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 {
   int	cc;
   unsigned char playerId;

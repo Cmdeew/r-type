@@ -5,8 +5,6 @@
 #include "AbsThread.h"
 #include "Session.h"
 
-typedef void * CRITICAL_SECTION;
-
 class	Game
 {
  private:
@@ -17,7 +15,6 @@ class	Game
   AbsMutex	*mt;
   AbsUDPNetwork *p;
   Session	**s;
-  CRITICAL_SECTION                priority;
   hand		handles[3];
   thread	threads[3];
   Game(Factory *_f, char **argv);

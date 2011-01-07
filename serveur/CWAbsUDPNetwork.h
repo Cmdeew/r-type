@@ -8,11 +8,11 @@ class	CWAbsUDPNetwork : public AbsUDPNetwork
 public:
   CWAbsUDPNetwork();
   ~CWAbsUDPNetwork();
-  Socket CreateSocket();
+  Socket CreateSocket(int port);
   int   Receive(void *Buffer);
   int   Send(const void *Buffer, size_t size);
   int   CloseSocket();
-  void	Bind(void);
+  void	Bind(Socket sock);
   void	setArg(char **argv);
 };
 
