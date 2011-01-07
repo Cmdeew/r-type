@@ -252,6 +252,8 @@ void			gameClient::replyLife(char buffer[NBOCTETS])
       if(temp->getID() == buffer[2])
 	temp->setLife(buffer[4]);
     }
+  if (buffer[2] == _idPlayer)
+  _life = buffer[4];
 }
 
 void			gameClient::replyScore(char buffer[NBOCTETS])
