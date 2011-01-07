@@ -39,6 +39,7 @@ class	AbstractWindow
   bool	IsShooting();
   void	MoveBackground();
   void	SetText(int score, int life, int id);
+  void	setPlayer(sf::Sprite sprite);
 };
 
 #endif //!ABSTRACTWINDOW_H

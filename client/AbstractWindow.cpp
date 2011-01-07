@@ -28,7 +28,7 @@ AbstractWindow::AbstractWindow()
   _life.SetSize(25);
   _life.SetPosition(350, 635);
   _id.SetSize(25);
-  _id.SetPosition(25, 635);
+  _id.SetPosition(55, 635);
   _background.SetCenter(0, 100);
 }
 
@@ -81,6 +81,12 @@ bool	AbstractWindow::Quit()
       return true;
     }
   return false;
+}
+
+void	AbstractWindow::setPlayer(sf::Sprite sprite)
+{
+  _player = sprite;
+  _player.SetPosition(10, 648);
 }
 
 bool	AbstractWindow::IsLaunch()

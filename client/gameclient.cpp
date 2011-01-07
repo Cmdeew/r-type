@@ -193,6 +193,7 @@ int		gameClient::mainClient()
   _life = 3;
   _music.LoadMusic();
   Thread.Launch();
+  _window.setPlayer(getSprite());
   while (_window.IsLaunch())
     {
       if (_weaponloop >= 10)
