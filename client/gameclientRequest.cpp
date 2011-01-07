@@ -53,7 +53,6 @@ void			gameClient::requestPing()
 {
   char			buffer[NBOCTETS];
 
-  std::cout <<"send ping" << std::endl;
   buffer[0] = _game;
   buffer[1] = 1;
   buffer[2] = _idPlayer;
@@ -194,7 +193,6 @@ bool                    gameClient::replyConnect(char buffer[NBOCTETS])
   if (nElem != NULL)
   _object.push_back(nElem);
   _game = buffer[0];
-  std::cout << "game:"<< (int)_game<< std::endl;
   return(true);
 }
 
@@ -212,7 +210,6 @@ void			gameClient::replyPing(char buffer[NBOCTETS])
 {
   if(buffer[2] == _idPlayer)
     {
-      std::cout << "ping" << std::endl;
       requestPing();
     }
 }
