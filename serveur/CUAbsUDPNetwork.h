@@ -14,7 +14,7 @@ public:
   int   Receive(void *Buffer);
   int   Send(const void *Buffer, size_t size);
   int   CloseSocket();
-  void	Bind(void);
+  void	Bind(Socket sock);
   void	setArg(char **);
 };
 

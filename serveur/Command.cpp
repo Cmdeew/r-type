@@ -152,15 +152,7 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p,
 
   for (i = 0; i < CMD_SIZE; i++)
     buffer[i] = 0;
-  if (session->_mt->AMutexTryLock(priority) == true)
-    {
-      std::cout << "Hello id" << session->_game_n << std::endl;
-      cc = p->Receive(buffer);
-      session->_mt->AMutexUnLock(priority);
-      std::cout << "Ciao" << std::endl;
-    }
-  //std::cout << "size cc:" << cc << "id : " << session->_game_n << std::endl;
-  //std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
+  cc = p->Receive(buffer);
   if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
       std::cout << "Entree dans la condition 1" << std::endl;
@@ -168,28 +160,25 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p,
       playerId = buffer[2];
       std::cout << game << std::endl;
       std::cout << session->_game_n << std::endl;
-      if ((int)game == session->_game_n)
-	{
-	  std::cout << "Entree dans la condition 2" << std::endl;
-	  if (playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT && buffer[4] == 0 &&
-	      buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
-	    receiveConnect(session);
-	  else if (playerId > 0 && playerId < 5 &&
-		   buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 &&
-		   buffer[5] == 0 &&
-		   buffer[6] == 0 && buffer[7] == 0)
-	    receiveDisconnect(session, playerId);
-	  else if (playerId > 0 && playerId < 5 &&
-		   buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 &&
-		   buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
-	    receivePing(session, playerId);
-	  else if (playerId > 0 && playerId < 5 &&
-		   buffer[3] == CLIENT_CMD_MOVE)
-	    receiveMove(session, playerId, buffer[4], buffer[5]);
-	  else if (playerId > 0 && playerId < 5 &&
-		   buffer[3] == CLIENT_CMD_SHOOT)
-	    receiveShoot(session, playerId);
-	}
+      std::cout << "Entree dans la condition 2" << std::endl;
+      if (playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT && buffer[4] == 0 &&
+	  buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+	receiveConnect(session);
+      else if (playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 &&
+	       buffer[5] == 0 &&
+	       buffer[6] == 0 && buffer[7] == 0)
+	receiveDisconnect(session, playerId);
+      else if (playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 &&
+	       buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+	receivePing(session, playerId);
+      else if (playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_MOVE)
+	receiveMove(session, playerId, buffer[4], buffer[5]);
+      else if (playerId > 0 && playerId < 5 &&
+	       buffer[3] == CLIENT_CMD_SHOOT)
+	receiveShoot(session, playerId);
       //else
       //std::cout << "Bad command..." << std::endl;
     }

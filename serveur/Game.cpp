@@ -7,19 +7,29 @@ Game::Game(Factory *_f, char **argv)
 {
   AbsUDPNetwork *p1;
   AbsUDPNetwork *p2;
+  Socket	 sock;
+  Socket	 sock1;
+  Socket	 sock2;
 
   f = _f;
   th = f->n_thread();
   mt = f->n_mutex();
   p = f->n_network();
+  p1 = f->n_network();
+  p2 = f->n_network();
   p->setArg(argv);
-  p->CreateSocket();
-  p->Bind();
-
+  sock = p->CreateSocket(4241);
+  p->Bind(sock);
+  p1->setArg(argv);
+  sock1 = p1->CreateSocket(4242);
+  p1->Bind(sock1);
+  p2->setArg(argv);
+  sock2 = p2->CreateSocket(4243);
+  p2->Bind(sock2);
   s = new Session * [3];
   s[0] = new Session(p, th, mt, 1);
-  s[1] = new Session(p, th, mt, 2);
-  s[2] = new Session(p, th, mt, 3);
+  s[1] = new Session(p1, th, mt, 2);
+  s[2] = new Session(p2, th, mt, 3);
   s[0]->_mt->AMutexInit(&priority);
 }
 
@@ -39,7 +49,7 @@ void Game::startGame(int id)
 
   std::cout << "Partie : " << id << std::endl;
   while (1)
-    cmd.receiveFromClient(s[id - 1], p, &priority);
+    cmd.receiveFromClient(s[id - 1], s[id - 1]->_p, &priority);
 }
 
 void *Game::startMultiGame(Game *g)

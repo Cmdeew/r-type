@@ -15,7 +15,7 @@ class	IAbsUDPNetwork
   virtual int	Receive(void *Buffer) = 0;
   virtual int	Send(const void *Buffer, size_t size) = 0;
   virtual int	CloseSocket() = 0;
-  virtual void	Bind(void) = 0;
+  virtual void	Bind(Socket sock) = 0;
   virtual void	setArg(char **argv) = 0;
 };
 

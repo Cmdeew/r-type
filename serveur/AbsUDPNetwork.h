@@ -20,7 +20,7 @@ class	AbsUDPNetwork : public IAbsUDPNetwork
 public:
   AbsUDPNetwork();
   ~AbsUDPNetwork();
-protected:
+  //protected:
   Socket _socket;
   int _port;
   char *_broadcast;

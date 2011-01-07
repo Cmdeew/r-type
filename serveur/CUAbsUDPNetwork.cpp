@@ -43,20 +43,17 @@ void	CUAbsUDPNetwork::setArg(char **argv)
 Socket	CUAbsUDPNetwork::CreateSocket(int port)
 {
   my_addr = new struct sockaddr_in;
- 
   if ((_socket=(void *)socket(AF_INET,SOCK_DGRAM,0)) < 0)
     {
       std::cout << ERROR_CREATE_SOCKET << std::endl;
       exit(0);
     }                                                                          
-
   memset(my_addr,0,sizeof(my_addr));
   my_addr->sin_family=AF_INET;
   my_addr->sin_addr.s_addr=inet_addr(_broadcast);
   my_addr->sin_port=htons(port);
-
   std::cout << SOCKET_OK << std::endl;
-  return (0);
+  return (_socket);
 }
 
 int	CUAbsUDPNetwork::Receive(void *Buffer)
@@ -90,10 +87,10 @@ int	CUAbsUDPNetwork::CloseSocket()
   close((int)_socket);
 }
 
-void	CUAbsUDPNetwork::Bind(void)
+void	CUAbsUDPNetwork::Bind(Socket sock)
 {
   my_addr->sin_addr.s_addr=htonl(INADDR_ANY);
-  if (bind((int)_socket, (struct sockaddr *)my_addr, sizeof(struct sockaddr_in)))
+  if (bind((int)sock, (struct sockaddr *)my_addr, sizeof(struct sockaddr_in)))
    {
       std::cout << ERROR_BIND << std::endl;
       exit(0);

@@ -29,6 +29,7 @@ class	Session
   int				_session_n;
   std::list<Object *>	_listObj;
   int				_game_n;
+  int				_score;
 
   Session();
   Session(AbsUDPNetwork *, AbsThread *, AbsMutex *, int);

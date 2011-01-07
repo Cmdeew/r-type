@@ -6,6 +6,7 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   std::vector<Player *>     tabPlayer(4);
   _tabPlayer = tabPlayer;
   _p = p;
+  std::cout << (int)_p->_socket << std::endl;
   _th = th;
   _mt = mt;
   _pingTime[0] = 0;
@@ -13,12 +14,12 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   _pingTime[2] = 0;
   _pingTime[3] = 0;
   _game_n = nbGame;
+  _score = 0;
 }
 
 
 Session::~Session()
 {
-
 }
 
 
@@ -92,31 +93,30 @@ void  Session::sessionthreadElems()
     }
   */
   //    static unsigned char k = 5; // TO CHANGE
-
-
-
   obj = new Object(5, 55, 16, 12);
   _listObj.push_back(obj);
-
-  
+  obj = new Object(5, 55, 16 + 2, 12);
+  _listObj.push_back(obj);
+  obj = new Object(5, 55, 16 + 10, 12);
+  _listObj.push_back(obj);
+  obj = new Object(5, 55, 16 + 15, 12);
+  _listObj.push_back(obj);
+  obj = new Object(5, 55, 16 + 4, 12);
+  _listObj.push_back(obj);
+  obj = new Object(5, 55, 16 + 7, 12);
+  _listObj.push_back(obj);
   /*
   obj = new Object(6, 55, 8, 11);
     _listObj.push_back(obj);
   */
-
-
   //  k = 7;
   std::cout << "Success for threadElems" << std::endl;
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
-	{
-	  i = 0;
-	}
-
+	i = 0;
       if (i % 100 == 0)
 	{
-
 	  //Detection des collisions
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
@@ -133,8 +133,7 @@ void  Session::sessionthreadElems()
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
 		      _listObj.erase(it2);
-		      obj = new Object(5, 55, 16, 11 + ((int)rand() %2));
-		      //obj = new Object(k++, 55, 16, 11 + ((int)rand() %2));
+		      obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
 		      _listObj.push_back(obj);
 		      it = _listObj.begin();
 		      it2 = _listObj.begin();
@@ -144,8 +143,6 @@ void  Session::sessionthreadElems()
 	      it++;
 	    }
 	  // Fin detection des collisions
-
-
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
@@ -163,7 +160,6 @@ void  Session::sessionthreadElems()
 	      it++;
 	    }
 	}
-
       if (i % 500 == 0)
 	{
 	  std::cout << "Sending each objs position" << std::endl;
@@ -182,13 +178,9 @@ void  Session::sessionthreadElems()
 	      it++;
 	    }
 	}
-
-
       _th->ASleep(500);
       i++;
     }
-
-
 }
 
 
