@@ -1,8 +1,11 @@
 #ifndef GAMERTYPE_H_
-#define GAMERTYPE_H_
+# define GAMERTYPE_H_
 
 #include "Factory.h"
 #include "AbsThread.h"
+#include "Session.h"
+
+typedef void * CRITICAL_SECTION;
 
 class	Game
 {
@@ -11,7 +14,10 @@ class	Game
  public:
   Factory	*f;
   AbsThread	*th;
+  AbsMutex	*mt;
   AbsUDPNetwork *p;
+  Session	**s;
+  CRITICAL_SECTION                priority;
   hand		handles[3];
   thread	threads[3];
   Game(Factory *_f, char **argv);

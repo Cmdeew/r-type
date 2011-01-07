@@ -5,6 +5,8 @@
 #include "CUAbsThread.h"
 #include "CUAbsUDPNetwork.h"
 #include "CWAbsUDPNetwork.h"
+#include "CUAbsMutex.h"
+#include "CWAbsMutex.h"
 
 class	Factory
 {
@@ -13,6 +15,7 @@ class	Factory
   ~Factory();
   AbsThread *     n_thread();
   AbsUDPNetwork * n_network();
+  AbsMutex *	  n_mutex();
 };
 
 #endif // _FACTORY_H_

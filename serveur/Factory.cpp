@@ -10,6 +10,18 @@ Factory::~Factory()
 
 }
 
+AbsMutex *	Factory::n_mutex()
+{
+  AbsMutex	*inst;
+#ifndef _WIN32
+  inst = new CUAbsMutex();
+#else
+  inst = new CWAbsMutex();
+  typedef void * CRITICAL_SECTION;
+#endif
+  return ((AbsMutex *)inst);
+}
+
 AbsThread *	Factory::n_thread()
 {
   AbsThread	*inst;

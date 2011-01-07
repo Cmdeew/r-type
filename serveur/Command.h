@@ -23,6 +23,8 @@
 #include "Player.h"
 #include "Session.h"
 
+typedef void * CRITICAL_SECTION;
+
 class	Command
 {
  private:
@@ -43,7 +45,7 @@ class	Command
   int	sendObjMove(Object *o, AbsUDPNetwork *p);
 
 
-  int	receiveFromClient(Session *session, AbsUDPNetwork *);
+  int	receiveFromClient(Session *session, AbsUDPNetwork *, CRITICAL_SECTION *);
   int	receiveConnect(Session *session);
   int	receiveDisconnect(Session *session, unsigned char playerId);
   int	receivePing(Session *session, unsigned char playerId);

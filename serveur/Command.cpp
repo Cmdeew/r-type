@@ -14,7 +14,7 @@ Command::~Command()
 
 int	Command::sendConnect(Player *player, AbsUDPNetwork *p)
 {  
-  //  std::cout << "sendConnect OK " << std::endl;
+  std::cout << "sendConnect OK " << std::endl;
   std::cout << "ID PARTY : " << (int)id_game << std::endl;
   buffer[0] = id_game;
   buffer[1] = SERVER;
@@ -69,7 +69,7 @@ int	Command::sendMove(Player *player, AbsUDPNetwork *p)
   buffer[5] = player->getPosy();
   buffer[6] = player->getId();
   buffer[7] = player->getId();
-  //std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
+  std::cout << "Send move player " << (int)player->getId() << " to all client" << std::endl;
   return p->Send(buffer, CMD_SIZE);
 }
 
@@ -142,7 +142,8 @@ int	Command::sendObjMove(Object *o, AbsUDPNetwork *p)
   return p->Send(buffer, CMD_SIZE);
 }
 
-int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
+int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p,
+				   CRITICAL_SECTION *priority)
 {
   int	cc;
   unsigned char playerId;
@@ -151,38 +152,51 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 
   for (i = 0; i < CMD_SIZE; i++)
     buffer[i] = 0;
-  cc = p->Receive(buffer);
-  //  std::cout << "size cc:" << cc << std::endl;
-  //  std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
+  if (session->_mt->AMutexTryLock(priority) == true)
+    {
+      std::cout << "Hello id" << session->_game_n << std::endl;
+      cc = p->Receive(buffer);
+      session->_mt->AMutexUnLock(priority);
+      std::cout << "Ciao" << std::endl;
+    }
+  //std::cout << "size cc:" << cc << "id : " << session->_game_n << std::endl;
+  //std::cout << "buffer[0]:" << (int)buffer[0] << std::endl;
   if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
+      std::cout << "Entree dans la condition 1" << std::endl;
       game = buffer[0];
       playerId = buffer[2];
       std::cout << game << std::endl;
-      if ((int)game == session->_game_n && playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT &&
-	  buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
-	receiveConnect(session);
-      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
-	       buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 && buffer[5] == 0 &&
-	       buffer[6] == 0 && buffer[7] == 0)
-	receiveDisconnect(session, playerId);
-      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
-	       buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0 &&
-	       buffer[7] == 0)
-	receivePing(session, playerId);
-      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
-	       buffer[3] == CLIENT_CMD_MOVE)
-	receiveMove(session, playerId, buffer[4], buffer[5]);
-      else if ((int)game == session->_game_n && playerId > 0 && playerId < 5 &&
-	       buffer[3] == CLIENT_CMD_SHOOT)
-	receiveShoot(session, playerId);
+      std::cout << session->_game_n << std::endl;
+      if ((int)game == session->_game_n)
+	{
+	  std::cout << "Entree dans la condition 2" << std::endl;
+	  if (playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT && buffer[4] == 0 &&
+	      buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+	    receiveConnect(session);
+	  else if (playerId > 0 && playerId < 5 &&
+		   buffer[3] == CLIENT_CMD_DISCONNECT && buffer[4] == 0 &&
+		   buffer[5] == 0 &&
+		   buffer[6] == 0 && buffer[7] == 0)
+	    receiveDisconnect(session, playerId);
+	  else if (playerId > 0 && playerId < 5 &&
+		   buffer[3] == CLIENT_CMD_PING && buffer[4] == 0 &&
+		   buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
+	    receivePing(session, playerId);
+	  else if (playerId > 0 && playerId < 5 &&
+		   buffer[3] == CLIENT_CMD_MOVE)
+	    receiveMove(session, playerId, buffer[4], buffer[5]);
+	  else if (playerId > 0 && playerId < 5 &&
+		   buffer[3] == CLIENT_CMD_SHOOT)
+	    receiveShoot(session, playerId);
+	}
       //else
       //std::cout << "Bad command..." << std::endl;
     }
-  /*else 
-    {
-      std::cout << "Bad command (size)..." << std::endl;
-    }*/
+/*else 
+  {
+  std::cout << "Bad command (size)..." << std::endl;
+  }*/
   return (0);
 }
 

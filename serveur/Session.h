@@ -6,6 +6,7 @@
 #include <list>
 #include "AbsUDPNetwork.h"
 #include "AbsThread.h"
+#include "AbsMutex.h"
 #include "Player.h"
 #include "Object.h"
 
@@ -19,6 +20,7 @@ class	Session
  public:
   AbsUDPNetwork			*_p;
   AbsThread			*_th;
+  AbsMutex			*_mt;
   thread			threads[4];
   hand				handles[4];
   std::vector<Player *>	_tabPlayer;
@@ -28,7 +30,8 @@ class	Session
   std::list<Object *>	_listObj;
   int				_game_n;
 
-  Session(AbsUDPNetwork *, AbsThread *, int);
+  Session();
+  Session(AbsUDPNetwork *, AbsThread *, AbsMutex *, int);
   ~Session();
   void sessionthread();
   static void    *sessionthreadInit(Session *sess);

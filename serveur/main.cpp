@@ -10,18 +10,17 @@ int	main(int ac, char **argv)
   Game	*start;
   int	i;
 
-  i = 0;
+  i = 1;
   start = new Game(new Factory(), argv);
   srand(time(NULL)); 
-  /*while (i <= 3)
+  while (i <= 3)
     {
       start->setId(i);
-      start->handles[i] = start->th->ACreateThread(&start->threads[i], NULL,
-						   (typefunc)start->startMultiGame, start);
+      start->handles[i] = start->th->ACreateThread(&start->threads[i], NULL, (typefunc)start->startMultiGame, start);
       i++;
-      //sleep(3);
+      sleep(1);
     }
-    while (42);*/
-  start->setId(1);
-  start->startMultiGame(start);
+  while (42);
+    //start->setId(0);
+    //start->startMultiGame(start);
 }

@@ -1,12 +1,13 @@
 #include "Session.h"
 #include <stdlib.h>
 
-Session::Session(AbsUDPNetwork *p, AbsThread *th, int nbGame)
+Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
 {
   std::vector<Player *>     tabPlayer(4);
   _tabPlayer = tabPlayer;
   _p = p;
   _th = th;
+  _mt = mt;
   _pingTime[0] = 0;
   _pingTime[1] = 0;
   _pingTime[2] = 0;
