@@ -38,6 +38,7 @@ class gameClient
   void		cleanexplosion();
   unsigned char	getGame();
   void		readServer(void *userData);
+  void		choosePort(int nb);
   void		loopClient();
   int		mainClient();
   int		keyEvent();

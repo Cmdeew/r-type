@@ -1,4 +1,5 @@
 #include "AbstractWindow.h"
+#include <sstream>
 
 AbstractWindow::AbstractWindow()
 {
@@ -10,8 +11,9 @@ AbstractWindow::AbstractWindow()
     std::cerr << "Error: Unable to load font" << std::endl;
   else
     _score.SetFont(_font);
-  _score.SetSize(10);
-  _score.SetPosition(0, 500);
+  _score.SetText("score:");
+  _score.SetSize(25);
+  _score.SetPosition(500, 0);
   _score.SetColor(sf::Color(255, 255, 255));
   _background.SetImage(_backgroundImg);
 }
@@ -29,6 +31,7 @@ void	AbstractWindow::Draw(const std::list<Element *> &list)
 
   it = list.begin();
   _App.Draw(_background);
+  _App.Draw(_score);
   while (it != list.end())
     {
       elem = *it;
@@ -103,5 +106,10 @@ void	AbstractWindow::MoveBackground()
 
 void	AbstractWindow::SetScore(int score)
 {
-  _score.SetText("score:" + score);
+  std::string	tmp;
+  std::ostringstream oss;
+
+  oss << score;
+  tmp = oss.str();
+  _score.SetText("score: " + tmp);
 }

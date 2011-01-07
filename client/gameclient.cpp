@@ -42,6 +42,14 @@ void		gameClient::fillnetwork(udpNetwork* network)
     std::cout << "Error: can't open file!"<< std::endl;
 }
 
+void		gameClient::choosePort(int nb)
+{
+  if (nb == 2)
+    _network->setPort(_network->getPort() + 1);
+  else if (nb == 3)
+    _network->setPort(_network->getPort() + 2);
+}
+
 void		gameClient::loopClient()
 {
   std::size_t           received;
@@ -53,14 +61,15 @@ void		gameClient::loopClient()
 
   this->_network = new udpNetwork();
   this->fillnetwork(_network);
+  if (!(temp = _mainWindow.MainMenuLoop()))
+      exit(0);
+  _mainWindow.Close();
+  choosePort(temp);
   if (!(_network->getSocket().Bind(_network->getPort())))
     {
       std::cout << "Error: Socket Listen! You must change the port." << std::endl;
       exit(0);
     }
-  if (!(temp = _mainWindow.MainMenuLoop()))
-      exit(0);
-  _mainWindow.Close();
   this->requestConnect(temp);
   while(flag == 0 &&
 	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
@@ -162,6 +171,7 @@ int		gameClient::mainClient()
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
+      _window.SetScore(_score);
       _mutex.Lock();
       _window.Draw(_object);
       _mutex.Unlock();
