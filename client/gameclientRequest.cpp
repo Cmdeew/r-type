@@ -304,7 +304,6 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  if (nElem != NULL)
 	    _object.push_back(nElem);
 	  _score += 10;
-	  std::cout << "Score: "<< _score << std::endl;
 	}
     }
 }

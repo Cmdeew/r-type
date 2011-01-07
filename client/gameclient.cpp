@@ -171,6 +171,7 @@ int		gameClient::mainClient()
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
+      _window.SetScore(_score);
       _mutex.Lock();
       _window.Draw(_object);
       _mutex.Unlock();

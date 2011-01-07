@@ -1,4 +1,5 @@
 #include "AbstractWindow.h"
+#include <sstream>
 
 AbstractWindow::AbstractWindow()
 {
@@ -106,8 +107,9 @@ void	AbstractWindow::MoveBackground()
 void	AbstractWindow::SetScore(int score)
 {
   std::string	tmp;
+  std::ostringstream oss;
 
-  tmp = score;
-  std::cout << tmp << std::endl;
-  _score.SetText("score:" + tmp);
+  oss << score;
+  tmp = oss.str();
+  _score.SetText("score: " + tmp);
 }
