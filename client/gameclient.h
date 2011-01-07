@@ -36,6 +36,7 @@ class gameClient
   std::list<Element*>	_object;
   gameClient();
   ~gameClient();
+  sf::Sprite	getSprite();
   void		cleanexplosion();
   void		setLife(unsigned char nb);
   unsigned char	getLife();

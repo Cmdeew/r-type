@@ -35,6 +35,25 @@ int		gameClient::getId()
   return _idPlayer;
 }
 
+sf::Sprite	gameClient::getSprite()
+{
+  std::list<Element *>::iterator	lit;
+  Element				*elem;
+  std::list<sf::Sprite>::iterator       iter;
+
+  lit = _object.begin();
+  for(;lit!=_object.end();++lit)
+    {
+      elem = *lit;
+      if(elem->getID() == _idPlayer)
+        {
+	  iter = elem->getSprite().begin();
+	  return *iter;
+        }
+    }
+  return *iter;
+}
+
 void		gameClient::fillnetwork(udpNetwork* network)
 {
   std::ifstream	stream;
@@ -171,7 +190,7 @@ int		gameClient::mainClient()
   _score = 0;
   _weapondispo = 0;
   _weaponloop = 0;
-  _life = 1;
+  _life = 3;
   _music.LoadMusic();
   Thread.Launch();
   while (_window.IsLaunch())
