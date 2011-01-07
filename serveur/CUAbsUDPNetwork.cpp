@@ -40,7 +40,7 @@ void	CUAbsUDPNetwork::setArg(char **argv)
     }
 }
 
-Socket	CUAbsUDPNetwork::CreateSocket()
+Socket	CUAbsUDPNetwork::CreateSocket(int port)
 {
   my_addr = new struct sockaddr_in;
  
@@ -53,7 +53,7 @@ Socket	CUAbsUDPNetwork::CreateSocket()
   memset(my_addr,0,sizeof(my_addr));
   my_addr->sin_family=AF_INET;
   my_addr->sin_addr.s_addr=inet_addr(_broadcast);
-  my_addr->sin_port=htons(_port);
+  my_addr->sin_port=htons(port);
 
   std::cout << SOCKET_OK << std::endl;
   return (0);

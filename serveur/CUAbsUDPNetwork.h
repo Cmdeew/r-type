@@ -10,7 +10,7 @@ class	CUAbsUDPNetwork : public AbsUDPNetwork
 public:
   CUAbsUDPNetwork();
   ~CUAbsUDPNetwork();
-  Socket CreateSocket();
+  Socket CreateSocket(int port);
   int   Receive(void *Buffer);
   int   Send(const void *Buffer, size_t size);
   int   CloseSocket();
