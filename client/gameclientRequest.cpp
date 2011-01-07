@@ -274,6 +274,9 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
   unsigned char			posy;
   Element		*nElem;
 
+  
+  if (buffer[4] == _idPlayer || buffer[5] == _idPlayer)
+    _life -= 1;
   lit = _object.begin();
   for(;lit!=_object.end();++lit)
     {
