@@ -15,6 +15,16 @@ gameClient::~gameClient()
   ;
 }
 
+void		gameClient::setLife(unsigned char nb)
+{
+  _life = nb;
+}
+
+unsigned char	gameClient::getLife()
+{
+  return (_life);
+}
+
 unsigned char	gameClient::getGame()
 {
   return(_game);
@@ -156,6 +166,7 @@ int		gameClient::mainClient()
   _score = 0;
   _weapondispo = 0;
   _weaponloop = 0;
+  _life = 1;
   _music.LoadMusic();
   Thread.Launch();
   while (_window.IsLaunch())

@@ -22,6 +22,7 @@ class gameClient
  private:
   int			_idPlayer;
   unsigned char	        _game;
+  unsigned char		_life;
   int			_score;
   AbstractWindow	_window;
   AbstractMusic		_music;
@@ -36,6 +37,8 @@ class gameClient
   gameClient();
   ~gameClient();
   void		cleanexplosion();
+  void		setLife(unsigned char nb);
+  unsigned char	getLife();
   unsigned char	getGame();
   void		readServer(void *userData);
   void		choosePort(int nb);
