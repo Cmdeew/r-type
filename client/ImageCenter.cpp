@@ -62,7 +62,7 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/monster12.png");
   _lmonster2.push_back(img);
 
-  img.LoadFromFile("sprite/shoot5.png");
+  img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
 
   img.LoadFromFile("sprite/shoot6.png");
