@@ -21,14 +21,13 @@ Game::Game(Factory *_f, char **argv)
   p2 = f->n_network();
   p->setArg(argv);
 
-  std::cout << "port : " << p->getPort() + 1 << std::endl;
   sock = p->CreateSocket(p->getPort());
   p->Bind(sock);
   p1->setArg(argv);
-  sock1 = p1->CreateSocket(getPort()+1);
+  sock1 = p1->CreateSocket(p->getPort()+1);
   p1->Bind(sock1);
   p2->setArg(argv);
-  sock2 = p2->CreateSocket(getPort() + 2);
+  sock2 = p2->CreateSocket(p->getPort() + 2);
   p2->Bind(sock2);
   s = new Session * [3];
   s[0] = new Session(p, th, mt, 1);
