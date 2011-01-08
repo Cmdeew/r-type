@@ -93,19 +93,24 @@ void  Session::sessionthreadElems()
       a++;
     }
   */
-  //    static unsigned char k = 5; // TO CHANGE
-  obj = new Object(5, 55, 16, 12);
+  static unsigned char mob_id = 10; // TO CHANGE
+
+
+
+  /*
+  obj = new Object(mob_id++, 55, 16 + 2, 12);
   _listObj.push_back(obj);
-  obj = new Object(5, 55, 16 + 2, 12);
+  obj = new Object(mob_id++, 55, 16 + 10, 12);
   _listObj.push_back(obj);
-  obj = new Object(5, 55, 16 + 10, 12);
+  obj = new Object(mob_id++, 55, 16 + 15, 12);
   _listObj.push_back(obj);
-  obj = new Object(5, 55, 16 + 15, 12);
+  obj = new Object(mob_id++, 55, 16 + 4, 12);
   _listObj.push_back(obj);
-  obj = new Object(5, 55, 16 + 4, 12);
+  obj = new Object(mob_id++, 55, 16 + 7, 12);
   _listObj.push_back(obj);
-  obj = new Object(5, 55, 16 + 7, 12);
-  _listObj.push_back(obj);
+  */
+
+
   /*
   obj = new Object(6, 55, 8, 11);
     _listObj.push_back(obj);
@@ -116,6 +121,21 @@ void  Session::sessionthreadElems()
     {
       if (i == 10000)
 	i = 0;
+
+      //Generation d'un mob
+      if (i% 9999)
+	{
+	  a = rand();
+	  if (a % 500 == 0) //2000
+	    {
+	      //	      obj = new Object(mob_id++, 55, 16, 12);
+	      obj = new Object(mob_id++, 55, rand() % 16, (rand() % 2) + 11);
+	      _listObj.push_back(obj);
+	      if (mob_id > 45)
+		mob_id = 10;
+	    }
+	}
+
       if (i % 100 == 0)
 	{
 	  //Detection des collisions
@@ -134,8 +154,8 @@ void  Session::sessionthreadElems()
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
 		      _listObj.erase(it2);
-		      obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
-		      _listObj.push_back(obj);
+		      //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
+		      //_listObj.push_back(obj);
 		      it = _listObj.begin();
 		      it2 = _listObj.begin();
 		    }
@@ -151,6 +171,7 @@ void  Session::sessionthreadElems()
 	      if (obj->getType() == 5 || obj->getType() == 6)
 		{
 		  obj->move(); //Mouvement des missiles
+		  cmd.sendObjMove(obj, _p); //TEST
 		  if (obj->getX() > 50) //Missile depassant la fenetre
 		    {
 		      cmd.sendDestroy(obj->getId() , 0, _p);
@@ -161,7 +182,7 @@ void  Session::sessionthreadElems()
 	      it++;
 	    }
 	}
-      if (i % 500 == 0)
+      if (i % 200 == 0)
 	{
 	  std::cout << "Sending each objs position" << std::endl;
 	  it = _listObj.begin();
