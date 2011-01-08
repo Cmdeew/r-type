@@ -73,49 +73,17 @@ void  Session::sessionthread()
 void  Session::sessionthreadElems()
 {
   int i = 0;
+  int a = 0;
   Command           cmd(_game_n);
   Object	*obj;
   Object	*obj2;
   std::list<Object *>::iterator it;
-
   std::list<Object *>::iterator it2;
-
 
   //creer la liste des objs tout les x secondes et setter leur positions
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
   //      obj = new Object(5, 46, 16, 11);
-  int a = 0;
-  /*
-  while (a < 2)
-    {
-      obj = new Object(a + 5, 46, 8 + a * 5, 11);
-      _listObj.push_back(obj);
-      a++;
-    }
-  */
   static unsigned char mob_id = 10; // TO CHANGE
-
-
-
-  /*
-  obj = new Object(mob_id++, 55, 16 + 2, 12);
-  _listObj.push_back(obj);
-  obj = new Object(mob_id++, 55, 16 + 10, 12);
-  _listObj.push_back(obj);
-  obj = new Object(mob_id++, 55, 16 + 15, 12);
-  _listObj.push_back(obj);
-  obj = new Object(mob_id++, 55, 16 + 4, 12);
-  _listObj.push_back(obj);
-  obj = new Object(mob_id++, 55, 16 + 7, 12);
-  _listObj.push_back(obj);
-  */
-
-
-  /*
-  obj = new Object(6, 55, 8, 11);
-    _listObj.push_back(obj);
-  */
-  //  k = 7;
   std::cout << "Success for threadElems" << std::endl;
   while (1) // On envoie des elements à l'infini
     {
@@ -163,6 +131,8 @@ void  Session::sessionthreadElems()
 		}
 	      it++;
 	    }
+
+
 	  // Fin detection des collisions
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
@@ -182,6 +152,43 @@ void  Session::sessionthreadElems()
 	      it++;
 	    }
 	}
+
+      // Debut collision player ++ mob
+
+      if (i % 100 == 0)
+	{
+	  int   j;
+
+          it = _listObj.begin();
+          while (it != _listObj.end())
+            {
+              j = 0;
+              while (j <= 3)
+                {
+
+		if (_tabPlayer[j] != NULL &&
+                      obj->getX() < _tabPlayer[j]->getPosx() + 3 && obj->getX() > _tabPlayer[j]->getPosx() - 3 &&
+                      obj->getY() < _tabPlayer[j]->getPosy() + 3 && obj->getY() > _tabPlayer[j]->getPosy() - 3)
+                    {
+		      std::cout << "Collision" << std::endl;
+		      if ((_tabPlayer[j]->getLife() - 1) > 0)
+                        {
+                          _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
+                          cmd.sendLife(_tabPlayer[j], _p);
+			  _tabPlayer[j]->setPosx(10);
+			  _tabPlayer[j]->setPosy(10);
+                        }
+                      else
+                        _pingTime[j] = 0;
+                    }
+                  j++;
+                }
+              it++;
+            }
+	}
+
+      // Fin collision player ++ mob
+
       if (i % 200 == 0)
 	{
 	  std::cout << "Sending each objs position" << std::endl;
