@@ -362,10 +362,10 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 3 yellow player
 		- 4 green player
 		- 5 missile player
-		- 6 missile mob
-		- 7 [reserved]
+		- 6 missile mob trash
+		- 7 missile mob boss
 		- 8 meteorite
-		- 9 edge
+		- 9 wall
 		- 10 [reserved]
 		- 11 ennemy_one
 		- 12 ennemy_two
