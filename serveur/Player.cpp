@@ -5,7 +5,7 @@ Player::Player()
   _id = 0;
   _posx = 10;
   _posy = 10;
-  _life = 100;
+  _life = 3;
 }
 
 Player::Player(unsigned char id)
@@ -13,7 +13,7 @@ Player::Player(unsigned char id)
   _id = id;
   _posx = 10;
   _posy = 10;
-  _life = 100;
+  _life = 3;
 }
 
 Player::~Player()

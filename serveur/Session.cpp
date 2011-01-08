@@ -34,6 +34,7 @@ void  Session::sessionthread()
   _tabPlayer[session] = new Player(session +1);
   std::cout << "New player assign on slot " << session << "... Partie " << _game_n << std::endl;
   cmd.sendConnect(_tabPlayer[session], _p);
+  cmd.sendLife(_tabPlayer[session], _p);
   //  cmd.sendMove(_tabPlayer[session], _p);
   //  std::cout << "En attente des nouvelles positions du client..." << std::endl;
   while (_pingTime[session] > 0)
