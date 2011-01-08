@@ -158,15 +158,14 @@ void  Session::sessionthreadElems()
       if (i % 100 == 0)
 	{
 	  int   j;
-
           it = _listObj.begin();
           while (it != _listObj.end())
             {
               j = 0;
+	      obj = *it;
               while (j <= 3)
                 {
-
-		if (_tabPlayer[j] != NULL &&
+		  if (_tabPlayer[j] != NULL && obj->getType() != 5 && 
                       obj->getX() < _tabPlayer[j]->getPosx() + 3 && obj->getX() > _tabPlayer[j]->getPosx() - 3 &&
                       obj->getY() < _tabPlayer[j]->getPosy() + 3 && obj->getY() > _tabPlayer[j]->getPosy() - 3)
                     {
