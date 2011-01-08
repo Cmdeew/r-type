@@ -6,6 +6,7 @@ Player::Player()
   _posx = 10;
   _posy = 10;
   _life = 3;
+  _timeLife = 1000;
 }
 
 Player::Player(unsigned char id)
@@ -14,6 +15,7 @@ Player::Player(unsigned char id)
   _posx = 10;
   _posy = 10;
   _life = 3;
+  _timeLife = 1000;
 }
 
 Player::~Player()
@@ -41,6 +43,11 @@ void	Player::setLife(unsigned char life)
   _life = life;
 }
 
+void	Player::setTLife(int tLife)
+{
+  _timeLife = tLife;
+}
+
 unsigned char Player::getId()
 {
   return (_id);
@@ -59,4 +66,9 @@ unsigned char Player::getPosy()
 unsigned char	Player::getLife()
 {
   return (_life);
+}
+
+int		Player::getTLife()
+{
+  return (_timeLife);
 }
