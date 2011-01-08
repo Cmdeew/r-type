@@ -1,0 +1,23 @@
+Serveur:
+
+- Mettre a jour le score
+
+- Fonction pour chaque niveau avec pop des mobs
+
+- Avant chaque level (lancement d´un boss)
+
+- Modifier la boucle pour que le serveur sature pas
+
+- Corriger les segfaults
+
+- IA pour chaque mobs
+
+- Rajouter les libs
+
+- Refaire les Makefile
+
+Client:
+
+- A chaque level changement du background
+
+- Implementer les sons au niveau des tirs
