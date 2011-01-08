@@ -11,6 +11,8 @@ Game::Game(Factory *_f, char **argv)
   Socket	 sock1;
   Socket	 sock2;
 
+
+
   f = _f;
   th = f->n_thread();
   mt = f->n_mutex();
@@ -18,13 +20,15 @@ Game::Game(Factory *_f, char **argv)
   p1 = f->n_network();
   p2 = f->n_network();
   p->setArg(argv);
-  sock = p->CreateSocket(4241);
+
+  std::cout << "port : " << p->getPort() + 1 << std::endl;
+  sock = p->CreateSocket(p->getPort());
   p->Bind(sock);
   p1->setArg(argv);
-  sock1 = p1->CreateSocket(4242);
+  sock1 = p1->CreateSocket(getPort()+1);
   p1->Bind(sock1);
   p2->setArg(argv);
-  sock2 = p2->CreateSocket(4243);
+  sock2 = p2->CreateSocket(getPort() + 2);
   p2->Bind(sock2);
   s = new Session * [3];
   s[0] = new Session(p, th, mt, 1);
@@ -45,6 +49,7 @@ void Game::setId(int _id)
 void Game::startGame(int id)
 {
   Command	cmd(id);
+  
 
   std::cout << "Partie : " << id << std::endl;
   while (1)

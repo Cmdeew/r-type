@@ -17,6 +17,7 @@ class	IAbsUDPNetwork
   virtual int	CloseSocket() = 0;
   virtual void	Bind(Socket sock) = 0;
   virtual void	setArg(char **argv) = 0;
+  virtual int	getPort() = 0;
 };
 
 #endif

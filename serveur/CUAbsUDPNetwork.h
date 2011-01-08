@@ -16,6 +16,7 @@ public:
   int   CloseSocket();
   void	Bind(Socket sock);
   void	setArg(char **);
+  int	getPort();
 };
 
 #endif

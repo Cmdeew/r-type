@@ -99,6 +99,11 @@ void	CUAbsUDPNetwork::Bind(Socket sock)
   std::cout << BIND_OK << std::endl;
 }
 
+int	CUAbsUDPNetwork::getPort()
+{
+  return _port;
+}
+
 CUAbsUDPNetwork::~CUAbsUDPNetwork()
 {
 
