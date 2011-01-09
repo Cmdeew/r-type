@@ -20,6 +20,7 @@ class	AbstractWindow
   sf::Event		_event;
   sf::RenderWindow	_App;
   sf::Font		_font;
+  sf::String		_level;
   sf::String		_score;
   sf::String		_life;
   sf::String		_id;
@@ -40,7 +41,7 @@ class	AbstractWindow
   bool	IsKeyRight();
   bool	IsShooting();
   void	MoveBackground();
-  void	SetText(int score, int life, int id);
+  void	SetText(int score, int life, int id, int level);
   void	setPlayer(sf::Sprite sprite);
 };
 

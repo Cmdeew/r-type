@@ -18,10 +18,13 @@ AbstractWindow::AbstractWindow()
       _score.SetFont(_font);
       _life.SetFont(_font);
       _id.SetFont(_font);
+      _level.SetFont(_font);
     }
   _score.SetText("score:");
   _score.SetSize(25);
   _score.SetPosition(605, 650);
+  _level.SetSize(25);
+  _level.SetPosition(255, 700);
   _score.SetColor(sf::Color(255, 255, 255));
   _background.SetImage(_backgroundImg);
   _lifeSprite.SetImage(_lifeImg);
@@ -133,7 +136,7 @@ void	AbstractWindow::MoveBackground()
   _background.Move(-1, 0);
 }
 
-void	AbstractWindow::SetText(int score, int life, int id)
+void	AbstractWindow::SetText(int score, int life, int id, int level)
 {
   std::string	tmp;
   std::ostringstream oss;
@@ -149,4 +152,8 @@ void	AbstractWindow::SetText(int score, int life, int id)
   oss << id;
   tmp = oss.str();
   _id.SetText("player " + tmp);
+  oss.str("");
+  oss << level;
+  tmp = oss.str();
+  _level.SetText("level " + tmp);
 }
