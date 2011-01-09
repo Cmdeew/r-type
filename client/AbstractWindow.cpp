@@ -191,3 +191,17 @@ void	AbstractWindow::SetText(int score, int life, int id, int level)
   tmp = oss.str();
   _level.SetText("level " + tmp);
 }
+
+int	AbstractWindow::gameOver()
+{
+  while (_App.IsOpened())
+    {
+      _App.Draw(_gameOver);
+      if (Quit())
+	return -1;
+      if (_App.GetInput().IsKeyDown(sf::Key::Return))
+	return 1;
+      _App.Display();
+    }
+  return 0;
+}
