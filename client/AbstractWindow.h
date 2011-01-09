@@ -11,8 +11,12 @@
 class	AbstractWindow
 {
  private:
+  sf::Image		_portraitImg;
+  sf::Sprite		_portrait;
   sf::Image		_backgroundImg;
   sf::Sprite		_background;
+  sf::Image		_gameOverImg;
+  sf::Sprite		_gameOver;
   sf::Image		_interfaceImg;
   sf::Sprite		_interface;
   sf::Image		_lifeImg;
@@ -42,7 +46,7 @@ class	AbstractWindow
   bool	IsShooting();
   void	MoveBackground();
   void	SetText(int score, int life, int id, int level);
-  void	setPlayer(sf::Sprite sprite);
+  void	setPlayer(sf::Sprite sprite, int id);
 };
 
 #endif //!ABSTRACTWINDOW_H

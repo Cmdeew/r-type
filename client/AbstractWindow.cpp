@@ -7,6 +7,8 @@ AbstractWindow::AbstractWindow()
   _App.SetFramerateLimit(60);
   if (!_backgroundImg.LoadFromFile("img/background1.jpg"))
     std::cerr << "Error: Unable to load background" << std::endl;
+  if (!_gameOverImg.LoadFromFile("img/gameover1.jpg"))
+    std::cerr << "Error: Unable to load background" << std::endl;
   if (!_interfaceImg.LoadFromFile("sprite/interface.png"))
     std::cerr << "Error: Unable to load the interface" << std::endl;
   if (!_lifeImg.LoadFromFile("sprite/lifeMenu.png"))
@@ -37,6 +39,7 @@ AbstractWindow::AbstractWindow()
   _id.SetPosition(300, 700);
   _background.SetCenter(0, 50);
   _interface.SetPosition(0, 600);
+  _gameOver.SetImage(_gameOverImg);
 }
 
 void	AbstractWindow::Clear()
@@ -59,6 +62,7 @@ void	AbstractWindow::Draw(const std::list<Element *> &list)
   _App.Draw(_life);
   _App.Draw(_id);
   _App.Draw(_player);
+  _App.Draw(_portrait);
   while (it != list.end())
     {
       elem = *it;
@@ -92,10 +96,39 @@ bool	AbstractWindow::Quit()
   return false;
 }
 
-void	AbstractWindow::setPlayer(sf::Sprite sprite)
+void	AbstractWindow::setPlayer(sf::Sprite sprite, int id)
 {
   _player = sprite;
   _player.SetPosition(250, 710);
+  switch (id)
+    {
+    case 1:
+      {
+	if (!_portraitImg.LoadFromFile("sprite/inter_player1.png"))
+	  std::cerr << "Error: Unable to load the interface" << std::endl;
+	break;
+      }
+    case 2:
+      {
+	if (!_portraitImg.LoadFromFile("sprite/inter_player2.png"))
+	  std::cerr << "Error: Unable to load the interface" << std::endl;
+	break;
+      }
+    case 3:
+      {
+	if (!_portraitImg.LoadFromFile("sprite/inter_player3.png"))
+	  std::cerr << "Error: Unable to load the interface" << std::endl;
+	break;
+      }
+    case 4:
+      {
+	if (!_portraitImg.LoadFromFile("sprite/inter_player4.png"))
+	  std::cerr << "Error: Unable to load the interface" << std::endl;
+	break;
+      }
+    }
+  _portrait.SetImage(_portraitImg);
+  _portrait.SetPosition(500, 665);
 }
 
 bool	AbstractWindow::IsLaunch()
