@@ -24,7 +24,7 @@ AbstractWindow::AbstractWindow()
   _score.SetSize(25);
   _score.SetPosition(605, 650);
   _level.SetSize(25);
-  _level.SetPosition(255, 700);
+  _level.SetPosition(310, 660);
   _score.SetColor(sf::Color(255, 255, 255));
   _background.SetImage(_backgroundImg);
   _lifeSprite.SetImage(_lifeImg);
@@ -53,6 +53,7 @@ void	AbstractWindow::Draw(const std::list<Element *> &list)
   it = list.begin();
   _App.Draw(_background);
   _App.Draw(_interface);
+  _App.Draw(_level);
   _App.Draw(_score);
   _App.Draw(_lifeSprite);
   _App.Draw(_life);
