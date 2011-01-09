@@ -13,6 +13,8 @@ class	AbstractWindow
  private:
   sf::Image		_backgroundImg;
   sf::Sprite		_background;
+  sf::Image		_interfaceImg;
+  sf::Sprite		_interface;
   sf::Image		_lifeImg;
   sf::Sprite		_lifeSprite;
   sf::Event		_event;

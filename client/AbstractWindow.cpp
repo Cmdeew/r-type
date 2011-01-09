@@ -3,10 +3,12 @@
 
 AbstractWindow::AbstractWindow()
 {
-  _App.Create(sf::VideoMode(800, 700, 32), "Best r-type ever!");
+  _App.Create(sf::VideoMode(800, 775, 32), "Best r-type ever!");
   _App.SetFramerateLimit(60);
   if (!_backgroundImg.LoadFromFile("img/background1.jpg"))
     std::cerr << "Error: Unable to load background" << std::endl;
+  if (!_interfaceImg.LoadFromFile("sprite/interface.png"))
+    std::cerr << "Error: Unable to load the interface" << std::endl;
   if (!_lifeImg.LoadFromFile("sprite/lifeMenu.png"))
     std::cerr << "Error: Unable to Load Image" << std::endl;
   if (!_font.LoadFromFile("font/score.ttf"))
@@ -19,17 +21,19 @@ AbstractWindow::AbstractWindow()
     }
   _score.SetText("score:");
   _score.SetSize(25);
-  _score.SetPosition(550, 635);
+  _score.SetPosition(605, 650);
   _score.SetColor(sf::Color(255, 255, 255));
   _background.SetImage(_backgroundImg);
   _lifeSprite.SetImage(_lifeImg);
-  _lifeSprite.SetPosition(305, 635);
+  _interface.SetImage(_interfaceImg);
+  _lifeSprite.SetPosition(605, 700);
   _lifeSprite.Resize(45,40);
   _life.SetSize(25);
-  _life.SetPosition(350, 635);
+  _life.SetPosition(645, 700);
   _id.SetSize(25);
-  _id.SetPosition(55, 635);
-  _background.SetCenter(0, 100);
+  _id.SetPosition(300, 700);
+  _background.SetCenter(0, 50);
+  _interface.SetPosition(0, 600);
 }
 
 void	AbstractWindow::Clear()
@@ -45,6 +49,7 @@ void	AbstractWindow::Draw(const std::list<Element *> &list)
 
   it = list.begin();
   _App.Draw(_background);
+  _App.Draw(_interface);
   _App.Draw(_score);
   _App.Draw(_lifeSprite);
   _App.Draw(_life);
@@ -86,7 +91,7 @@ bool	AbstractWindow::Quit()
 void	AbstractWindow::setPlayer(sf::Sprite sprite)
 {
   _player = sprite;
-  _player.SetPosition(10, 648);
+  _player.SetPosition(250, 710);
 }
 
 bool	AbstractWindow::IsLaunch()
