@@ -24,6 +24,7 @@ class gameClient
   unsigned char	        _game;
   unsigned char		_life;
   int			_score;
+  int			_level;
   AbstractWindow	_window;
   AbstractMusic		_music;
   ElementFactory	_factory;
@@ -42,6 +43,9 @@ class gameClient
   unsigned char	getLife();
   unsigned char	getGame();
   int		getId();
+  int		getLevel();
+  void		setLevel(int level);
+  void		findLevel(int score);
   void		readServer(void *userData);
   void		choosePort(int nb);
   void		loopClient();

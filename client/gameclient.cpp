@@ -35,6 +35,22 @@ int		gameClient::getId()
   return _idPlayer;
 }
 
+int		gameClient::getLevel()
+{
+  return (_level);
+}
+
+void		gameClient::setLevel(int level)
+{
+  _level = level;
+}
+
+void		gameClient::findLevel(int score)
+{
+  if (score >= 1000)
+    this->setLevel(2);
+}
+
 sf::Sprite	gameClient::getSprite()
 {
   std::list<Element *>::iterator	lit;
@@ -191,6 +207,7 @@ int		gameClient::mainClient()
   _weapondispo = 0;
   _weaponloop = 0;
   _life = 3;
+  setLevel(1);
   _music.LoadMusic();
   Thread.Launch();
   _window.setPlayer(getSprite());
@@ -202,12 +219,13 @@ int		gameClient::mainClient()
 	  _weaponloop = 0;
 	  cleanexplosion();
 	}
+      findLevel(_score);
       if (!(keyEvent()))
 	exit(0);
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
-      _window.SetText(_score, getLife(), getId());
+      _window.SetText(_score, getLife(), getId(), getLevel());
       _mutex.Lock();
       _window.Draw(_object);
       _mutex.Unlock();
