@@ -14,6 +14,8 @@ class	MainWindow
   sf::Event	_event;
   sf::Image	_Ibackground;
   sf::Image	_Icredits;
+  sf::Image	_gameOverImg;
+  sf::Sprite	_gameOver;
   sf::Sprite	_background;
   sf::Sprite	_credit;
   sf::String	_tPlay;
@@ -37,6 +39,7 @@ class	MainWindow
   bool	CloseEvent();
   void	Clear();
   void	Close();
+  int	gameOver();
   void	Display();
 };
 

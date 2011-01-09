@@ -206,3 +206,22 @@ int	MainWindow::CreditsLoop()
     }
   return 0;
 }
+
+int     MainWindow::gameOver()
+{
+  while (_mainWindow.IsOpened())
+    {
+      Clear();
+      _App.Draw(_gameOver);
+      while (_App.GetEvent(_event))
+        {
+          if (Quit())
+            return -1;
+          if (_App.GetInput().IsKeyDown(sf::Key::Return))
+            return 1;
+        }
+      Display();
+    }
+  return 0;
+}
+

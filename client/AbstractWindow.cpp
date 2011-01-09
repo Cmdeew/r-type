@@ -7,8 +7,6 @@ AbstractWindow::AbstractWindow()
   _App.SetFramerateLimit(60);
   if (!_backgroundImg.LoadFromFile("img/background1.jpg"))
     std::cerr << "Error: Unable to load background" << std::endl;
-  if (!_gameOverImg.LoadFromFile("img/gameover1.jpg"))
-    std::cerr << "Error: Unable to load background" << std::endl;
   if (!_interfaceImg.LoadFromFile("sprite/interface.png"))
     std::cerr << "Error: Unable to load the interface" << std::endl;
   if (!_lifeImg.LoadFromFile("sprite/lifeMenu.png"))
@@ -39,7 +37,6 @@ AbstractWindow::AbstractWindow()
   _id.SetPosition(300, 700);
   _background.SetCenter(0, 50);
   _interface.SetPosition(0, 600);
-  _gameOver.SetImage(_gameOverImg);
 }
 
 void	AbstractWindow::Clear()
@@ -190,18 +187,4 @@ void	AbstractWindow::SetText(int score, int life, int id, int level)
   oss << level;
   tmp = oss.str();
   _level.SetText("level " + tmp);
-}
-
-int	AbstractWindow::gameOver()
-{
-  while (_App.IsOpened())
-    {
-      _App.Draw(_gameOver);
-      if (Quit())
-	return -1;
-      if (_App.GetInput().IsKeyDown(sf::Key::Return))
-	return 1;
-      _App.Display();
-    }
-  return 0;
 }
