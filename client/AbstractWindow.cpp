@@ -11,6 +11,8 @@ AbstractWindow::AbstractWindow()
     std::cerr << "Error: Unable to load the interface" << std::endl;
   if (!_lifeImg.LoadFromFile("sprite/lifeMenu.png"))
     std::cerr << "Error: Unable to Load Image" << std::endl;
+  if (_gameOverImg.LoadFromFile("img/gameover1.jpg"))
+    _gameOver.SetImage(_gameOverImg);
   if (!_font.LoadFromFile("font/score.ttf"))
     std::cerr << "Error: Unable to load font" << std::endl;
   else
@@ -44,33 +46,38 @@ void	AbstractWindow::Clear()
   _App.Clear(sf::Color(0, 0, 0));
 }
 
-void	AbstractWindow::Draw(const std::list<Element *> &list)
+void	AbstractWindow::Draw(const std::list<Element *> &list, int mode)
 {
   std::list<Element *>::const_iterator	it;
   Element				*elem;
   std::list<sf::Sprite>::iterator	iter;
 
-  it = list.begin();
-  _App.Draw(_background);
-  _App.Draw(_interface);
-  _App.Draw(_level);
-  _App.Draw(_score);
-  _App.Draw(_lifeSprite);
-  _App.Draw(_life);
-  _App.Draw(_id);
-  _App.Draw(_player);
-  _App.Draw(_portrait);
-  while (it != list.end())
+  if (mode == 0)
     {
-      elem = *it;
-      if (elem)
+      it = list.begin();
+      _App.Draw(_background);
+      _App.Draw(_interface);
+      _App.Draw(_level);
+      _App.Draw(_score);
+      _App.Draw(_lifeSprite);
+      _App.Draw(_life);
+      _App.Draw(_id);
+      _App.Draw(_player);
+      _App.Draw(_portrait);
+      while (it != list.end())
 	{
-	  iter = elem->getSprite().begin();
-	  elem->setPosSprite(*iter);
-	  _App.Draw(*iter);
+	  elem = *it;
+	  if (elem)
+	    {
+	      iter = elem->getSprite().begin();
+	      elem->setPosSprite(*iter);
+	      _App.Draw(*iter);
+	    }
+	  it++;
 	}
-      it++;
     }
+  else
+    _App.Draw(_gameOver);
 }
 
 bool	AbstractWindow::IsAnEvent()

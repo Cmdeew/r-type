@@ -25,6 +25,7 @@ class gameClient
   unsigned char		_life;
   int			_score;
   int			_level;
+  bool			_exit;
   AbstractWindow	_window;
   AbstractMusic		_music;
   ElementFactory	_factory;

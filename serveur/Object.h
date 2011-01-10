@@ -10,6 +10,7 @@ private:
 	char	m_type;
 	int	m_lim; /*limite de deplcement*/
 public:
+	Object();
 	Object(char id, char x, char y, char type);
 	~Object();
 	void	move();
