@@ -49,8 +49,8 @@ void	AbstractWindow::Clear()
 void	AbstractWindow::Draw(const std::list<Element *> &list, int mode)
 {
   std::list<Element *>::const_iterator	it;
-  Element				*elem;
   std::list<sf::Sprite>::iterator	iter;
+  Element				*elem;
 
   if (mode == 0)
     {
@@ -69,7 +69,7 @@ void	AbstractWindow::Draw(const std::list<Element *> &list, int mode)
 	  elem = *it;
 	  if (elem)
 	    {
-	      iter = elem->getSprite().begin();
+	      iter = elem->_iter;
 	      elem->setPosSprite(*iter);
 	      _App.Draw(*iter);
 	    }

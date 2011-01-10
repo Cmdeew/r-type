@@ -4,6 +4,7 @@ ImageCenter::ImageCenter()
 {
   sf::Image	img;
 
+  //player 1
   img.LoadFromFile("sprite/player1.png");
   _lplayer1.push_back(img);
   img.LoadFromFile("sprite/player1_up1.png");
@@ -16,7 +17,7 @@ ImageCenter::ImageCenter()
   _lplayer1.push_back(img);
   img.LoadFromFile("sprite/player1_up1.png");
   _lplayer1.push_back(img);
-
+  //player 2
   img.LoadFromFile("sprite/player2.png");
   _lplayer2.push_back(img);
   img.LoadFromFile("sprite/player2_up1.png");
@@ -29,7 +30,7 @@ ImageCenter::ImageCenter()
   _lplayer2.push_back(img);
   img.LoadFromFile("sprite/player2_up1.png");
   _lplayer2.push_back(img);
-
+  //player 3
   img.LoadFromFile("sprite/player3.png");
   _lplayer3.push_back(img);
   img.LoadFromFile("sprite/player3_up1.png");
@@ -42,7 +43,7 @@ ImageCenter::ImageCenter()
   _lplayer3.push_back(img);
   img.LoadFromFile("sprite/player3_up1.png");
   _lplayer3.push_back(img);
-
+  //player 4
   img.LoadFromFile("sprite/player4.png");
   _lplayer4.push_back(img);
   img.LoadFromFile("sprite/player4_up1.png");
@@ -55,21 +56,147 @@ ImageCenter::ImageCenter()
   _lplayer4.push_back(img);
   img.LoadFromFile("sprite/player4_up1.png");
   _lplayer4.push_back(img);
-
-  img.LoadFromFile("sprite/monster11.png");
+  //monster 1
+  img.LoadFromFile("sprite/monster1pos1.png");
   _lmonster1.push_back(img);
-
-  img.LoadFromFile("sprite/monster12.png");
+  img.LoadFromFile("sprite/monster1pos2.png");
+  _lmonster1.push_back(img);
+  img.LoadFromFile("sprite/monster1pos3.png");
+  _lmonster1.push_back(img);
+  //monster2
+  img.LoadFromFile("sprite/monster2.png");
   _lmonster2.push_back(img);
-
+  img.LoadFromFile("sprite/monster2_1.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_2.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_3.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_4.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_5.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_6.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_7.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_8.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_9.png");
+  _lmonster2.push_back(img);
+  img.LoadFromFile("sprite/monster2_10.png");
+  _lmonster2.push_back(img);
+  //monster 3
+  img.LoadFromFile("sprite/monster3pos1.png");
+  _lmonster3.push_back(img);
+  img.LoadFromFile("sprite/monster3pos2.png");
+  _lmonster3.push_back(img);
+  img.LoadFromFile("sprite/monster3pos3.png");
+  _lmonster3.push_back(img);
+  img.LoadFromFile("sprite/monster3pos4.png");
+  _lmonster3.push_back(img);
+  //monster 4
+  img.LoadFromFile("sprite/monster13_1.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_2.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_3.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_4.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_5.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_6.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_7.png");
+  _lmonster4.push_back(img);
+  img.LoadFromFile("sprite/monster13_8.png");
+  _lmonster4.push_back(img);
+  //boss one
+  img.LoadFromFile("sprite/boss_one.png");
+  _lboss1.push_back(img);
+  //boss two
+  img.LoadFromFile("sprite/boss_two.png");
+  _lboss2.push_back(img);
+  //boss three
+  img.LoadFromFile("sprite/boss_three_1.png");
+  _lboss3.push_back(img);
+  img.LoadFromFile("sprite/boss_three_2.png");
+  _lboss3.push_back(img);
+  img.LoadFromFile("sprite/boss_three_3.png");
+  _lboss3.push_back(img);
+  img.LoadFromFile("sprite/boss_three_4.png");
+  _lboss3.push_back(img);
+  img.LoadFromFile("sprite/boss_three_5.png");
+  _lboss3.push_back(img);
+  //boss four
+  img.LoadFromFile("sprite/boss_four_1.png");
+  _lboss4.push_back(img);
+  img.LoadFromFile("sprite/boss_four_2.png");
+  _lboss4.push_back(img);
+  img.LoadFromFile("sprite/boss_four_3.png");
+  _lboss4.push_back(img);
+  img.LoadFromFile("sprite/boss_four_4.png");
+  _lboss4.push_back(img);
+  //wall
+  img.LoadFromFile("sprite/wall1.png");
+  _lwall1.push_back(img);
+  //shoot player
   img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
-
+  //shoot trash
   img.LoadFromFile("sprite/shoot6.png");
   _lweapon2.push_back(img);
-
+  //shoot boss
+  img.LoadFromFile("sprite/shoot7_1.png");
+  _lweapon3.push_back(img);
+  img.LoadFromFile("sprite/shoot7_2.png");
+  _lweapon3.push_back(img);
+  img.LoadFromFile("sprite/shoot7_3.png");
+  _lweapon3.push_back(img);
+  //explosion
   img.LoadFromFile("sprite/explo1.png");
   _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo2.png");
+  _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo3.png");
+  _lexplo1.push_back(img);
+  //astronaute
+  img.LoadFromFile("sprite/astronaute_1.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_2.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_3.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_4.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_5.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_6.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_7.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_8.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_9.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_10.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_11.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_12.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_13.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_14.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_15.png");
+  _lastronaute1.push_back(img);
+  img.LoadFromFile("sprite/astronaute_16.png");
+  _lastronaute1.push_back(img);
+  //life
+  img.LoadFromFile("sprite/life.png");
+  _llife1.push_back(img);
 
 }
 
@@ -103,6 +230,11 @@ const std::list<sf::Image>    &ImageCenter::getLweapon2() const
   return _lweapon2;
 }
 
+const std::list<sf::Image>    &ImageCenter::getLweapon3() const
+{
+  return _lweapon3;
+}
+
 const std::list<sf::Image>    &ImageCenter::getLmeteor1() const
 {
   return _lmeteor1;
@@ -111,6 +243,11 @@ const std::list<sf::Image>    &ImageCenter::getLmeteor1() const
 const std::list<sf::Image>    &ImageCenter::getLedge1() const
 {
   return _ledge1;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLwall1() const
+{
+  return _lwall1;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmonster1() const
@@ -173,7 +310,22 @@ const std::list<sf::Image>    &ImageCenter::getLboss3() const
   return _lboss3;
 }
 
+const std::list<sf::Image>    &ImageCenter::getLboss4() const
+{
+  return _lboss4;
+}
+
 const std::list<sf::Image>    &ImageCenter::getLexplo1() const
 {
   return _lexplo1;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLastronaute1() const
+{
+  return _lastronaute1;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLlife1() const
+{
+  return _llife1;
 }

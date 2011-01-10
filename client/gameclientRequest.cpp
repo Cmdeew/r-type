@@ -221,7 +221,7 @@ void			gameClient::replyMove(char buffer[NBOCTETS])
   int			flag = 0;
 
   lit = _object.begin();
-  for(;lit!=_object.end();++lit)
+  for(;lit!=_object.end();lit++)
     {
       temp = *lit;
       if(temp->getID() == buffer[6])
@@ -229,7 +229,17 @@ void			gameClient::replyMove(char buffer[NBOCTETS])
 	  temp->setPosX(buffer[4]);
 	  temp->setPosY(buffer[5]);
 	  flag = 1;
-	}
+	  if (buffer[6] != 1 && buffer[6] != 2 && buffer[6] != 3 &&
+	      buffer[6] != 4 && buffer[7] != 9)
+	    {
+	      if (temp->_iter == temp->getSprite().end())
+	      	temp->_iter = temp->getSprite().begin();
+	      else
+		temp->_iter++;
+    	      if (temp->_iter == temp->getSprite().end())
+	      	temp->_iter = temp->getSprite().begin();
+	    } 
+	} 
     }
   if (flag == 0)
     {
@@ -305,7 +315,7 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	}
       if (posx != 0 && posy != 0)
 	{
-	  nElem = _factory.FactoryMethod(24, 0, posx, posy);
+	  nElem = _factory.FactoryMethod(27, 0, posx, posy);
 	  if (nElem != NULL)
 	    _object.push_back(nElem);
 	  _score += 10;

@@ -47,8 +47,14 @@ void		gameClient::setLevel(int level)
 
 void		gameClient::findLevel(int score)
 {
-  if (score >= 1000)
+  if (score >= 6000)
+    this->setLevel(4);
+  if (score >= 4000)
+    this->setLevel(3);
+  else if (score >= 2000)
     this->setLevel(2);
+  else
+    this->setLevel(1);
 }
 
 sf::Sprite	gameClient::getSprite()
