@@ -364,7 +364,7 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 5 missile player
 		- 6 missile mob trash
 		- 7 missile mob boss
-		- 8 meteorite
+		- 8 missile mob diagonale
 		- 9 wall
 		- 10 [reserved]
 		- 11 ennemy_one - alien armure vert

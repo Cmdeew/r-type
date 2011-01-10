@@ -156,6 +156,9 @@ ImageCenter::ImageCenter()
   _lweapon3.push_back(img);
   img.LoadFromFile("sprite/shoot7_3.png");
   _lweapon3.push_back(img);
+  //shoot diagonale
+  img.LoadFromFile("sprite/shoot8.png");
+  _lweapon4.push_back(img);
   //explosion
   img.LoadFromFile("sprite/explo1.png");
   _lexplo1.push_back(img);
@@ -245,6 +248,11 @@ const std::list<sf::Image>    &ImageCenter::getLweapon2() const
 const std::list<sf::Image>    &ImageCenter::getLweapon3() const
 {
   return _lweapon3;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLweapon4() const
+{
+  return _lweapon4;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmeteor1() const

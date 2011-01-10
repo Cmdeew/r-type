@@ -63,6 +63,13 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
 	nElement->_iter = nElement->getSprite().begin();
 	break;
       }
+    case 8:
+      {
+	nElement = new Element(posx, posy, 99, id, type);
+	nElement->setSprite(_imgCenter->getLweapon4());
+	nElement->_iter = nElement->getSprite().begin();
+	break;
+      }
     case 9:
       {
 	nElement = new Element(posx, posy, 99, id, type);
