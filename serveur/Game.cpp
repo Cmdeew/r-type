@@ -2,16 +2,17 @@
 #include "Command.h"
 #include "Session.h"
 #include "Game.h"
+#include "Object.h"
+#include "LoadLib.h"
 
 Game::Game(Factory *_f, char **argv)
 {
   AbsUDPNetwork *p1;
   AbsUDPNetwork *p2;
+  LoadLib	*lib;
   Socket	 sock;
   Socket	 sock1;
   Socket	 sock2;
-
-
 
   f = _f;
   th = f->n_thread();
@@ -20,7 +21,6 @@ Game::Game(Factory *_f, char **argv)
   p1 = f->n_network();
   p2 = f->n_network();
   p->setArg(argv);
-
   sock = p->CreateSocket(p->getPort());
   p->Bind(sock);
   p1->setArg(argv);
@@ -33,6 +33,9 @@ Game::Game(Factory *_f, char **argv)
   s[0] = new Session(p, th, mt, 1);
   s[1] = new Session(p1, th, mt, 2);
   s[2] = new Session(p2, th, mt, 3);
+  lib = new LoadLib();
+  lib->initTabMonster();
+  lib->checkLib();
 }
 
 Game::~Game()

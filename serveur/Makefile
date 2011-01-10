@@ -22,6 +22,7 @@ SRC		= main.cpp\
                   CUAbsUDPNetwork.cpp\
                   AbsDynamicLib.cpp\
                   CUAbsDynamicLib.cpp\
+		  LoadLib.cpp\
                   Player.cpp\
                   Object.cpp\
                   Game.cpp

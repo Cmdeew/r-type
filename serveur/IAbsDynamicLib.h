@@ -9,6 +9,7 @@ typedef void *	addr;
 
 class	IAbsDynamicLib
 {
+ public:
   virtual hand	AOpenLib(pstr name) = 0;
   virtual bool	ACloseLib(hand lib) = 0;
   virtual addr	ASymLib(hand lib, const char *symbol) = 0;

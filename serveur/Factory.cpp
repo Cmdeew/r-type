@@ -10,6 +10,17 @@ Factory::~Factory()
 
 }
 
+AbsDynamicLib * Factory::n_lib()
+{
+  AbsDynamicLib	*lib;
+  #ifndef _WIN32
+  lib = new CUAbsDynamicLib();
+#else
+  lib = new CWAbsDynamicLib();
+#endif
+  return ((AbsDynamicLib *)lib);
+}
+
 AbsMutex *	Factory::n_mutex()
 {
   AbsMutex	*inst;
