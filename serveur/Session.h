@@ -40,7 +40,11 @@ class	Session
   void sessionthreadElems();
   static void    *sessionthreadElemsInit(Session *sess);
   void		Create_Mob(int i);
+
   unsigned char mob_id;
+
+  void		spawnPlayer(Player *);
+
 };
 
 #include "Command.h"

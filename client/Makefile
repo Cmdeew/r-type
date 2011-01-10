@@ -27,7 +27,7 @@ SRC		= AbstractMusic.cpp\
 OBJ		= $(SRC:.cpp=.o)
 
 
-CFLAGS		= -W -Wall -Werror -Wstrict-prototypes -pedantic
+CFLAGS		= -W -Wall -Werror -Wstrict-prototypes -pedantic -ggdb3
 
 LIB		= -lsfml-graphics -lsfml-system -lsfml-audio -lsfml-network -lsfml-window
 
@@ -39,7 +39,7 @@ all	: $(NAME)
 re	: fclean $(NAME)
 
 $(NAME)	:	$(OBJ)
-	$(CC_$(HOSTTYPE)) -o $(NAME) $(OBJ)  $(LIB)
+	$(CC_$(HOSTTYPE)) -o $(NAME) $(OBJ)  $(LIB) $(CFLAGS)
 
 clean	:
 	$(RM) $(OBJ)

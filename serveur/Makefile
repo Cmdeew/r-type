@@ -2,6 +2,8 @@ CC_FreeBSD	= g++
 
 CC_linux	= g++
 
+CC_i386-linux	= g++
+
 CC_ia64-linux	= g++
 
 CC_sun4		= /usr/sfw/bin/g++
@@ -22,6 +24,7 @@ SRC		= main.cpp\
                   CUAbsUDPNetwork.cpp\
                   AbsDynamicLib.cpp\
                   CUAbsDynamicLib.cpp\
+		  LoadLib.cpp\
                   Player.cpp\
                   Object.cpp\
                   Game.cpp

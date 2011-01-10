@@ -18,6 +18,7 @@ class Element
   std::list<sf::Sprite>	_lSprite;
   Element();
  public:
+  std::list<sf::Sprite>::iterator _iter;
   Element(unsigned char x, unsigned char y, unsigned char life,
 	  unsigned char id, unsigned char type);
   ~Element();

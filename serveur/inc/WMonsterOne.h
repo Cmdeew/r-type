@@ -1,5 +1,6 @@
-#ifndef _MONSTERONE_H_
-# define _MONSTERONE_H_
+#ifndef MONSTERONE_H
+# define MONSTERONE_H
+
 #include "Object.h"
 
 class	MonsterOne : public Object
@@ -17,4 +18,4 @@ class	MonsterOne : public Object
 
 typedef MonsterOne *(*maker_monster)(char id, char x, char y);
 
-#endif // _MONSTERONE_H_
+# endif // MONSTERONE_H

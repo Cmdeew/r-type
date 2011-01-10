@@ -13,7 +13,7 @@ CUAbsDynamicLib::~CUAbsDynamicLib()
 
 hand	CUAbsDynamicLib::AOpenLib(pstr name)
 {
-  return ((void *)dlopen((const char *)name, RTLD_GLOBAL));
+  return (dlopen((char *)name, RTLD_LAZY));
 }
 
 bool	CUAbsDynamicLib::ACloseLib(hand lib)

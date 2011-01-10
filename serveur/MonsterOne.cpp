@@ -19,3 +19,11 @@ void MonsterOne::move()
 {
 
 }
+
+extern "C"
+{
+  MonsterOne *Create(char id, char x, char y)
+  {
+    return new MonsterOne(id, x, y);
+  }
+}

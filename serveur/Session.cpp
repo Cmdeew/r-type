@@ -32,6 +32,7 @@ void  Session::sessionthread()
   _pingTime[session] = MAX_PING_TIME;
   _tabPlayer[session] = new Player(session +1);
   std::cout << "New player assign on slot " << session << "... Partie " << _game_n << std::endl;
+  spawnPlayer(_tabPlayer[session]);
   cmd.sendConnect(_tabPlayer[session], _p);
   cmd.sendLife(_tabPlayer[session], _p);
   cmd.sendScore(_score, _p);
@@ -232,8 +233,11 @@ void  Session::sessionthreadElems()
                         {
                           _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
                           cmd.sendLife(_tabPlayer[j], _p);
-			  _tabPlayer[j]->setPosx(10);
-			  _tabPlayer[j]->setPosy(10);
+
+			  cmd.sendDestroy(obj->getId() , 0, _p); 
+			  _listObj.erase(it);
+			  it = _listObj.begin();
+			  spawnPlayer(_tabPlayer[j]);
                         }
                       else
                         _pingTime[j] = 0;
@@ -280,4 +284,38 @@ void	*Session::sessionthreadInit(Session *sess)
 {
   sess->sessionthread();
   return (NULL);
+}
+
+
+void	Session::spawnPlayer(Player *player)
+{
+  unsigned char	NewPosX;
+  unsigned char	NewPosY;
+  int		unblock = 10000;
+  Object	*obj;
+  std::list<Object *>::iterator it;
+
+  NewPosX = 8 + rand() % 4;
+  NewPosY = rand() % 32;
+  it = _listObj.begin();
+  while (it != _listObj.end())
+    {
+      obj = *it;
+      if (obj->getType() != 5)
+	{
+	  if (obj->getX() < NewPosX + 6 && obj->getX() > NewPosX - 6 &&
+	      obj->getY() < NewPosY + 6 && obj->getY() > NewPosY - 6)
+	    {
+	      NewPosX = 8 + rand() % 4;
+	      NewPosY = rand() % 32;
+	      it = _listObj.begin();
+	    }
+	}
+      it++;
+      unblock--;
+      if (unblock == 0)
+	return;
+    }
+  player->setPosx(NewPosX);
+  player->setPosy(NewPosY);
 }
