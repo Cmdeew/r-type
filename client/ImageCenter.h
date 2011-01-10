@@ -16,8 +16,11 @@ class	ImageCenter
   std::list<sf::Image>	_lplayer4;
   std::list<sf::Image>	_lweapon1;
   std::list<sf::Image>	_lweapon2;
+  std::list<sf::Image>	_lweapon3;
+  std::list<sf::Image>	_lweapon4;
   std::list<sf::Image>	_lmeteor1;
   std::list<sf::Image>	_ledge1;
+  std::list<sf::Image>	_lwall1;
   std::list<sf::Image>	_lmonster1;
   std::list<sf::Image>	_lmonster2;
   std::list<sf::Image>	_lmonster3;
@@ -30,7 +33,11 @@ class	ImageCenter
   std::list<sf::Image>	_lboss1;
   std::list<sf::Image>	_lboss2;
   std::list<sf::Image>	_lboss3;
+  std::list<sf::Image>	_lboss4;
   std::list<sf::Image>	_lexplo1;
+std::list<sf::Image>	_lastronaute1;
+ std::list<sf::Image>	_llife1;
+  
  public:
   ImageCenter();
   const std::list<sf::Image>	&getLplayer1() const;
@@ -39,8 +46,11 @@ class	ImageCenter
   const std::list<sf::Image>	&getLplayer4() const;
   const std::list<sf::Image>	&getLweapon1() const;
   const std::list<sf::Image>	&getLweapon2() const;
+  const std::list<sf::Image>	&getLweapon3() const;
+  const std::list<sf::Image>	&getLweapon4() const;
   const std::list<sf::Image>	&getLmeteor1() const;
   const std::list<sf::Image>	&getLedge1() const;
+  const std::list<sf::Image>	&getLwall1() const;
   const std::list<sf::Image>	&getLmonster1() const;
   const std::list<sf::Image>	&getLmonster2() const;
   const std::list<sf::Image>	&getLmonster3() const;
@@ -53,7 +63,10 @@ class	ImageCenter
   const std::list<sf::Image>	&getLboss1() const;
   const std::list<sf::Image>	&getLboss2() const;
   const std::list<sf::Image>	&getLboss3() const;
+  const std::list<sf::Image>	&getLboss4() const;
   const std::list<sf::Image>	&getLexplo1() const;
+  const std::list<sf::Image>	&getLastronaute1() const;
+ const std::list<sf::Image>	&getLlife1() const;
 };
 
 #endif //!IMAGECENTER_H

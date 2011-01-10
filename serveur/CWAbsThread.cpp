@@ -31,6 +31,11 @@ bool	CWAbsThread::AExitThread(thread_attr ThreadAttr)
 
 void	CWAbsThread::ASleep(unsigned int seconds)
 {
-	Sleep(seconds * 0.005);
+	Sleep(seconds * 0.002);
+}
+
+void	CWAbsThread::APause()
+{
+	system("pause");
 }
 #endif

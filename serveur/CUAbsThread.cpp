@@ -36,4 +36,9 @@ void	CUAbsThread::ASleep(unsigned int seconds)
 {
 	usleep(seconds);
 }
+
+void	CUAbsThread::APause()
+{
+	pause();
+}
 #endif

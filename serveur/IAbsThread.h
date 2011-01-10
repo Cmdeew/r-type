@@ -16,6 +16,7 @@ public:
 			     typefunc StartRoutine, typeparam Param) = 0;
   virtual bool	AExitThread(thread_attr ThreadAttr) = 0;
   virtual void	ASleep(unsigned int seconds) = 0;
+  virtual void	APause() = 0;
 };
 
 #endif //_IABSTHREAD_H_

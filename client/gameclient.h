@@ -16,6 +16,7 @@
 #define MAXX 48
 #define MINY 0
 #define MAXY 36
+#define WAITINGTIME 9999999
 
 class gameClient
 {

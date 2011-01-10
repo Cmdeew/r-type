@@ -39,6 +39,8 @@ class	Session
 
   void sessionthreadElems();
   static void    *sessionthreadElemsInit(Session *sess);
+  void		Create_Mob(int i);
+  void		spawnPlayer(Player *);
 };
 
 #include "Command.h"

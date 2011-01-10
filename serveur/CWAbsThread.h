@@ -12,6 +12,7 @@ class	CWAbsThread : public AbsThread
 		     typefunc StartRoutine, typeparam Param);
   bool	AExitThread(thread_attr ThreadAttr);
   void	ASleep(unsigned int seconds);
+  void	APause();
   CWAbsThread();
   ~CWAbsThread();
 };

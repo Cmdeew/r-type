@@ -31,6 +31,7 @@ void  Session::sessionthread()
   _pingTime[session] = MAX_PING_TIME;
   _tabPlayer[session] = new Player(session +1);
   std::cout << "New player assign on slot " << session << "... Partie " << _game_n << std::endl;
+  spawnPlayer(_tabPlayer[session]);
   cmd.sendConnect(_tabPlayer[session], _p);
   cmd.sendLife(_tabPlayer[session], _p);
   cmd.sendScore(_score, _p);
@@ -69,44 +70,77 @@ void  Session::sessionthread()
   _th->AExitThread(handles[session]);
 }
 
+void	Session::Create_Mob(int i)
+{
+  
+  Object	*obj;
+  static unsigned char mob_id = 11; // TO CHANGE
+  static int a = 0;
+
+  
+  //Generation d'un mob
+  if (i% 9999)
+    {
+      //a = rand();
+      
+	  //generation mob 12
+	  if (a % 4000 == 0)
+	    {
+	      int b;
+	      b = 0;
+	      while (b < 3)
+		{
+		  obj = new Object(mob_id++, 55, 10, 12);
+		  _listObj.push_back(obj);
+		  b++;
+		  if (mob_id > 200)
+		    mob_id = 10;
+		}
+	      if (mob_id > 45)
+		mob_id = 10;
+	    }
+
+	  //generation mob_11
+	  if (a % 2500 == 0)
+	    {
+	      obj = new Object(mob_id++, 55, 20, 11);
+	      _listObj.push_back(obj);
+	      if (mob_id > 200)
+		mob_id = 10;
+	    }
+	  a++;
+	  if (a == 10000)
+	    a = 0;
+    }
+}
+
 void  Session::sessionthreadElems()
 {
   int i = 0;
-  int a = 0;
+
   Command           cmd(_game_n);
   Object	*obj;
-  Object	*obj2;
+  //Object	*obj2;
   std::list<Object *>::iterator it;
   std::list<Object *>::iterator it2;
 
   //creer la liste des objs tout les x secondes et setter leur positions
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
   //      obj = new Object(5, 46, 16, 11);
-  static unsigned char mob_id = 10; // TO CHANGE
+  //  static unsigned char mob_id = 10; // TO CHANGE
   std::cout << "Success for threadElems" << std::endl;
+
+
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
-	i = 0;
-
-      //Generation d'un mob
-      if (i% 9999)
-	{
-	  a = rand();
-	  if (a % 500 == 0) //2000
-	    {
-	      //	      obj = new Object(mob_id++, 55, 16, 12);
-	      obj = new Object(mob_id++, 55, rand() % 16, (rand() % 2) + 11);
-	      _listObj.push_back(obj);
-	      if (mob_id > 45)
-		mob_id = 10;
-	    }
-	}
+	i = 0; 
+      Create_Mob(i);
 
       if (i % 100 == 0)
 	{
 	  //Detection des collisions
-	  it = _listObj.begin();
+	  /*it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
 	      it2 = _listObj.begin();
@@ -131,7 +165,7 @@ void  Session::sessionthreadElems()
 		  it2++;
 		}
 	      it++;
-	    }
+	      }*/
 
 
 	  // Fin detection des collisions
@@ -175,8 +209,11 @@ void  Session::sessionthreadElems()
                         {
                           _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
                           cmd.sendLife(_tabPlayer[j], _p);
-			  _tabPlayer[j]->setPosx(10);
-			  _tabPlayer[j]->setPosy(10);
+
+			  cmd.sendDestroy(obj->getId() , 0, _p); 
+			  _listObj.erase(it);
+			  it = _listObj.begin();
+			  spawnPlayer(_tabPlayer[j]);
                         }
                       else
                         _pingTime[j] = 0;
@@ -223,4 +260,38 @@ void	*Session::sessionthreadInit(Session *sess)
 {
   sess->sessionthread();
   return (NULL);
+}
+
+
+void	Session::spawnPlayer(Player *player)
+{
+  unsigned char	NewPosX;
+  unsigned char	NewPosY;
+  int		unblock = 10000;
+  Object	*obj;
+  std::list<Object *>::iterator it;
+
+  NewPosX = 8 + rand() % 4;
+  NewPosY = rand() % 32;
+  it = _listObj.begin();
+  while (it != _listObj.end())
+    {
+      obj = *it;
+      if (obj->getType() != 5)
+	{
+	  if (obj->getX() < NewPosX + 6 && obj->getX() > NewPosX - 6 &&
+	      obj->getY() < NewPosY + 6 && obj->getY() > NewPosY - 6)
+	    {
+	      NewPosX = 8 + rand() % 4;
+	      NewPosY = rand() % 32;
+	      it = _listObj.begin();
+	    }
+	}
+      it++;
+      unblock--;
+      if (unblock == 0)
+	return;
+    }
+  player->setPosx(NewPosX);
+  player->setPosy(NewPosY);
 }

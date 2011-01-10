@@ -8,6 +8,7 @@ private:
 	char	m_x;
 	char	m_y;
 	char	m_type;
+	int	m_lim; /*limite de deplcement*/
 public:
 	Object();
 	Object(char id, char x, char y, char type);
