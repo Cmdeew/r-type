@@ -2,6 +2,11 @@
 #include "LoadLib.h"
 #include "Object.h"
 
+maker_monster * LoadLib::getTab()
+{
+	return (tabMonster);
+}
+
 void LoadLib::initTabMonster()
 {
   int	i;
