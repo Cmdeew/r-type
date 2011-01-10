@@ -18,7 +18,6 @@ void	AbstractMusic::LoadMusic()
       while (getline(file, buf))
 	{
 	  Music = new sf::Music;
-	  std::cout << buf << std::endl;
 	  buf = "./music/" + buf;
 	  if (!Music->OpenFromFile(buf.c_str()))
 	    {
