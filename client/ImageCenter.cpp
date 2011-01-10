@@ -141,6 +141,8 @@ ImageCenter::ImageCenter()
   //wall
   img.LoadFromFile("sprite/wall1.png");
   _lwall1.push_back(img);
+  img.LoadFromFile("sprite/wall2.png");
+  _lwall1.push_back(img);
   //shoot player
   img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
@@ -160,6 +162,16 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/explo2.png");
   _lexplo1.push_back(img);
   img.LoadFromFile("sprite/explo3.png");
+  _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo4.png");
+  _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo5.png");
+  _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo6.png");
+  _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo7.png");
+  _lexplo1.push_back(img);
+  img.LoadFromFile("sprite/explo8.png");
   _lexplo1.push_back(img);
   //astronaute
   img.LoadFromFile("sprite/astronaute_1.png");
