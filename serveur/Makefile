@@ -16,15 +16,12 @@ SRC		= main.cpp\
                   Session.cpp\
                   AbsThread.cpp\
                   CUAbsThread.cpp\
-		  CWAbsThread.cpp\
                   AbsMutex.cpp\
                   CUAbsMutex.cpp\
                   AbsUDPNetwork.cpp\
                   CUAbsUDPNetwork.cpp\
-                  CWAbsUDPNetwork.cpp\
                   AbsDynamicLib.cpp\
                   CUAbsDynamicLib.cpp\
-                  CWAbsDynamicLib.cpp\
                   Player.cpp\
                   Object.cpp\
                   Game.cpp
