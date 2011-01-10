@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include "Object.h"
+#include "Session.h"
 
 Object::Object()
 {
@@ -21,8 +22,11 @@ Object::~Object()
 
 }
 
-void Object::move()
+void Object::move(Session *s)
 {
+  Object *obj;
+
+
   if (m_type == 12)
     {
       m_x--;
@@ -36,40 +40,25 @@ void Object::move()
        m_lim++;
    }
 
-  
-
-  /*if (m_type == 11 || m_type == 12 || m_type == 13 || m_type == 14)
-=======
-  int     nb;
-
-  if (m_type == 11 || m_type == 12 || m_type == 13 || m_type == 14)
->>>>>>> ce50451235d12f9216c706a7d8afad23f7247ccc
+  else if (m_type == 11)
     {
-      nb = rand();
-      if (nb % 2 == 0)
-	m_y++;
-      else
-<<<<<<< HEAD
-      m_y--;
-      m_x++;
-=======
-	m_y--;
->>>>>>> ce50451235d12f9216c706a7d8afad23f7247ccc
-      if (m_y > 34)
-	m_y = 34;
-      if (m_y <= 3)
-	m_y = 3;
-      m_x--;
-      if (m_x == 0)
+      static int k = 0;
+      
+      if (k % 3 == 0)
 	{
-	  m_x = 46;
+	  obj = new Object(s->mob_id++, m_x - 3, m_y, 6);
+	  s->_listObj.push_back(obj);
 	}
-<<<<<<< HEAD
-	}*/
-
+      if (s->mob_id > 127)
+	s->mob_id = 11;
+      m_x--;
+      if (k == 10)
+	k = 0;
+      k++;
+    }
   else if (m_type == 5)
     m_x++;
-  else if (m_type == 6 || m_type == 11)
+  else if (m_type == 6 || m_type == 11 || m_type == 9)
     m_x--;
 }
 

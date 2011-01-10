@@ -1,6 +1,8 @@
 #ifndef _OBJECT_H_
 # define _OBJECT_H_
 
+class Session;
+
 class	Object
 {
 private:
@@ -13,7 +15,7 @@ public:
 	Object();
 	Object(char id, char x, char y, char type);
 	~Object();
-	void	move();
+	void	move(Session *s);
 	char	getId();
 	char	getX();
 	char	getY();

@@ -15,6 +15,7 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   _pingTime[3] = 0;
   _game_n = nbGame;
   _score = 0;
+  mob_id = 11;
 }
 
 
@@ -73,10 +74,9 @@ void	Session::Create_Mob(int i)
 {
   
   Object	*obj;
-  static unsigned char mob_id = 11; // TO CHANGE
   static int a = 0;
 
-  
+
   //Generation d'un mob
   if (i% 9999)
     {
@@ -85,28 +85,51 @@ void	Session::Create_Mob(int i)
 	  //generation mob 12
 	  if (a % 4000 == 0)
 	    {
-	      int b;
-	      b = 0;
-	      while (b < 3)
-		{
-		  obj = new Object(mob_id++, 55, 10, 12);
-		  _listObj.push_back(obj);
-		  b++;
-		  if (mob_id > 200)
-		    mob_id = 10;
-		}
-	      if (mob_id > 45)
-		mob_id = 10;
-	    }
+	      
+	      obj = new Object(mob_id++, 55, 10, 12);
+	      _listObj.push_back(obj);
+	      
+	        obj = new Object(mob_id++, 55, 10, 5);
+	      _listObj.push_back(obj);
+	      
+	      if (mob_id > 127)
+		mob_id = 11;
 
+	    }
+	      
 	  //generation mob_11
-	  if (a % 2500 == 0)
+	  
+	  if (a % 6000 == 0)
 	    {
 	      obj = new Object(mob_id++, 55, 20, 11);
 	      _listObj.push_back(obj);
-	      if (mob_id > 200)
-		mob_id = 10;
+	      if (mob_id > 127)
+		mob_id = 11;
+	      obj = new Object(mob_id++, 52, 23, 9);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
 	    }
+	  
+	  //generation mob_9 MUR
+
+	  /*if (a % 10000 == 0)
+	    {
+	      int j;
+	      j = 0;
+	      while (j < 3)
+		{
+		   obj = new Object(mob_id++, 55, 0+i*2, 9);
+		  _listObj.push_back(obj);
+		  if (mob_id > 127)
+		    mob_id = 11;
+		  obj = new Object(mob_id++, 55, 34-i*2, 9);
+		  _listObj.push_back(obj);
+		  if (mob_id > 127)
+		    mob_id = 11;
+		  j++;
+		}
+		}*/
 	  a++;
 	  if (a == 10000)
 	    a = 0;
@@ -134,6 +157,7 @@ void  Session::sessionthreadElems()
     {
       if (i == 10000)
 	i = 0; 
+      //std::cout << "ID : " << (int)mob_id << std::endl;
       Create_Mob(i);
 
       if (i % 100 == 0)
@@ -174,7 +198,7 @@ void  Session::sessionthreadElems()
 	      obj = *it;
 	      if (obj->getType() == 5 || obj->getType() == 6)
 		{
-		  obj->move(); //Mouvement des missiles
+		  obj->move(this); //Mouvement des missiles
 		  cmd.sendObjMove(obj, _p); //TEST
 		  if (obj->getX() > 50) //Missile depassant la fenetre
 		    {
@@ -229,7 +253,7 @@ void  Session::sessionthreadElems()
 	  while (it != _listObj.end())
 	    {
 	      obj = *it;
-	      obj->move();
+	      obj->move(this);
 	      cmd.sendObjMove(obj, _p);
 	      if (obj->getX() == 0) // depassant la fenetre
 		{

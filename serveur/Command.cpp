@@ -196,21 +196,21 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 int	Command::receiveShoot(Session *session, unsigned char playerId)
 {
   Object *o;
-  static int id = 51; //TO CHANGE
+  //static int id = 51; //TO CHANGE
 
   if (!(session->_tabPlayer[playerId - 1]))
     return (1);
 
-  o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
+  o = new Object(session->mob_id++, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
 
   session->_listObj.push_back(o);
 
   if (o)
     session->_listObj.push_back(o);
 
-  id++;
-  if (id > 127)
-    id = 51;
+  //id++;
+  if (session->mob_id > 127)
+    session->mob_id = 11;
   return (0);
 }
 
