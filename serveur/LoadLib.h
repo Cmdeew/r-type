@@ -10,6 +10,7 @@ class	LoadLib
   AbsDynamicLib *l;
   std::string	file;
  public:
+  maker_monster * getTab();
   bool	ifLib(const std::string name);
   void	initTabMonster();
   void	checkLib();
