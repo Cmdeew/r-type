@@ -113,7 +113,7 @@ void		gameClient::loopClient()
   this->fillnetwork(_network);
   if (!(temp = _mainWindow.MainMenuLoop()))
       exit(0);
-  //  _mainWindow.Close();
+  _mainWindow.Close();
   choosePort(temp);
   if (!(_network->getSocket().Bind(_network->getPort())))
     {
