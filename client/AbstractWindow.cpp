@@ -11,10 +11,10 @@ AbstractWindow::AbstractWindow()
     std::cerr << "Error: Unable to load the interface" << std::endl;
   if (!_lifeImg.LoadFromFile("sprite/lifeMenu.png"))
     std::cerr << "Error: Unable to Load Image" << std::endl;
-  if (!_font.LoadFromFile("font/score.ttf"))
-    std::cerr << "Error: Unable to load font" << std::endl;
   if (_gameOverImg.LoadFromFile("img/gameover1.jpg"))
     _gameOver.SetImage(_gameOverImg);
+  if (!_font.LoadFromFile("font/score.ttf"))
+    std::cerr << "Error: Unable to load font" << std::endl;
   else
     {
       _score.SetFont(_font);
