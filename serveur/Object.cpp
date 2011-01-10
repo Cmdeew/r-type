@@ -2,6 +2,11 @@
 #include <iostream>
 #include "Object.h"
 
+Object::Object()
+{
+
+}
+
 Object::Object(const char id, const char x, const char y, const char type)
 {
   m_id = id;
