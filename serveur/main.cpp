@@ -13,13 +13,13 @@ int	main(int ac, char **argv)
 
   i = 1;
   start = new Game(new Factory(), argv);
-  srand(time(NULL)); 
+  srand(time(NULL));
   while (i <= 3)
     {
       start->setId(i);
       start->handles[i] = start->th->ACreateThread(&start->threads[i], NULL, (typefunc)start->startMultiGame, start);
       i++;
-      usleep(100);
+      start->th->ASleep(100);
     }
   while (42);
     //start->setId(0);

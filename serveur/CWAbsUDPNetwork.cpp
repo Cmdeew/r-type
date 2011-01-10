@@ -112,4 +112,9 @@ void	CWAbsUDPNetwork::Bind(Socket sock)
 	my_addr->sin_addr.s_addr=inet_addr(_broadcast);
 }
 
+int	CWAbsUDPNetwork::getPort()
+{
+  return _port;
+}
+
 #endif
