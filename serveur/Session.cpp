@@ -68,44 +68,77 @@ void  Session::sessionthread()
   _th->AExitThread(handles[session]);
 }
 
+void	Session::Create_Mob(int i)
+{
+  
+  Object	*obj;
+  static unsigned char mob_id = 11; // TO CHANGE
+  static int a = 0;
+
+  
+  //Generation d'un mob
+  if (i% 9999)
+    {
+      //a = rand();
+      
+	  //generation mob 12
+	  if (a % 4000 == 0)
+	    {
+	      int b;
+	      b = 0;
+	      while (b < 3)
+		{
+		  obj = new Object(mob_id++, 55, 10, 12);
+		  _listObj.push_back(obj);
+		  b++;
+		  if (mob_id > 200)
+		    mob_id = 10;
+		}
+	      if (mob_id > 45)
+		mob_id = 10;
+	    }
+
+	  //generation mob_11
+	  if (a % 2500 == 0)
+	    {
+	      obj = new Object(mob_id++, 55, 20, 11);
+	      _listObj.push_back(obj);
+	      if (mob_id > 200)
+		mob_id = 10;
+	    }
+	  a++;
+	  if (a == 10000)
+	    a = 0;
+    }
+}
+
 void  Session::sessionthreadElems()
 {
   int i = 0;
-  int a = 0;
+
   Command           cmd(_game_n);
   Object	*obj;
-  Object	*obj2;
+  //Object	*obj2;
   std::list<Object *>::iterator it;
   std::list<Object *>::iterator it2;
 
   //creer la liste des objs tout les x secondes et setter leur positions
   //Mettre une liste d'obj dans la classe Session List<Object> listObj;
   //      obj = new Object(5, 46, 16, 11);
-  static unsigned char mob_id = 10; // TO CHANGE
+  //  static unsigned char mob_id = 10; // TO CHANGE
   std::cout << "Success for threadElems" << std::endl;
+
+
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
-	i = 0;
-
-      //Generation d'un mob
-      if (i% 9999)
-	{
-	  a = rand();
-	  if (a % 500 == 0) //2000
-	    {
-	      //	      obj = new Object(mob_id++, 55, 16, 12);
-	      obj = new Object(mob_id++, 55, rand() % 16, (rand() % 2) + 11);
-	      _listObj.push_back(obj);
-	      if (mob_id > 45)
-		mob_id = 10;
-	    }
-	}
+	i = 0; 
+      Create_Mob(i);
 
       if (i % 100 == 0)
 	{
 	  //Detection des collisions
-	  it = _listObj.begin();
+	  /*it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
 	      it2 = _listObj.begin();
@@ -128,7 +161,7 @@ void  Session::sessionthreadElems()
 		  it2++;
 		}
 	      it++;
-	    }
+	      }*/
 
 
 	  // Fin detection des collisions

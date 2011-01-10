@@ -19,7 +19,7 @@ int	main(int ac, char **argv)
       start->setId(i);
       start->handles[i] = start->th->ACreateThread(&start->threads[i], NULL, (typefunc)start->startMultiGame, start);
       i++;
-      start->th->ASleep(100);
+      start->th->ASleep(10000);
     }
   while (42);
     //start->setId(0);
