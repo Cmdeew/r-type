@@ -1,6 +1,6 @@
 Serveur:
 
-- Mettre a jour le score (wardog)
+- Mettre a jour le score (wardog) / OK
 
 - Fonction pour chaque niveau avec pop des mobs (polo) 
 
@@ -14,7 +14,7 @@ Serveur:
 
 - Rajouter les libs (ludo)
 
-- Refaire les Makefile (wardog)
+- Refaire les Makefile (wardog) / OK
 
 Client:
 

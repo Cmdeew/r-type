@@ -1,49 +1,54 @@
-##
-## Makefile for rtypr in /home/hugon_a//Desktop/Link to storage/epitech/git_rtype/rtype-2013-hugon_a/client
-## 
-## Made by olivier hugon
-## Login   <hugon_a@epitech.net>
-## 
-## Started on  Tue Dec 21 14:22:45 2010 olivier hugon
-## Last update Tue Dec 21 14:33:20 2010 olivier hugon
-##
+CC_FreeBSD	= g++
+
+CC_linux	= g++
+
+CC_ia64-linux	= g++
+
+CC_sun4		= /usr/sfw/bin/g++
+
+CC_		= g++
+
+NAME		= serveur
+
+SRC		= main.cpp\
+		  Command.cpp\
+                  Factory.cpp\
+                  Session.cpp\
+                  AbsThread.cpp\
+                  CUAbsThread.cpp\
+                  AbsMutex.cpp\
+                  CUAbsMutex.cpp\
+                  AbsUDPNetwork.cpp\
+                  CUAbsUDPNetwork.cpp\
+                  AbsDynamicLib.cpp\
+                  CUAbsDynamicLib.cpp\
+                  Player.cpp\
+                  Object.cpp\
+                  Game.cpp
 
 
-NAMECLT		=	serveur
+OBJ		= $(SRC:.cpp=.o)
 
-SRCSCLT		=	Command.cpp\
-			Factory.cpp\
-			Session.cpp\
-			AbsThread.cpp\
-			CUAbsThread.cpp\
-			CWAbsThread.cpp\
-			AbsMutex.cpp\
-			CUAbsMutex.cpp\
-			main.cpp\
-			AbsUDPNetwork.cpp\
-			CUAbsUDPNetwork.cpp\
-			CWAbsUDPNetwork.cpp\
-			AbsDynamicLib.cpp\
-			CUAbsDynamicLib.cpp\
-			CWAbsDynamicLib.cpp\
-			Player.cpp\
-			Object.cpp\
-			Game.cpp
 
-LIB		=	-lpthread -ldl
+CFLAGS		= -W -Wall -Werror -Wstrict-prototypes -pedantic
 
-RM		=	rm -f
+LIB		= -lpthread -ldl
 
-CC		=	g++ -o
+RM		= rm -f
 
-all		:
-		$(CC) $(NAMECLT) $(SRCSCLT) $(LIB) -W -Wall -Werror
 
-clean		:
-		$(RM) *~
+all	: $(NAME)
 
-fclean		: clean
-		$(RM) $(NAMECLT)
+re	: fclean $(NAME)
 
-re		: fclean all clean
+$(NAME)	:	$(OBJ)
+	$(CC_$(HOSTTYPE)) -o $(NAME) $(OBJ)  $(LIB)
 
+clean	:
+	$(RM) $(OBJ)
+	$(RM) *~ \#*
+
+fclean	: clean
+	$(RM) $(NAME)
+love	:
+	@echo ". . . not war"

@@ -27,12 +27,14 @@ class	AbstractWindow
   sf::String		_life;
   sf::String		_id;
   sf::Sprite		_player;
+  sf::Image		_gameOverImg;
+  sf::Sprite		_gameOver;
 
  public:
 
   AbstractWindow();
   void	Clear();
-  void	Draw(const std::list<Element *> &list);
+  void	Draw(const std::list<Element *> &list, int mode);
   void	Display();
   bool	Quit();
   bool	IsAnEvent();

@@ -206,7 +206,7 @@ int	MainWindow::CreditsLoop()
     }
   return 0;
 }
-
+/*
 int     MainWindow::gameOver()
 {
   if (_gameOverImg.LoadFromFile("img/gameover1.jpg"))
@@ -227,3 +227,4 @@ int     MainWindow::gameOver()
   return 0;
 }
 
+*/
