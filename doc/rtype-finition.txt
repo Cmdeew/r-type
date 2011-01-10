@@ -1,20 +1,20 @@
 Serveur:
 
-- Mettre a jour le score
+- Mettre a jour le score (wardog)
 
-- Fonction pour chaque niveau avec pop des mobs
+- Fonction pour chaque niveau avec pop des mobs (polo) 
 
-- Avant chaque level (lancement d´un boss)
+- Avant chaque level (lancement d´un boss) (polo)
 
 - Modifier la boucle pour que le serveur sature pas
 
-- Corriger les segfaults
+- Corriger les segfaults (wardog)
 
-- IA pour chaque mobs
+- IA pour chaque mobs (polo)
 
-- Rajouter les libs
+- Rajouter les libs (ludo)
 
-- Refaire les Makefile
+- Refaire les Makefile (wardog)
 
 Client:
 

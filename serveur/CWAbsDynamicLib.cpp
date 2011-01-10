@@ -25,7 +25,7 @@ bool	CWAbsDynamicLib::ACloseLib(hand lib)
 
 addr	CWAbsDynamicLib::ASymLib(hand lib, const char* symbol)
 {
-  return (GetProcAddress((HMODULE)lib, (LPCSTR)symbol));
+  return ((void *)GetProcAddress((HMODULE)lib, (LPCSTR)symbol));
 }
 
 #endif
