@@ -37,7 +37,7 @@ class	Command
   int	sendPing(Player *, AbsUDPNetwork *);
   int	sendMove(Player *, AbsUDPNetwork *);
   int	sendLife(Player *, AbsUDPNetwork *);
-  int	sendScore(Player *, AbsUDPNetwork *);
+  int	sendScore(short score, AbsUDPNetwork *);
   int	sendNoSession(AbsUDPNetwork *);
   int	sendDestroy(unsigned char id_one, unsigned char id_two, AbsUDPNetwork *p);
   int	sendObjMove(Object *o, AbsUDPNetwork *p);

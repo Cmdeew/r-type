@@ -33,6 +33,7 @@ void  Session::sessionthread()
   std::cout << "New player assign on slot " << session << "... Partie " << _game_n << std::endl;
   cmd.sendConnect(_tabPlayer[session], _p);
   cmd.sendLife(_tabPlayer[session], _p);
+  cmd.sendScore(_score, _p);
   //  cmd.sendMove(_tabPlayer[session], _p);
   //  std::cout << "En attente des nouvelles positions du client..." << std::endl;
   while (_pingTime[session] > 0)
@@ -120,6 +121,8 @@ void  Session::sessionthreadElems()
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
 		      _listObj.erase(it2);
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
 		      //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
 		      //_listObj.push_back(obj);
 		      it = _listObj.begin();

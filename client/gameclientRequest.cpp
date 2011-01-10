@@ -259,12 +259,13 @@ void			gameClient::replyLife(char buffer[NBOCTETS])
 
 void			gameClient::replyScore(char buffer[NBOCTETS])
 {
-  char			score[3];
+  unsigned char temp1, temp2;
+  unsigned short result;
 
-  score[0] = buffer[4];
-  score[1] = buffer[5];
-  score[2] = '\0';
-  _score = atoi(score);
+  temp1 = buffer[5];
+  temp2 = buffer[4];  
+  result = (((unsigned short)temp1) <<8) | temp2;
+  _score = (int)result;
 }
 
 void			gameClient::replyDestroy(char buffer[NBOCTETS])

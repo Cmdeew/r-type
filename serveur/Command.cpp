@@ -86,15 +86,19 @@ int	Command::sendLife(Player *player, AbsUDPNetwork *p)
   return p->Send(buffer, CMD_SIZE);
 }
 
-int	Command::sendScore(Player *player, AbsUDPNetwork *p)
+int	Command::sendScore(short score, AbsUDPNetwork *p)
 {
-  (void) player;
+  unsigned char score_part_one;
+  unsigned char score_part_two;
+
+  score_part_one = score;
+  score_part_two = score >> 8;
   buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 5;
   buffer[3] = SERVER_CMD_SCORE;
-  buffer[4] = 0; // TODO
-  buffer[5] = 0;
+  buffer[4] = score_part_one;
+  buffer[5] = score_part_two;
   buffer[6] = 0;
   buffer[7] = 0;
   return p->Send(buffer, CMD_SIZE);
