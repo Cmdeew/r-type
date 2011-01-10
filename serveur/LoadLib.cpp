@@ -98,12 +98,6 @@ void LoadLib::checkLib()
 	    }
         }
     }
-  while (i <= 8)
-    {
-      if (tabMonster[i] != NULL)
-	std::cout << "Youpi !" << std::endl;
-      i++;
-    }
 }
 
 LoadLib::LoadLib()

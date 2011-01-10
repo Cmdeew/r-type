@@ -1,4 +1,5 @@
 #include "Session.h"
+#include "LoadLib.h"
 #include <stdlib.h>
 
 Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
@@ -76,8 +77,16 @@ void	Session::Create_Mob(int i)
   
   Object	*obj;
   static int a = 0;
+  maker_monster *t;
+  LoadLib	*lib;
 
 
+	// verification des libs
+
+  lib = new LoadLib();
+  lib->initTabMonster();
+  lib->checkLib();
+  t = lib->getTab();
   //Generation d'un mob
   if (i% 9999)
     {
@@ -86,23 +95,26 @@ void	Session::Create_Mob(int i)
 	  //generation mob 12
 	  if (a % 4000 == 0)
 	    {
-	      
-	      obj = new Object(mob_id++, 55, 10, 12);
+		  if (t[1] != NULL)
+		  {
+	      obj = t[1](mob_id++, 55, 10);
 	      _listObj.push_back(obj);
 	      
 	        obj = new Object(mob_id++, 55, 10, 5);
 	      _listObj.push_back(obj);
 	      
 	      if (mob_id > 127)
-		mob_id = 11;
-
+			mob_id = 11;
+		  }
 	    }
 	      
 	  //generation mob_11
 	  
 	  if (a % 6000 == 0)
 	    {
-	      obj = new Object(mob_id++, 55, 20, 11);
+		  if (t[0] != NULL)
+		  {
+	      obj = t[0](mob_id++, 55, 20);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -110,6 +122,7 @@ void	Session::Create_Mob(int i)
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
+		  }
 	    }
 	  
 	  //generation mob_9 MUR

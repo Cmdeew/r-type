@@ -33,9 +33,6 @@ Game::Game(Factory *_f, char **argv)
   s[0] = new Session(p, th, mt, 1);
   s[1] = new Session(p1, th, mt, 2);
   s[2] = new Session(p2, th, mt, 3);
-  lib = new LoadLib();
-  lib->initTabMonster();
-  lib->checkLib();
 }
 
 Game::~Game()
