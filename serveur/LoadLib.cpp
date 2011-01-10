@@ -88,7 +88,10 @@ void LoadLib::checkLib()
 		{
 		  void *mkr = l->ASymLib(hnd1, "Create");
 		  if (mkr != NULL)
-		    this->fillTab((maker_monster)mkr);
+		    {
+		      std::cout << "Succes" << std::endl;
+		      this->fillTab((maker_monster)mkr);
+		    }
 		  else
 		    this->fillTab(NULL);
 		  l->ACloseLib(hnd1);
