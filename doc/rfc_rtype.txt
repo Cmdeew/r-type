@@ -377,9 +377,9 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 18 ennemy_height
 		- 19 ennemy_nine
 		- 20 [reserved]
-		- 21 boss_one 
-		- 22 boss_two
-		- 23 boss_three
+		- 21 boss_one - vaisseau
+		- 22 boss_two - boule avec aiguille
+		- 23 boss_three - alien assis
 		- 24 boss _four - alien rouge
 		- 25 bonus astronaute - astronaute
 		- 26 bonus life - coeur
