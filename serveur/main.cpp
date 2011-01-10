@@ -21,7 +21,8 @@ int	main(int ac, char **argv)
       i++;
       start->th->ASleep(100);
     }
-  while (42);
+  pause();
+  //  while (42);
     //start->setId(0);
     //start->startMultiGame(start);
 }
