@@ -1,10 +1,19 @@
 #include <sys/types.h>
 #include "LoadLib.h"
-#include "Object.h"
 
-maker_monster * LoadLib::getTab()
+void	LoadLib::freeLib()
 {
-	return (tabMonster);
+  l->ACloseLib(hnd1);
+}
+
+maker_monster LoadLib::getMaillon(int nb)
+{
+	return (tabMonster[nb]);
+}
+
+Object *LoadLib::getInstance(int nb, char id, char x, char y)
+{
+  return (tabMonster[nb](id, x, y));
 }
 
 void LoadLib::initTabMonster()
@@ -21,8 +30,9 @@ void LoadLib::initTabMonster()
 
 void LoadLib::fillTab(maker_monster pMonster)
 {
+	
 	if (file.compare(MONSTERONE) == 0)
-    tabMonster[0] = pMonster;
+		tabMonster[0] = pMonster;
 	else if (file.compare(MONSTERTWO) == 0)
     tabMonster[1] = pMonster;
 	else if (file.compare(MONSTERTHREE) == 0)
@@ -70,7 +80,6 @@ void LoadLib::checkLib()
   struct dirent *ls;
   std::string   name;
   Object        *obj;
-  void          *hnd1;
   int		i = 0;
 
   if ((dir = opendir("./lib")) != NULL)
@@ -88,10 +97,13 @@ void LoadLib::checkLib()
 		{
 		  void *mkr = l->ASymLib(hnd1, "Create");
 		  if (mkr != NULL)
+		  {
+			  std::cout << "succes !" << std::endl;
 		    this->fillTab((maker_monster)mkr);
+		  }
 		  else
 		    this->fillTab(NULL);
-		  l->ACloseLib(hnd1);
+		  //l->ACloseLib(hnd1);
 		}
 	      else
 		std::cout << "Lib incorrect" << std::endl;

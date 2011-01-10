@@ -1,6 +1,7 @@
 #ifndef LOADLIB_H_
 # define LOADLIB_H_
 
+#include "Object.h"
 #include "Factory.h"
 
 class	LoadLib
@@ -9,12 +10,15 @@ class	LoadLib
   maker_monster tabMonster[9];
   AbsDynamicLib *l;
   std::string	file;
+  void          *hnd1;
  public:
-  maker_monster * getTab();
+  maker_monster getMaillon(int nb);
+  Object* getInstance(int nb, char id, char x, char y);
   bool	ifLib(const std::string name);
   void	initTabMonster();
   void	checkLib();
   void	fillTab(maker_monster pMonster);
+  void	freeLib();
   LoadLib();
   ~LoadLib();  
 };

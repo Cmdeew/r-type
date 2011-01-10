@@ -9,10 +9,10 @@ Game::Game(Factory *_f, char **argv)
 {
   AbsUDPNetwork *p1;
   AbsUDPNetwork *p2;
-  LoadLib	*lib;
   Socket	 sock;
   Socket	 sock1;
   Socket	 sock2;
+  Object	*obj;
 
   f = _f;
   th = f->n_thread();
@@ -33,6 +33,18 @@ Game::Game(Factory *_f, char **argv)
   s[0] = new Session(p, th, mt, 1);
   s[1] = new Session(p1, th, mt, 2);
   s[2] = new Session(p2, th, mt, 3);
+
+
+  LoadLib	*lib;
+
+
+	// verification des libs
+
+  lib = new LoadLib();
+  lib->initTabMonster();
+  lib->checkLib();
+  lib->getInstance(0, 2, 3, 4);
+  lib->freeLib();
 }
 
 Game::~Game()

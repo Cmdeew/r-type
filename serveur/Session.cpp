@@ -77,7 +77,7 @@ void	Session::Create_Mob(int i)
   
   Object	*obj;
   static int a = 0;
-  maker_monster *t;
+  maker_monster t[9];
   LoadLib	*lib;
 
 
@@ -86,7 +86,8 @@ void	Session::Create_Mob(int i)
   lib = new LoadLib();
   lib->initTabMonster();
   lib->checkLib();
-  t = lib->getTab();
+
+
   //Generation d'un mob
   if (i% 9999)
     {
@@ -95,9 +96,9 @@ void	Session::Create_Mob(int i)
 	  //generation mob 12
 	  if (a % 4000 == 0)
 	    {
-		  if (t[1] != NULL)
+		if (lib->getMaillon(1) != NULL)
 		  {
-	      obj = t[1](mob_id++, 55, 10);
+	      obj = lib->getInstance(1, mob_id++, 55, 10);
 	      _listObj.push_back(obj);
 	      
 	        obj = new Object(mob_id++, 55, 10, 5);
@@ -112,9 +113,9 @@ void	Session::Create_Mob(int i)
 	  
 	  if (a % 6000 == 0)
 	    {
-		  if (t[0] != NULL)
+		  if (lib->getMaillon(0) != NULL)
 		  {
-	      obj = t[0](mob_id++, 55, 20);
+	      obj = lib->getInstance(0, mob_id++, 55, 20);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -148,6 +149,7 @@ void	Session::Create_Mob(int i)
 	  if (a == 10000)
 	    a = 0;
     }
+  lib->freeLib();
 }
 
 void  Session::sessionthreadElems()
