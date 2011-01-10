@@ -97,10 +97,17 @@ void LoadLib::checkLib()
 		{
 		  void *mkr = l->ASymLib(hnd1, "Create");
 		  if (mkr != NULL)
+<<<<<<< HEAD
 		  {
 			  std::cout << "succes !" << std::endl;
 		    this->fillTab((maker_monster)mkr);
 		  }
+=======
+		    {
+		      std::cout << "Succes" << std::endl;
+		      this->fillTab((maker_monster)mkr);
+		    }
+>>>>>>> 4cf52fb7300bf4f5cb2f564d0dc6b2ed03533d33
 		  else
 		    this->fillTab(NULL);
 		  //l->ACloseLib(hnd1);
