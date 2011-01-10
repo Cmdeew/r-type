@@ -1,5 +1,4 @@
 #include <sys/types.h>
-#include <dirent.h>
 #include "LoadLib.h"
 #include "Object.h"
 
@@ -17,45 +16,45 @@ void LoadLib::initTabMonster()
 
 void LoadLib::fillTab(maker_monster pMonster)
 {
-  if (file == MONSTERONE)
+	if (file.compare(MONSTERONE) == 0)
     tabMonster[0] = pMonster;
-  else if (file == MONSTERTWO)
+	else if (file.compare(MONSTERTWO) == 0)
     tabMonster[1] = pMonster;
-  else if (file == MONSTERTHREE)
+	else if (file.compare(MONSTERTHREE) == 0)
     tabMonster[2] = pMonster;
-  else if (file == MONSTERFOUR)
+	else if (file.compare(MONSTERFOUR) == 0)
     tabMonster[3] = pMonster;
-  else if (file == MONSTERFIVE)
+	else if (file.compare(MONSTERFIVE) == 0)
     tabMonster[4] = pMonster;
-  else if (file == MONSTERSIX)
+	else if (file.compare(MONSTERSIX) == 0)
     tabMonster[5] = pMonster;
-  else if (file == MONSTERSEVEN)
+	else if (file.compare(MONSTERSEVEN) == 0)
     tabMonster[6] = pMonster;
-  else if (file == MONSTERHEIGHT)
+	else if (file.compare(MONSTERHEIGHT) == 0)
     tabMonster[7] = pMonster;
-  else if (file == MONSTERNINE)
+	else if (file.compare(MONSTERNINE) == 0)
     tabMonster[8] = pMonster;
 }
 
 bool LoadLib::ifLib(const std::string name)
 {
-  if (name == MONSTERONE)
+	if (name.compare(MONSTERONE) == 0)
     return (true);
-  else if (name == MONSTERTWO)
+	else if (name.compare(MONSTERTWO) == 0)
     return (true);
-  else if (name == MONSTERTHREE)
+	else if (name.compare(MONSTERTHREE) == 0)
     return (true);
-  else if (name == MONSTERFOUR)
+	else if (name.compare(MONSTERFOUR) == 0)
     return (true);
-  else if (name == MONSTERFIVE)
+	else if (name.compare(MONSTERFIVE) == 0)
     return (true);
-  else if (name == MONSTERSIX)
+	else if (name.compare(MONSTERSIX) == 0)
     return (true);
-  else if (name == MONSTERSEVEN)
+	else if (name.compare(MONSTERSEVEN) == 0)
     return (true);
-  else if (name == MONSTERHEIGHT)
+	else if (name.compare(MONSTERHEIGHT) == 0)
     return (true);
-  else if (name == MONSTERNINE)
+	else if (name.compare(MONSTERNINE) == 0)
     return (true);
   return (false);
 }
@@ -77,8 +76,8 @@ void LoadLib::checkLib()
 	  file.assign(ls->d_name);
 	  if (this->ifLib(name) == true)
 	    {
-	      name = "./" +  name;
-	      std::cout << name << std::endl;
+		  name.insert(0, "./lib/");
+		  std::cout << name.c_str() << std::endl;
 	      hnd1 = l->AOpenLib((char *)name.c_str());
 	      if (hnd1 != NULL)
 		{
@@ -87,6 +86,7 @@ void LoadLib::checkLib()
 		    this->fillTab((maker_monster)mkr);
 		  else
 		    this->fillTab(NULL);
+		  l->ACloseLib(hnd1);
 		}
 	      else
 		std::cout << "Lib incorrect" << std::endl;

@@ -1,8 +1,8 @@
-#ifndef _MONSTERONE_H_
-# define _MONSTERONE_H_
+#ifndef _MONSTERFOUR_H_
+# define _MONSTERFOUR_H_
 #include "Object.h"
 
-class	MonsterOne : public Object
+class	MonsterFour : public Object
 {
  private:
   char    m_id;
@@ -10,9 +10,9 @@ class	MonsterOne : public Object
   char    m_y;
   char    m_type;
  public:
-  MonsterOne(char id, char x, char y, char type = 11);
+  MonsterFour(char id, char x, char y, char type = 14);
   void	move();
-  ~MonsterOne();
+  ~MonsterFour();
 };
 
-#endif // _MONSTERONE_H_
+#endif // _MONSTERFOUR_H_
