@@ -114,33 +114,48 @@ void		gameClient::loopClient()
   char			buffer[NBOCTETS];
   int			flag = 0;
   int			temp;
+  int			nb;
 
   this->_network = new udpNetwork();
   this->fillnetwork(_network);
-  if (!(temp = _mainWindow.MainMenuLoop()))
-      exit(0);
-  _mainWindow.Close();
-  choosePort(temp);
-  if (!(_network->getSocket().Bind(_network->getPort())))
+
+  while(1)
     {
-      std::cout << "Error: Socket Listen! You must change the port." << std::endl;
-      exit(0);
-    }
-  this->requestConnect(temp);
-  while(flag == 0 &&
-	this->_network->getSocket().Receive(buffer, NBOCTETS, received,
-					    sender, port) == sf::Socket::Done)
-    {
-      std::cout << "Awaiting connection to the server..." <<std::endl;
-      if (buffer[3] == 0 && buffer[1] == 0)
+      if (!(temp = _mainWindow.MainMenuLoop()))
 	{
-	  if (!(flag = replyConnect(buffer)))
-	    {
-	      std::cout << "Error: Server full" << std::endl;
-	      exit(0);
-	    }
+	  _mainWindow.Close();
+	  exit(0);
 	}
+      choosePort(temp);
+      if (!(_network->getSocket().Bind(_network->getPort())))
+	{
+	  std::cout << "Error: Socket Listen! You must change the port." << std::endl;
+	  exit(0);
+	}
+      this->requestConnect(temp);
+      this->_network->getSocket().SetBlocking(false);
+      nb = 0;
+      std::cout << "Awaiting connection to the server..." <<std::endl;
+      while(flag == 0 && nb <= WAITINGTIME)
+	{
+	  if(this->_network->getSocket().Receive(buffer, NBOCTETS,
+						received, sender, port) == sf::Socket::Done)
+	    {
+	      if (buffer[3] == 0 && buffer[1] == 0)
+		{
+		  if (!(flag = replyConnect(buffer)))
+		    {
+		      std::cout << "Error: Server full" << std::endl;
+		      break;
+		    }
+		}
+	    }
+	  nb++;
+	}
+      if (flag != 0)
+	break;
     }
+  _mainWindow.Close();
   mainClient();
 }
 
@@ -189,7 +204,6 @@ void		socketLoop(void * UserData)
   char			buffer[NBOCTETS];
   int			i;
   gameClient* Object = static_cast<gameClient*>(UserData);
-  //  Object->_network->getSocket().SetBlocking(false);
   while(1)
     {
       for (i = 0; i != NBOCTETS; i++)
