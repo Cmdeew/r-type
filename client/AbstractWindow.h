@@ -45,6 +45,7 @@ class	AbstractWindow
   void	MoveBackground();
   void	SetText(int score, int life, int id, int level);
   void	setPlayer(sf::Sprite sprite, int id);
+  void	Close();
 };
 
 #endif //!ABSTRACTWINDOW_H

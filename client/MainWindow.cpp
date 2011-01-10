@@ -209,15 +209,17 @@ int	MainWindow::CreditsLoop()
 
 int     MainWindow::gameOver()
 {
+  if (_gameOverImg.LoadFromFile("img/gameover1.jpg"))
+      _gameOver.SetImage(_gameOverImg);
   while (_mainWindow.IsOpened())
     {
       Clear();
-      _App.Draw(_gameOver);
-      while (_App.GetEvent(_event))
+      _mainWindow.Draw(_gameOver);
+      while (_mainWindow.GetEvent(_event))
         {
-          if (Quit())
+          if (CloseEvent())
             return -1;
-          if (_App.GetInput().IsKeyDown(sf::Key::Return))
+          if (_mainWindow.GetInput().IsKeyDown(sf::Key::Return))
             return 1;
         }
       Display();

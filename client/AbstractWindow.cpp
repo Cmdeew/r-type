@@ -188,3 +188,8 @@ void	AbstractWindow::SetText(int score, int life, int id, int level)
   tmp = oss.str();
   _level.SetText("level " + tmp);
 }
+
+void	AbstractWindow::Close()
+{
+  _App.Close();
+}

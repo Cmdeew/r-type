@@ -201,7 +201,8 @@ void			gameClient::replyDisconnect(char buffer[NBOCTETS])
   if(buffer[2] == _idPlayer && buffer[4] == 0 && buffer[5] == 0 && buffer[6] == 0
      && buffer[7] == 0)
     {
-      std::cout << "Exit the game" <<std::endl;
+      _window.Close();
+      _mainWindow.gameOver();
       exit(0);
     }
 }
