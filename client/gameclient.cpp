@@ -207,6 +207,7 @@ int		gameClient::mainClient()
   _weapondispo = 0;
   _weaponloop = 0;
   _life = 3;
+  _exit = 0;
   setLevel(1);
   _music.LoadMusic();
   Thread.Launch();
@@ -221,13 +222,13 @@ int		gameClient::mainClient()
 	}
       findLevel(_score);
       if (!(keyEvent()))
-	exit(0);
+	break;
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
       _window.SetText(_score, getLife(), getId(), getLevel());
       _mutex.Lock();
-      _window.Draw(_object, 0);
+      _window.Draw(_object, _exit);
       _mutex.Unlock();
       _window.Display();
       _weaponloop++;

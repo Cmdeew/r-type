@@ -4,6 +4,8 @@ CC_linux	= g++
 
 CC_ia64-linux	= g++
 
+CC_i386-linux	= g++
+
 CC_sun4		= /usr/sfw/bin/g++
 
 CC_		= g++
