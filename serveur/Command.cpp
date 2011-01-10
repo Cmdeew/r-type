@@ -198,6 +198,9 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
   Object *o;
   static int id = 51; //TO CHANGE
 
+  if (!(session->_tabPlayer[playerId - 1]))
+    return (1);
+
   o = new Object(id, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
 
   session->_listObj.push_back(o);
