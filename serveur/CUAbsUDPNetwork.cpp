@@ -80,11 +80,12 @@ int	CUAbsUDPNetwork::Send(const void *Buffer, size_t size)
     }
   if (sendto((int)_socket, Buffer, size, 0, (struct sockaddr *)my_addr, sizeof(struct sockaddr)) < 0)
     std::cout << ERROR_SEND << std::endl;
+  return 0;
 }
 
 int	CUAbsUDPNetwork::CloseSocket()
 {
-  close((int)_socket);
+  return close((int)_socket);
 }
 
 void	CUAbsUDPNetwork::Bind(Socket sock)

@@ -37,7 +37,7 @@ RM		=	rm -f
 CC		=	g++ -o
 
 all		:
-		$(CC) $(NAMECLT) $(SRCSCLT) $(LIB)
+		$(CC) $(NAMECLT) $(SRCSCLT) $(LIB) -W -Wall -Werror
 
 clean		:
 		$(RM) *~

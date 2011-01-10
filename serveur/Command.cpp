@@ -88,6 +88,7 @@ int	Command::sendLife(Player *player, AbsUDPNetwork *p)
 
 int	Command::sendScore(Player *player, AbsUDPNetwork *p)
 {
+  (void) player;
   buffer[0] = id_game;
   buffer[1] = SERVER;
   buffer[2] = 5;

@@ -7,6 +7,7 @@
 
 int	main(int ac, char **argv)
 {
+  (void) ac;
   Game	*start;
   int	i;
 

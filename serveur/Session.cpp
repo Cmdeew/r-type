@@ -25,8 +25,6 @@ Session::~Session()
 
 void  Session::sessionthread()
 {
-  int cc;
-  char buffer[6];
   int session = _session_n;
   Command           cmd(_game_n);
 
