@@ -141,8 +141,6 @@ ImageCenter::ImageCenter()
   //wall
   img.LoadFromFile("sprite/wall1.png");
   _lwall1.push_back(img);
-  img.LoadFromFile("sprite/wall2.png");
-  _lwall1.push_back(img);
   //shoot player
   img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
