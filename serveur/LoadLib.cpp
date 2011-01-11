@@ -93,8 +93,9 @@ void LoadLib::checkLib()
 	  file.assign(ls->d_name);
 	  if (this->ifLib(name) == true)
 	    {
-		  name.insert(0, "./lib/");
-		  std::cout << name.c_str() << std::endl;
+	      name.insert(0, "./lib/");
+	      std::cout << name.c_str() << std::endl;
+	      hnd1 = l->AOpenLib((char *)name.c_str());
 	      if (hnd1 != NULL)
 		{
 		  void *mkr = l->ASymLib(hnd1, "Create");
