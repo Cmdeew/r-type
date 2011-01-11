@@ -160,13 +160,7 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/shoot10_6.png");
   _lweapon5.push_back(img);
   //shoot trash
-  img.LoadFromFile("sprite/shoot6_1.png");
-  _lweapon2.push_back(img);
-  img.LoadFromFile("sprite/shoot6_2.png");
-  _lweapon2.push_back(img);
-  img.LoadFromFile("sprite/shoot6_3.png");
-  _lweapon2.push_back(img);
-  img.LoadFromFile("sprite/shoot6_4.png");
+  img.LoadFromFile("sprite/shoot6.png");
   _lweapon2.push_back(img);
   //shoot boss
   img.LoadFromFile("sprite/shoot7_1.png");
@@ -176,7 +170,13 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/shoot7_3.png");
   _lweapon3.push_back(img);
   //shoot diagonale
-  img.LoadFromFile("sprite/shoot8.png");
+  img.LoadFromFile("sprite/shoot6_1.png");
+  _lweapon4.push_back(img);
+  img.LoadFromFile("sprite/shoot6_2.png");
+  _lweapon4.push_back(img);
+    img.LoadFromFile("sprite/shoot6_3.png");
+  _lweapon4.push_back(img);
+    img.LoadFromFile("sprite/shoot6_4.png");
   _lweapon4.push_back(img);
   //explosion
   img.LoadFromFile("sprite/explo1.png");
