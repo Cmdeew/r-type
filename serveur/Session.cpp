@@ -186,7 +186,7 @@ void	Session::Create_Boss(int i)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Object(mob_id++, 55, 16, 21);
+      obj = new Object(mob_id++, 40, 0, 21);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -236,11 +236,43 @@ void  Session::sessionthreadElems()
 		  obj2 = *it2;
 		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
 		      obj->getType() != 9 && obj2->getType() != 9 &&
+		      (obj->getType() != 21 && obj2->getType() != 21) &&
 		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
 		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
+		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		      _listObj.erase(it);
+		      _listObj.erase(it2);
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
+		      it = _listObj.begin();
+		      it2 = _listObj.begin();
+		    }
+		  it2++;
+		}
+	      it++;
+	      }
+	  // Fin detection des collisions
 
+
+
+	  //Detection des collisions entre missiles joueur et boss1
+	  it = _listObj.begin();
+	  while (it != _listObj.end())
+	    {
+	      it2 = _listObj.begin();
+	      while (it2 != _listObj.end())
+		{
+		  obj = *it;
+		  obj2 = *it2;
+		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
+		      (obj->getType() == 21 || obj2->getType() == 21) &&
+		      obj->getType() != 9 && obj2->getType() != 9 &&
+		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
+		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
+		      obj->getY() < obj2->getY() + 20 && obj->getY() > obj2->getY() - 10)
+		    {
 		      if (obj->getType() == 21 && obj2->getType() != 21 && _score < LEVEL1)
 			{
 			  cmd.sendDestroy(obj2->getId() , 0, _p);
@@ -259,13 +291,13 @@ void  Session::sessionthreadElems()
 			}
 		      else
 			{
+			  if (obj->getType() == 21 || obj2->getType() == 21)//Update score boss1
+			    _score = LEVEL1;
+
 			  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 			  _listObj.erase(it);
 			  _listObj.erase(it2);
-			  _score += 10;
 			  cmd.sendScore(_score, _p);
-			  //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
-			  //_listObj.push_back(obj);
 			  it = _listObj.begin();
 			  it2 = _listObj.begin();
 			}
@@ -274,9 +306,14 @@ void  Session::sessionthreadElems()
 		}
 	      it++;
 	      }
+	  // Fin detection boss1
 
 
-	  // Fin detection des collisions
+
+
+
+
+
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
