@@ -22,6 +22,8 @@ class	ImageCenter
   std::list<sf::Image>	_lmeteor1;
   std::list<sf::Image>	_ledge1;
   std::list<sf::Image>	_lwall1;
+  std::list<sf::Image>	_lwall2;
+  std::list<sf::Image>	_lwall3;
   std::list<sf::Image>	_lmonster1;
   std::list<sf::Image>	_lmonster2;
   std::list<sf::Image>	_lmonster3;
@@ -53,6 +55,8 @@ std::list<sf::Image>	_lastronaute1;
   const std::list<sf::Image>	&getLmeteor1() const;
   const std::list<sf::Image>	&getLedge1() const;
   const std::list<sf::Image>	&getLwall1() const;
+  const std::list<sf::Image>	&getLwall2() const;
+  const std::list<sf::Image>	&getLwall3() const;
   const std::list<sf::Image>	&getLmonster1() const;
   const std::list<sf::Image>	&getLmonster2() const;
   const std::list<sf::Image>	&getLmonster3() const;
