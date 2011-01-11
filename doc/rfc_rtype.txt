@@ -366,7 +366,7 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 7 missile mob boss
 		- 8 missile mob diagonale
 		- 9 wall
-		- 10 [reserved]
+		- 10 missile player level 2
 		- 11 ennemy_one - alien armure vert
 		- 12 ennemy_two - boule rouge
 		- 13 ennemy_three - metroid vert

@@ -243,7 +243,10 @@ void			gameClient::replyMove(char buffer[NBOCTETS])
     }
   if (flag == 0)
     {
-      nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);
+      if (_arme == 1)
+	nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);
+      else
+	nElem = _factory.FactoryMethod(10, buffer[6], buffer[4], buffer[5]);
       if (nElem != NULL)      
 	_object.push_back(nElem);
     }
@@ -276,15 +279,33 @@ void			gameClient::replyScore(char buffer[NBOCTETS])
   _score = (int)result;
 }
 
+void			gameClient::bossExplosion(unsigned char posx, unsigned char posy)
+{
+  unsigned char		l;
+  unsigned char		c;
+  Element		*nElem;
+
+  for(l=posx-4;l<=(posx+4);l++)
+    {
+      for(c=posy-4;c<=(posy+4);c++)
+	{
+	  nElem = _factory.FactoryMethod(27, 0, l, c);
+	  if (nElem != NULL)
+	    _object.push_back(nElem);
+	}
+    }
+}
+
 void			gameClient::replyDestroy(char buffer[NBOCTETS])
 {
   Element		*temp;
   std::list<Element *>::iterator lit;
   unsigned char			posx;
   unsigned char			posy;
-  Element		*nElem;
-
+  Element			*nElem;
+  bool				boss;
   
+  boss = 0;
   if (buffer[4] == _idPlayer || buffer[5] == _idPlayer)
     _life -= 1;
   lit = _object.begin();
@@ -295,6 +316,9 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	{
 	  posx = temp->getPosX();
 	  posy = temp->getPosY();
+	  if (temp->getType() == 21 || temp->getType() == 22 ||
+	      temp->getType() == 23 || temp->getType() == 24)
+	    boss = 1;
 	  _object.erase(lit);
 	  delete temp;
 	  break;
@@ -314,6 +338,9 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  temp = *lit;
 	  if(temp->getID() == buffer[5])
 	    {
+	      if (boss == 0 && (temp->getType() == 21 || temp->getType() == 22 ||
+				temp->getType() == 23 || temp->getType() == 24))
+		boss = 1;
 	      _object.erase(lit);
 	      delete temp;
 	      break;
@@ -321,6 +348,8 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	}
       _score += 10;
     }
+  if (boss == 1)
+    bossExplosion(posx, posy);
 }
 
 void			gameClient::cleanexplosion()
