@@ -157,7 +157,7 @@ void  Session::sessionthreadElems()
 
   Command       cmd(_game_n);
   Object	*obj;
-  //Object	*obj2;
+  Object	*obj2;
   std::list<Object *>::iterator it;
   std::list<Object *>::iterator it2;
 
@@ -180,8 +180,8 @@ void  Session::sessionthreadElems()
       Create_Mob(i);
       if (i % 100 == 0)
 	{
-	  //Detection des collisions
-	  /*it = _listObj.begin();
+	  //Detection des collisions entre missiles joueur et mobs
+	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
 	      it2 = _listObj.begin();
@@ -189,7 +189,7 @@ void  Session::sessionthreadElems()
 		{
 		  obj = *it;
 		  obj2 = *it2;
-		  if ((obj != obj2) &&
+		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
 			obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 			obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
@@ -206,7 +206,7 @@ void  Session::sessionthreadElems()
 		  it2++;
 		}
 	      it++;
-	      }*/
+	      }
 
 
 	  // Fin detection des collisions
