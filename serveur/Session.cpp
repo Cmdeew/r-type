@@ -94,6 +94,7 @@ void	Session::Create_Mob(int i)
       //generation mob 12 BOULE
       static int b = 0;
       int r;
+
       if (a % 900 == 0 && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(1) != NULL)
@@ -122,20 +123,26 @@ void	Session::Create_Mob(int i)
 	}
       
 	  //generation mob_11
-	  if (a % 6000 == 0 && _score > LEVEL1)
+
+      if (a % 4000 == 0 && _score >= LEVEL2)
+	{
+	  int p = rand()%MAXRAND;
+	  if (lib->getMaillon(0) != NULL)
 	    {
-	      if (lib->getMaillon(0) != NULL)
-		  {
-		    obj = lib->getInstance(0, mob_id++, 55, 20);
-		    _listObj.push_back(obj);
-		    if (mob_id > 127)
-		      mob_id = 11;
-		  }
+	      obj = lib->getInstance(0, mob_id++, 55, p);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
+	      obj = new Object(mob_id++, 55, p + 4, 9);
+		  _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
 	    }
+	}
 
 
 	  //generation mob_13
-	  if (a % 6000 == 0 && _score > LEVEL1)
+	  /*if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(2) != NULL)
 		  {
@@ -144,7 +151,7 @@ void	Session::Create_Mob(int i)
 		    if (mob_id > 127)
 		      mob_id = 11;
 		  }
-	    }
+		  }*/
 	  
 
 

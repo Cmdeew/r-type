@@ -19,8 +19,7 @@ MonsterOne::~MonsterOne()
 
 void MonsterOne::move(Session *s)
 {
-}
-  /*Object *obj;
+  Object *obj;
 
   static int k = 0;
 
@@ -42,23 +41,6 @@ void MonsterOne::move(Session *s)
   if (k == 50000)
     k = 0;
     k++;
-  }/*
-
-  char MonsterOne::getType()
-{
-  return (m_type);
-}
-
-char MonsterOne::getType()
-{
-  return (m_type);
-}
-  */
-
-  
-char MonsterOne::getType()
-{
-  return (m_type);
 }
 
 extern "C"
