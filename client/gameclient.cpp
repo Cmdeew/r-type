@@ -59,11 +59,11 @@ void		gameClient::setLevel(int level)
 void		gameClient::findLevel(int score)
 {
   //level
-  if (score >= 6000)
+  if (score >= 10000)
     this->setLevel(4);
-  if (score >= 4000)
+  else if (score >= 8500)
     this->setLevel(3);
-  else if (score >= 2000)
+  else if (score >= 2500)
     this->setLevel(2);
   else
     this->setLevel(1);
@@ -271,7 +271,7 @@ int		gameClient::mainClient()
       _window.MoveBackground();
       _window.SetText(_score, getLife(), getId(), getLevel());
       _mutex.Lock();
-      _window.Draw(_object, _exit);
+      _window.Draw(_object, _exit, getLevel());
       _mutex.Unlock();
       _window.Display();
       _weaponloop++;

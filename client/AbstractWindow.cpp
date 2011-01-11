@@ -7,6 +7,13 @@ AbstractWindow::AbstractWindow()
   _App.SetFramerateLimit(60);
   if (!_backgroundImg.LoadFromFile("img/background1.jpg"))
     std::cerr << "Error: Unable to load background" << std::endl;
+  if (!_background2Img.LoadFromFile("img/background2.jpg"))
+    std::cerr << "Error: Unable to load background" << std::endl;
+  if (!_background3Img.LoadFromFile("img/background3.jpg"))
+    std::cerr << "Error: Unable to load background" << std::endl;
+  if (!_background4Img.LoadFromFile("img/background4.jpg"))
+    std::cerr << "Error: Unable to load background" << std::endl;
+
   if (!_interfaceImg.LoadFromFile("sprite/interface.png"))
     std::cerr << "Error: Unable to load the interface" << std::endl;
   if (!_lifeImg.LoadFromFile("sprite/lifeMenu.png"))
@@ -28,7 +35,12 @@ AbstractWindow::AbstractWindow()
   _level.SetSize(25);
   _level.SetPosition(310, 660);
   _score.SetColor(sf::Color(255, 255, 255));
+
   _background.SetImage(_backgroundImg);
+  _background2.SetImage(_background2Img);
+  _background3.SetImage(_background3Img);
+  _background4.SetImage(_background4Img);
+
   _lifeSprite.SetImage(_lifeImg);
   _interface.SetImage(_interfaceImg);
   _lifeSprite.SetPosition(605, 700);
@@ -46,7 +58,7 @@ void	AbstractWindow::Clear()
   _App.Clear(sf::Color(0, 0, 0));
 }
 
-void	AbstractWindow::Draw(const std::list<Element *> &list, int mode)
+void	AbstractWindow::Draw(const std::list<Element *> &list, int mode, int level)
 {
   std::list<Element *>::const_iterator	it;
   std::list<sf::Sprite>::iterator	iter;
@@ -55,7 +67,14 @@ void	AbstractWindow::Draw(const std::list<Element *> &list, int mode)
   if (mode == 0)
     {
       it = list.begin();
-      _App.Draw(_background);
+      if (level == 1)
+	_App.Draw(_background);
+      else if (level == 2)
+	_App.Draw(_background2);
+      else if (level == 3)
+	_App.Draw(_background3);
+      else if (level == 4)
+	_App.Draw(_background4);
       _App.Draw(_interface);
       _App.Draw(_level);
       _App.Draw(_score);
@@ -170,8 +189,16 @@ void	AbstractWindow::MoveBackground()
   sf::Sprite	background;
 
   if (_background.GetPosition().x == -1100)
-    _background.SetX(0);
+    {
+      _background.SetX(0);
+      _background2.SetX(0);
+      _background3.SetX(0);
+      _background4.SetX(0);
+    }
   _background.Move(-1, 0);
+  _background2.Move(-1, 0);
+  _background3.Move(-1, 0);
+  _background4.Move(-1, 0);
 }
 
 void	AbstractWindow::SetText(int score, int life, int id, int level)

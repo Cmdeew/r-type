@@ -34,21 +34,6 @@ Game::Game(Factory *_f, char **argv)
   s[0] = new Session(p, th, mt, 1);
   s[1] = new Session(p1, th, mt, 2);
   s[2] = new Session(p2, th, mt, 3);
-
-
-  LoadLib	*lib;
-
-
-	// verification des libs
-
-  /*lib = new LoadLib();
-  lib->initTabMonster();
-  lib->checkLib();
-  obj = lib->getInstance(0, 2, 3, 4);
-  lib->freeLib();
-  std::cout << (int)obj->getX() <<std::endl;
-  obj->move(s[0]);
-  delete obj;*/
 }
 
 Game::~Game()
