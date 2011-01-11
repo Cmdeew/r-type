@@ -8,6 +8,7 @@
 #include "AbsThread.h"
 #include "AbsMutex.h"
 #include "Player.h"
+#include "CUAbsDynamicLib.h"
 #include "Object.h"
 
 #define MAX_PING_TIME 30000

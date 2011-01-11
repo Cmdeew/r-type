@@ -1,5 +1,5 @@
-#include "Session.h"
 #include "LoadLib.h"
+#include "Session.h"
 #include <stdlib.h>
 
 Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
@@ -77,52 +77,50 @@ void	Session::Create_Mob(int i)
   
   Object	*obj;
   static int a = 0;
-  maker_monster t[9];
-  LoadLib	*lib;
+  static int nb = 0;
+  static LoadLib * lib;
 
 
-	// verification des libs
+  if (nb == 0)
+    {
+      lib = new LoadLib();
+      lib->initTabMonster();
+      lib->checkLib();
+      nb = 1;
+    }
 
-  lib = new LoadLib();
-  lib->initTabMonster();
-  lib->checkLib();
-
-
-  //Generation d'un mob
+   //Generation d'un mob
   if (i% 9999)
     {
       //a = rand();
       
-	  //generation mob 12
-	  if (a % 4000 == 0)
+      //generation mob 12
+      if (a % 4000 == 0)
+	{
+	  if (lib->getMaillon(0) != NULL)
 	    {
-		if (lib->getMaillon(1) != NULL)
-		  {
 	      obj = lib->getInstance(1, mob_id++, 55, 10);
+	      _listObj.push_back(obj);		    
+	      obj = new Object(mob_id++, 55, 10, 5);
 	      _listObj.push_back(obj);
-	      
-	        obj = new Object(mob_id++, 55, 10, 5);
-	      _listObj.push_back(obj);
-	      
 	      if (mob_id > 127)
-			mob_id = 11;
-		  }
+		mob_id = 11;
 	    }
-	      
+	    }
+      
 	  //generation mob_11
-	  
 	  if (a % 6000 == 0)
 	    {
-		  if (lib->getMaillon(0) != NULL)
+	      if (lib->getMaillon(0) != NULL)
 		  {
-	      obj = lib->getInstance(0, mob_id++, 55, 20);
-	      _listObj.push_back(obj);
-	      if (mob_id > 127)
-		mob_id = 11;
-	      obj = new Object(mob_id++, 52, 23, 9);
-	      _listObj.push_back(obj);
-	      if (mob_id > 127)
-		mob_id = 11;
+		    obj = lib->getInstance(0, mob_id++, 55, 20);
+		    _listObj.push_back(obj);
+		    if (mob_id > 127)
+		      mob_id = 11;
+		    obj = new Object(mob_id++, 52, 23, 9);
+		    _listObj.push_back(obj);
+		    if (mob_id > 127)
+		      mob_id = 11;
 		  }
 	    }
 	  
@@ -149,14 +147,15 @@ void	Session::Create_Mob(int i)
 	  if (a == 10000)
 	    a = 0;
     }
-  lib->freeLib();
+  //lib->freeLib();
+  //delete lib;
 }
 
 void  Session::sessionthreadElems()
 {
   int i = 0;
 
-  Command           cmd(_game_n);
+  Command       cmd(_game_n);
   Object	*obj;
   //Object	*obj2;
   std::list<Object *>::iterator it;
@@ -169,13 +168,16 @@ void  Session::sessionthreadElems()
   std::cout << "Success for threadElems" << std::endl;
 
 
+   LoadLib	*lib;
+  // verification des libs
+  
+
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
       Create_Mob(i);
-
       if (i % 100 == 0)
 	{
 	  //Detection des collisions

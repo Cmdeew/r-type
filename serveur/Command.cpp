@@ -159,12 +159,8 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
   cc = p->Receive(buffer);
   if (cc == CMD_SIZE && buffer[1] == CLIENT)
     {
-      std::cout << "Entree dans la condition 1" << std::endl;
       game = buffer[0];
       playerId = buffer[2];
-      std::cout << game << std::endl;
-      std::cout << session->_game_n << std::endl;
-      std::cout << "Entree dans la condition 2" << std::endl;
       if (playerId == 0 && buffer[3] == CLIENT_CMD_CONNECT && buffer[4] == 0 &&
 	  buffer[5] == 0 && buffer[6] == 0 && buffer[7] == 0)
 	receiveConnect(session);

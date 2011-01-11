@@ -1,9 +1,10 @@
+#include "LoadLib.h"
 #include "Factory.h"
 #include "Command.h"
 #include "Session.h"
 #include "Game.h"
 #include "Object.h"
-#include "LoadLib.h"
+//#include "LoadLib.h"
 
 Game::Game(Factory *_f, char **argv)
 {
@@ -43,8 +44,11 @@ Game::Game(Factory *_f, char **argv)
   lib = new LoadLib();
   lib->initTabMonster();
   lib->checkLib();
-  lib->getInstance(0, 2, 3, 4);
+  obj = lib->getInstance(0, 2, 3, 4);
   lib->freeLib();
+  std::cout << (int)obj->getX() <<std::endl;
+  obj->move(s[0]);
+  delete obj;
 }
 
 Game::~Game()

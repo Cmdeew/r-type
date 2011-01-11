@@ -5,7 +5,7 @@ class Session;
 
 class	Object
 {
-private:
+protected:
 	char	m_id;
 	char	m_x;
 	char	m_y;

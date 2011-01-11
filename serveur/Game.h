@@ -1,9 +1,9 @@
 #ifndef GAMERTYPE_H_
 # define GAMERTYPE_H_
 
+#include "Session.h"
 #include "Factory.h"
 #include "AbsThread.h"
-#include "Session.h"
 
 class	Game
 {

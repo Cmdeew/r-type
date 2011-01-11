@@ -8,12 +8,15 @@ void	LoadLib::freeLib()
 
 maker_monster LoadLib::getMaillon(int nb)
 {
-	return (tabMonster[nb]);
+  return (tabMonster[nb]);
 }
 
 Object *LoadLib::getInstance(int nb, char id, char x, char y)
 {
-  return (tabMonster[nb](id, x, y));
+  Object *save;
+
+  save = tabMonster[nb](id, x, y);
+  return (save);
 }
 
 void LoadLib::initTabMonster()
@@ -31,45 +34,45 @@ void LoadLib::initTabMonster()
 void LoadLib::fillTab(maker_monster pMonster)
 {
 	
-	if (file.compare(MONSTERONE) == 0)
-		tabMonster[0] = pMonster;
-	else if (file.compare(MONSTERTWO) == 0)
+  if (file.compare(MONSTERONE) == 0)
+    tabMonster[0] = pMonster;
+  else if (file.compare(MONSTERTWO) == 0)
     tabMonster[1] = pMonster;
-	else if (file.compare(MONSTERTHREE) == 0)
+  else if (file.compare(MONSTERTHREE) == 0)
     tabMonster[2] = pMonster;
-	else if (file.compare(MONSTERFOUR) == 0)
+  else if (file.compare(MONSTERFOUR) == 0)
     tabMonster[3] = pMonster;
-	else if (file.compare(MONSTERFIVE) == 0)
+  else if (file.compare(MONSTERFIVE) == 0)
     tabMonster[4] = pMonster;
-	else if (file.compare(MONSTERSIX) == 0)
+  else if (file.compare(MONSTERSIX) == 0)
     tabMonster[5] = pMonster;
-	else if (file.compare(MONSTERSEVEN) == 0)
+  else if (file.compare(MONSTERSEVEN) == 0)
     tabMonster[6] = pMonster;
-	else if (file.compare(MONSTERHEIGHT) == 0)
+  else if (file.compare(MONSTERHEIGHT) == 0)
     tabMonster[7] = pMonster;
-	else if (file.compare(MONSTERNINE) == 0)
+  else if (file.compare(MONSTERNINE) == 0)
     tabMonster[8] = pMonster;
 }
 
 bool LoadLib::ifLib(const std::string name)
 {
-	if (name.compare(MONSTERONE) == 0)
+  if (name.compare(MONSTERONE) == 0)
     return (true);
-	else if (name.compare(MONSTERTWO) == 0)
+  else if (name.compare(MONSTERTWO) == 0)
     return (true);
-	else if (name.compare(MONSTERTHREE) == 0)
+  else if (name.compare(MONSTERTHREE) == 0)
     return (true);
-	else if (name.compare(MONSTERFOUR) == 0)
+  else if (name.compare(MONSTERFOUR) == 0)
     return (true);
-	else if (name.compare(MONSTERFIVE) == 0)
+  else if (name.compare(MONSTERFIVE) == 0)
     return (true);
-	else if (name.compare(MONSTERSIX) == 0)
+  else if (name.compare(MONSTERSIX) == 0)
     return (true);
-	else if (name.compare(MONSTERSEVEN) == 0)
+  else if (name.compare(MONSTERSEVEN) == 0)
     return (true);
-	else if (name.compare(MONSTERHEIGHT) == 0)
+  else if (name.compare(MONSTERHEIGHT) == 0)
     return (true);
-	else if (name.compare(MONSTERNINE) == 0)
+  else if (name.compare(MONSTERNINE) == 0)
     return (true);
   return (false);
 }
@@ -92,28 +95,22 @@ void LoadLib::checkLib()
 	    {
 		  name.insert(0, "./lib/");
 		  std::cout << name.c_str() << std::endl;
-	      hnd1 = l->AOpenLib((char *)name.c_str());
-	      if (hnd1 != NULL)
-		{
-		  void *mkr = l->ASymLib(hnd1, "Create");
-		  if (mkr != NULL)
-<<<<<<< HEAD
-		  {
-			  std::cout << "succes !" << std::endl;
-		    this->fillTab((maker_monster)mkr);
-		  }
-=======
+		  std::cout << file.c_str() << std::endl;
+		  hnd1 = l->AOpenLib((char *)name.c_str());
+		  if (hnd1 != NULL)
 		    {
-		      std::cout << "Succes" << std::endl;
-		      this->fillTab((maker_monster)mkr);
+		      void *mkr = l->ASymLib(hnd1, "Create");
+		      if (mkr != NULL)
+			{
+			  std::cout << "succes !" << std::endl;
+			  this->fillTab((maker_monster)mkr);
+			}
+		      else
+			this->fillTab(NULL);
+		      //l->ACloseLib(hnd1);
 		    }
->>>>>>> 4cf52fb7300bf4f5cb2f564d0dc6b2ed03533d33
 		  else
-		    this->fillTab(NULL);
-		  //l->ACloseLib(hnd1);
-		}
-	      else
-		std::cout << "Lib incorrect" << std::endl;
+		    std::cout << "Lib incorrect" << std::endl;
 	    }
         }
     }
