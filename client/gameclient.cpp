@@ -271,7 +271,7 @@ int		gameClient::mainClient()
       _window.MoveBackground();
       _window.SetText(_score, getLife(), getId(), getLevel());
       _mutex.Lock();
-      _window.Draw(_object, _exit);
+      _window.Draw(_object, _exit, getLevel());
       _mutex.Unlock();
       _window.Display();
       _weaponloop++;
