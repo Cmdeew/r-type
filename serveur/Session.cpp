@@ -73,8 +73,7 @@ void  Session::sessionthread()
 }
 
 void	Session::Create_Mob(int i)
-{
-  
+{  
   Object	*obj;
   static int a = 0;
   static int nb = 0;
@@ -92,17 +91,15 @@ void	Session::Create_Mob(int i)
    //Generation d'un mob
   if (i% 9999)
     {
-      //a = rand();
-      
       //generation mob 12 BOULE
       static int b = 0;
       int r;
-      if (a % 1000 == 0 && _score < LEVEL1)
+      if (a % 900 == 0 && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
 	      r = rand();
-	      if (b % 2 == 0 && r > 11)
+	      if (r > 20)
 		{
 		  obj = lib->getInstance(1, mob_id++, 55, r%MAXRAND);
 		  _listObj.push_back(obj);
@@ -110,32 +107,22 @@ void	Session::Create_Mob(int i)
 	      if (mob_id > 127)
 		mob_id = 11;
 	    }
-	  b++;
-	  if (b == 30)
-	    b = 0;
 	}
 
       //generation mob_14 AVION
-      static int c = 0;
-      if (a % 1000 == 0 && _score < LEVEL1)
+      if (a % 900 == 0 && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(3) != NULL)
 	    {
-	      if (c % 2 == 0)
-		{
-		  obj = lib->getInstance(3, mob_id++, 55, rand()%MAXRAND);
-		  _listObj.push_back(obj);
-		}
+	      obj = lib->getInstance(3, mob_id++, 55, rand()%MAXRAND);
+	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
-	    }
-	  c++;
-	  if (c == 30)
-	    c = 0;
+	    } 
 	}
       
 	  //generation mob_11
-	  if (a % 6000 == 0 && _score > 2500)
+	  if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(0) != NULL)
 		  {
@@ -148,7 +135,7 @@ void	Session::Create_Mob(int i)
 
 
 	  //generation mob_13
-	  if (a % 6000 == 0 && _score > 2500)
+	  if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(2) != NULL)
 		  {
@@ -159,6 +146,8 @@ void	Session::Create_Mob(int i)
 		  }
 	    }
 	  
+
+
 	  //generation mob_9 MUR
 
 	  /*if (a % 10000 == 0)
@@ -184,6 +173,24 @@ void	Session::Create_Mob(int i)
     }
   //lib->freeLib();
   //delete lib;
+}
+
+void	Session::Create_Boss(int i)
+{
+  Object	*obj;
+  Command           cmd(_game_n);
+  static int boss1 = 0;
+
+  //Generation du boss 1
+  if (_score == LEVEL_BOSS1 && boss1 == 0)
+    {
+      boss1 = 1;
+      cmd.sendScore(_score, _p);
+      obj = new Object(mob_id++, 55, 16, 21);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = 11;
+    }
 }
 
 void  Session::sessionthreadElems()
@@ -212,7 +219,10 @@ void  Session::sessionthreadElems()
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      Create_Mob(i);
+      if (_score < LEVEL_BOSS1 || _score > LEVEL1)
+	Create_Mob(i);
+
+      Create_Boss(i);
       if (i % 100 == 0)
 	{
 	  //Detection des collisions entre missiles joueur et mobs
@@ -230,15 +240,35 @@ void  Session::sessionthreadElems()
 		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
-		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
-		      _listObj.erase(it);
-		      _listObj.erase(it2);
-		      _score += 10;
-		      cmd.sendScore(_score, _p);
-		      //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
-		      //_listObj.push_back(obj);
-		      it = _listObj.begin();
-		      it2 = _listObj.begin();
+
+		      if (obj->getType() == 21 && obj2->getType() != 21 && _score < LEVEL1)
+			{
+			  cmd.sendDestroy(obj2->getId() , 0, _p);
+			 _score += 10;
+			  cmd.sendScore(_score, _p);
+			  _listObj.erase(it2);
+			  it2 = _listObj.begin();
+			}
+		      else if (obj->getType() != 21 && obj2->getType() == 21 && _score < LEVEL1)
+			{
+			  cmd.sendDestroy(obj->getId() , 0, _p); 
+			 _score += 10;
+			 cmd.sendScore(_score, _p);
+			  _listObj.erase(it);
+			  it = _listObj.begin();
+			}
+		      else
+			{
+			  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+			  _listObj.erase(it);
+			  _listObj.erase(it2);
+			  _score += 10;
+			  cmd.sendScore(_score, _p);
+			  //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
+			  //_listObj.push_back(obj);
+			  it = _listObj.begin();
+			  it2 = _listObj.begin();
+			}
 		    }
 		  it2++;
 		}

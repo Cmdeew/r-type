@@ -61,12 +61,37 @@ void Object::move(Session *s)
       }
   else if (m_type == 5)
     m_x++;
-  else if (m_type == 6 || m_type == 9 || m_type == 14)
+  else if (m_type == 6 || m_type == 9 || m_type == 14 || m_type == 7)
     m_x--;
   else if (m_type == 8)
     {
       m_x--;
       m_y--;
+    }
+  else if (m_type == 21) //Boss 1
+    {
+
+      static int b1 = 0;
+      
+      if (b1 % 10 == 0)
+	{
+	  obj = new Object(s->mob_id++, m_x - 3, m_y, 7);
+	  s->_listObj.push_back(obj);
+	}
+      if (m_x > 20)
+	m_x--;
+
+      if (m_y == 0)
+	m_y++;
+      else if (m_y == 32)
+	m_y--;
+      else if (rand() % 2 == 0)
+	m_y--;
+      else
+	m_y++;
+      if (b1 == 50000)
+	b1 = 0;
+      b1++;
     }
 }
 
