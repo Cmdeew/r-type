@@ -208,7 +208,8 @@ void		socketLoop(void * UserData)
   char			buffer[NBOCTETS];
   int			i;
   gameClient* Object = static_cast<gameClient*>(UserData);
-  while(1)
+  
+  while(true)
     {
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;

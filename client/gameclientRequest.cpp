@@ -243,10 +243,15 @@ void			gameClient::replyMove(char buffer[NBOCTETS])
     }
   if (flag == 0)
     {
-      if (_arme == 1)
-	nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);
+      if (buffer[7] == 5)
+	{
+	  if (_arme == 1)
+	    nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);
+	  else
+	    nElem = _factory.FactoryMethod(10, buffer[6], buffer[4], buffer[5]);
+	}
       else
-	nElem = _factory.FactoryMethod(10, buffer[6], buffer[4], buffer[5]);
+	nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);
       if (nElem != NULL)      
 	_object.push_back(nElem);
     }
