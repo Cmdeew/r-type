@@ -1,3 +1,4 @@
+#include "Elem.h"
 #include "LoadLib.h"
 #include "Session.h"
 #include <stdlib.h>
@@ -97,16 +98,16 @@ void	Session::Create_Mob(int i)
       //generation mob 12
       if (a % 4000 == 0)
 	{
-	  if (lib->getMaillon(0) != NULL)
+	  if (lib->getMaillon(1) != NULL)
 	    {
 	      obj = lib->getInstance(1, mob_id++, 55, 10);
 	      _listObj.push_back(obj);		    
-	      obj = new Object(mob_id++, 55, 10, 5);
+	      obj = new Elem(mob_id++, 55, 10, 5);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
 	    }
-	    }
+	}
       
 	  //generation mob_11
 	  if (a % 6000 == 0)
@@ -117,7 +118,7 @@ void	Session::Create_Mob(int i)
 		    _listObj.push_back(obj);
 		    if (mob_id > 127)
 		      mob_id = 11;
-		    obj = new Object(mob_id++, 52, 23, 9);
+		    obj = new Elem(mob_id++, 52, 23, 9);
 		    _listObj.push_back(obj);
 		    if (mob_id > 127)
 		      mob_id = 11;
@@ -132,11 +133,11 @@ void	Session::Create_Mob(int i)
 	      j = 0;
 	      while (j < 3)
 		{
-		   obj = new Object(mob_id++, 55, 0+i*2, 9);
+		   obj = new Elem(mob_id++, 55, 0+i*2, 9);
 		  _listObj.push_back(obj);
 		  if (mob_id > 127)
 		    mob_id = 11;
-		  obj = new Object(mob_id++, 55, 34-i*2, 9);
+		  obj = new Elem(mob_id++, 55, 34-i*2, 9);
 		  _listObj.push_back(obj);
 		  if (mob_id > 127)
 		    mob_id = 11;

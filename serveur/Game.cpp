@@ -41,14 +41,14 @@ Game::Game(Factory *_f, char **argv)
 
 	// verification des libs
 
-  lib = new LoadLib();
+  /*lib = new LoadLib();
   lib->initTabMonster();
   lib->checkLib();
   obj = lib->getInstance(0, 2, 3, 4);
   lib->freeLib();
   std::cout << (int)obj->getX() <<std::endl;
   obj->move(s[0]);
-  delete obj;
+  delete obj;*/
 }
 
 Game::~Game()
