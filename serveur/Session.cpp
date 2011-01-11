@@ -73,8 +73,7 @@ void  Session::sessionthread()
 }
 
 void	Session::Create_Mob(int i)
-{
-  
+{  
   Object	*obj;
   static int a = 0;
   static int nb = 0;
@@ -123,7 +122,7 @@ void	Session::Create_Mob(int i)
 	}
       
 	  //generation mob_11
-	  if (a % 6000 == 0 && _score > 2500)
+	  if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(0) != NULL)
 		  {
@@ -136,7 +135,7 @@ void	Session::Create_Mob(int i)
 
 
 	  //generation mob_13
-	  if (a % 6000 == 0 && _score > 2500)
+	  if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(2) != NULL)
 		  {
@@ -147,6 +146,8 @@ void	Session::Create_Mob(int i)
 		  }
 	    }
 	  
+
+
 	  //generation mob_9 MUR
 
 	  /*if (a % 10000 == 0)
@@ -172,6 +173,24 @@ void	Session::Create_Mob(int i)
     }
   //lib->freeLib();
   //delete lib;
+}
+
+void	Session::Create_Boss(int i)
+{
+  Object	*obj;
+  Command           cmd(_game_n);
+  static int boss1 = 0;
+
+  //Generation du boss 1
+  if (_score == LEVEL_BOSS1 && boss1 == 0)
+    {
+      boss1 = 1;
+      cmd.sendScore(_score, _p);
+      obj = new Object(mob_id++, 55, 16, 21);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = 11;
+    }
 }
 
 void  Session::sessionthreadElems()
@@ -200,7 +219,10 @@ void  Session::sessionthreadElems()
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      Create_Mob(i);
+      if (_score < LEVEL_BOSS1 || _score > LEVEL1)
+	Create_Mob(i);
+
+      Create_Boss(i);
       if (i % 100 == 0)
 	{
 	  //Detection des collisions entre missiles joueur et mobs
@@ -218,15 +240,35 @@ void  Session::sessionthreadElems()
 		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
-		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
-		      _listObj.erase(it);
-		      _listObj.erase(it2);
-		      _score += 10;
-		      cmd.sendScore(_score, _p);
-		      //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
-		      //_listObj.push_back(obj);
-		      it = _listObj.begin();
-		      it2 = _listObj.begin();
+
+		      if (obj->getType() == 21 && obj2->getType() != 21 && _score < LEVEL1)
+			{
+			  cmd.sendDestroy(obj2->getId() , 0, _p);
+			 _score += 10;
+			  cmd.sendScore(_score, _p);
+			  _listObj.erase(it2);
+			  it2 = _listObj.begin();
+			}
+		      else if (obj->getType() != 21 && obj2->getType() == 21 && _score < LEVEL1)
+			{
+			  cmd.sendDestroy(obj->getId() , 0, _p); 
+			 _score += 10;
+			 cmd.sendScore(_score, _p);
+			  _listObj.erase(it);
+			  it = _listObj.begin();
+			}
+		      else
+			{
+			  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+			  _listObj.erase(it);
+			  _listObj.erase(it2);
+			  _score += 10;
+			  cmd.sendScore(_score, _p);
+			  //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
+			  //_listObj.push_back(obj);
+			  it = _listObj.begin();
+			  it2 = _listObj.begin();
+			}
 		    }
 		  it2++;
 		}

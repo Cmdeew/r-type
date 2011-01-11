@@ -15,7 +15,13 @@
 #define MID_PING_TIME 20000
 #define WARN_PING_TIME 10000
 
-#define LEVEL1 2000
+
+#define LEVEL1 2500
+#define LEVEL_BOSS1 2000
+#define LEVEL2 6000
+#define LEVEL_BOSS2 4500
+#define LEVEL3 10000
+#define LEVEL_BOSS3 8500
 
 #define MAXRAND 35
 
@@ -45,6 +51,7 @@ class	Session
   void sessionthreadElems();
   static void    *sessionthreadElemsInit(Session *sess);
   void		Create_Mob(int i);
+  void		Create_Boss(int i);
 
   unsigned char mob_id;
 
