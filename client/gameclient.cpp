@@ -238,6 +238,7 @@ void		socketLoop(void * UserData)
 int		gameClient::mainClient()
 {
   sf::Thread		Thread(&socketLoop, this);
+  int			loop = 0;
 
   _score = 0;
   _weapondispo = 0;
@@ -251,6 +252,11 @@ int		gameClient::mainClient()
   _window.setPlayer(getSprite(), getId());
   while (_window.IsLaunch())
     {
+      if (loop >= 10000)
+	{
+	  cleanListe();
+	  loop = 0;
+	}
       if (_weaponloop >= 10)
 	{
 	  _weapondispo = 1;
@@ -269,6 +275,7 @@ int		gameClient::mainClient()
       _mutex.Unlock();
       _window.Display();
       _weaponloop++;
+      loop++;
     }
   Thread.Terminate();
   return 0;
