@@ -252,7 +252,7 @@ int		gameClient::mainClient()
   _window.setPlayer(getSprite(), getId());
   while (_window.IsLaunch())
     {
-      if (loop >= 10000)
+      if (loop >= 5000)
 	{
 	  cleanListe();
 	  loop = 0;
