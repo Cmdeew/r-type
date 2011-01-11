@@ -15,6 +15,9 @@
 #define MID_PING_TIME 20000
 #define WARN_PING_TIME 10000
 
+#define LEVEL1 2000
+#define MAXRAND 20
+
 class	Session
 {
  private:
