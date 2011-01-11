@@ -27,7 +27,7 @@ SRC		= AbstractMusic.cpp\
 OBJ		= $(SRC:.cpp=.o)
 
 
-CFLAGS		= -W -Wall -Werror -Wstrict-prototypes -pedantic -03
+CFLAGS		= -W -Wall -Werror -Wstrict-prototypes -pedantic -O3
 
 LIB		= -lsfml-graphics -lsfml-system -lsfml-audio -lsfml-network -lsfml-window
 
