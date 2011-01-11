@@ -168,6 +168,7 @@ void			gameClient::requestShoot()
     }
   for(int i=6;i<NBOCTETS;i++)
     buffer[i] = 0;
+  _shoot.Play();
   this->_network->sendMessage(buffer);
 }
 
@@ -299,11 +300,14 @@ void			gameClient::bossExplosion(unsigned char posx, unsigned char posy)
 	    _object.push_back(nElem);
 	}
     }
+  _dieBoss.Play();
 }
 
 void			gameClient::replyDestroy(char buffer[NBOCTETS])
 {
   Element		*temp;
+  unsigned char		type;
+  unsigned char		type2;
   std::list<Element *>::iterator lit;
   unsigned char			posx;
   unsigned char			posy;
@@ -311,6 +315,7 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
   bool				boss;
   
   boss = 0;
+  type = type2 = 0;
   if (buffer[4] == _idPlayer || buffer[5] == _idPlayer)
     _life -= 1;
   lit = _object.begin();
@@ -321,6 +326,7 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	{
 	  posx = temp->getPosX();
 	  posy = temp->getPosY();
+	  type = temp->getType();
 	  if (temp->getType() == 21 || temp->getType() == 22 ||
 	      temp->getType() == 23 || temp->getType() == 24)
 	    boss = 1;
@@ -329,7 +335,7 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  break;
 	}
     }
-  if (posx != 0 && posy != 0)
+  if ( buffer[5] != 0 && posx != 0 && posy != 0)
     {
       nElem = _factory.FactoryMethod(27, 0, posx, posy);
       if (nElem != NULL)
@@ -338,11 +344,12 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
   if (buffer[5] != 0)
     {
       lit = _object.begin();
-      for(;lit!=_object.end();++lit)
+      for (;lit!=_object.end();++lit)
 	{
 	  temp = *lit;
-	  if(temp->getID() == buffer[5])
+	  if (temp->getID() == buffer[5])
 	    {
+	      type2 = temp->getType();
 	      if (boss == 0 && (temp->getType() == 21 || temp->getType() == 22 ||
 				temp->getType() == 23 || temp->getType() == 24))
 		boss = 1;
@@ -353,6 +360,14 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	}
       _score += 10;
     }
+  if (type == 11 || type2 == 11)
+    _die1.Play();
+  else if (type == 12 || type2 == 12)
+    _die2.Play();
+  else if (type == 13 || type2 == 13)
+    _die3.Play();
+  else if (type == 14 || type2 == 14)
+    _die4.Play();
   if (boss == 1)
     bossExplosion(posx, posy);
 }

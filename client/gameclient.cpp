@@ -7,12 +7,23 @@
 
 gameClient::gameClient()
 {
-  ;
+  if (_shootBuf.LoadFromFile("sound/SpaceGun04.wav"))
+    _shoot.SetBuffer(_shootBuf);
+  if (_die1Buf.LoadFromFile("sound/enemy_dies1.wav"))
+    _die1.SetBuffer(_die1Buf);
+  if (_die2Buf.LoadFromFile("sound/enemy_dies2.wav"))
+    _die2.SetBuffer(_die2Buf);
+  if (_die3Buf.LoadFromFile("sound/enemy_dies3.wav"))
+    _die3.SetBuffer(_die3Buf);
+  if (_die4Buf.LoadFromFile("sound/enemy_dies4.wav"))
+    _die4.SetBuffer(_die4Buf);
+  if (_dieBossBuf.LoadFromFile("sound/boss_dies.wav"))
+    _dieBoss.SetBuffer(_dieBossBuf);
 }
 
 gameClient::~gameClient()
 {
-  ;
+
 }
 
 void		gameClient::setLife(unsigned char nb)
