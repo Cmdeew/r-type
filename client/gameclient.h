@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
+#include <SFML/Audio.hpp>
 #include <list>
 
 #define MINX 0
@@ -34,6 +35,19 @@ class gameClient
   MainWindow		_mainWindow;
   int			_weapondispo;
   int			_weaponloop;
+  sf::SoundBuffer	_shootBuf;
+  sf::Sound		_shoot;
+  sf::SoundBuffer	_die1Buf;
+  sf::SoundBuffer	_die2Buf;
+  sf::SoundBuffer	_die3Buf;
+  sf::SoundBuffer	_die4Buf;
+  sf::Sound		_die1;
+  sf::Sound		_die2;
+  sf::Sound		_die3;
+  sf::Sound		_die4;
+  sf::SoundBuffer	_dieBossBuf;
+  sf::Sound		_dieBoss;
+
   public:
   sf::Mutex		_mutex;
   udpNetwork	*_network;
