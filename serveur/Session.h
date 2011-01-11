@@ -16,7 +16,8 @@
 #define WARN_PING_TIME 10000
 
 #define LEVEL1 2000
-#define MAXRAND 20
+
+#define MAXRAND 30
 
 class	Session
 {
