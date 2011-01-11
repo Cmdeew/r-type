@@ -134,7 +134,7 @@ void	Session::Create_Mob(int i)
 	}
       
 	  //generation mob_11
-	  if (a % 6000 == 0 && _score > 2500)
+	  if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(0) != NULL)
 		  {
@@ -147,7 +147,7 @@ void	Session::Create_Mob(int i)
 
 
 	  //generation mob_13
-	  if (a % 6000 == 0 && _score > 2500)
+	  if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(2) != NULL)
 		  {
@@ -194,7 +194,7 @@ void	Session::Create_Boss(int i)
   static int boss1 = 0;
 
   //Generation du boss 1
-  if (_score == 200 && boss1 == 0)
+  if (_score == LEVEL_BOSS1 && boss1 == 0)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
@@ -231,7 +231,7 @@ void  Session::sessionthreadElems()
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      if (_score < 200 || _score > 350)
+      if (_score < LEVEL_BOSS1 || _score > LEVEL1)
 	Create_Mob(i);
 
       Create_Boss(i);
@@ -253,7 +253,7 @@ void  Session::sessionthreadElems()
 		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
 
-		      if (obj->getType() == 21 && obj2->getType() != 21 && _score < 350)
+		      if (obj->getType() == 21 && obj2->getType() != 21 && _score < LEVEL1)
 			{
 			  cmd.sendDestroy(obj2->getId() , 0, _p);
 			 _score += 10;
@@ -261,7 +261,7 @@ void  Session::sessionthreadElems()
 			  _listObj.erase(it2);
 			  it2 = _listObj.begin();
 			}
-		      else if (obj->getType() != 21 && obj2->getType() == 21 && _score < 350)
+		      else if (obj->getType() != 21 && obj2->getType() == 21 && _score < LEVEL1)
 			{
 			  cmd.sendDestroy(obj->getId() , 0, _p); 
 			 _score += 10;
