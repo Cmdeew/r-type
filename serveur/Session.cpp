@@ -261,7 +261,6 @@ void  Session::sessionthreadElems()
                       obj->getX() < _tabPlayer[j]->getPosx() + 3 && obj->getX() > _tabPlayer[j]->getPosx() - 3 &&
                       obj->getY() < _tabPlayer[j]->getPosy() + 3 && obj->getY() > _tabPlayer[j]->getPosy() - 3)
                     {
-		      std::cout << "Collision" << std::endl;
 		      if ((_tabPlayer[j]->getLife() - 1) > 0)
                         {
                           _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
