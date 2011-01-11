@@ -354,7 +354,8 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	}
       _score += 10;
     }
-    if (buffer[5] != 0 && posx != 0 && posy != 0)
+  //    if (buffer[5] != 0 && posx != 0 && posy != 0)
+  if (posx != 0 && posy != 0)
     {
       nElem = _factory.FactoryMethod(27, 0, posx, posy);
       if (nElem != NULL)
