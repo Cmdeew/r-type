@@ -17,7 +17,7 @@
 
 #define LEVEL1 2000
 
-#define MAXRAND 30
+#define MAXRAND 35
 
 class	Session
 {
