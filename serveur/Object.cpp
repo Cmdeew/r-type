@@ -78,7 +78,7 @@ void Object::move(Session *s)
 	  obj = new Object(s->mob_id++, m_x - 3, m_y, 7);
 	  s->_listObj.push_back(obj);
 	}
-      if (m_x > 40)
+      if (m_x > 20)
 	m_x--;
 
       if (m_y == 0)
