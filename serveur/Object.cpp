@@ -58,7 +58,7 @@ void Object::move(Session *s)
       if (k == 50000)
 	k = 0;
       k++;
-      }
+    }
   else if (m_type == 5)
     m_x++;
   else if (m_type == 6 || m_type == 9 || m_type == 14 || m_type == 7)
