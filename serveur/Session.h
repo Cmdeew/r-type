@@ -41,6 +41,7 @@ class	Session
   void sessionthreadElems();
   static void    *sessionthreadElemsInit(Session *sess);
   void		Create_Mob(int i);
+  void		Create_Boss(int i);
 
   unsigned char mob_id;
 
