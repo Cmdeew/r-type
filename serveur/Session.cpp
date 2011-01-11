@@ -96,25 +96,47 @@ void	Session::Create_Mob(int i)
       //a = rand();
       
       //generation mob 12
-      if (a % 4000 == 0)
+      static int b = 0;
+      if (a % 1000 == 0 && _score < 2000)
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
-	      obj = lib->getInstance(1, mob_id++, 55, 10);
-	      _listObj.push_back(obj);		    
-	      obj = new Elem(mob_id++, 55, 10, 5);
+	      if (b % 2 == 0)
+		obj = lib->getInstance(1, mob_id++, 55, 10+b);
+	      else
+		obj = lib->getInstance(1, mob_id++, 55, 10+b);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
 	    }
+	  b++;
+	  if (b == 30)
+	    b = 0;
 	}
       
 	  //generation mob_11
-	  if (a % 6000 == 0)
+	  if (a % 6000 == 0 && _score > 2500)
 	    {
 	      if (lib->getMaillon(0) != NULL)
 		  {
 		    obj = lib->getInstance(0, mob_id++, 55, 20);
+		    _listObj.push_back(obj);
+		    if (mob_id > 127)
+		      mob_id = 11;
+		    obj = new Elem(mob_id++, 52, 23, 9);
+		    _listObj.push_back(obj);
+		    if (mob_id > 127)
+		      mob_id = 11;
+		  }
+	    }
+
+
+	  //generation mob_13
+	  if (a % 6000 == 0 && _score > 2500)
+	    {
+	      if (lib->getMaillon(2) != NULL)
+		  {
+		    obj = lib->getInstance(2, mob_id++, 55, 25);
 		    _listObj.push_back(obj);
 		    if (mob_id > 127)
 		      mob_id = 11;

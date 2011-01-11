@@ -26,7 +26,7 @@ void Object::move(Session *s)
 {
   Object *obj;
 
-  if (m_type == 12)
+  if (m_type == 12 || m_type == 13)
     {
       m_x--;
      if (m_lim < 5)
