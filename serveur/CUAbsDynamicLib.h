@@ -6,7 +6,6 @@
 // Inclusion des header de chaque libs
 
 #include <dirent.h>
-#include "./inc/UMonsterOne.h"
 #include "AbsDynamicLib.h"
 
 // Define de chaque monstre

@@ -95,22 +95,20 @@ void LoadLib::checkLib()
 	    {
 		  name.insert(0, "./lib/");
 		  std::cout << name.c_str() << std::endl;
-		  std::cout << file.c_str() << std::endl;
-		  hnd1 = l->AOpenLib((char *)name.c_str());
-		  if (hnd1 != NULL)
+	      if (hnd1 != NULL)
+		{
+		  void *mkr = l->ASymLib(hnd1, "Create");
+		  if (mkr != NULL)
 		    {
-		      void *mkr = l->ASymLib(hnd1, "Create");
-		      if (mkr != NULL)
-			{
-			  std::cout << "succes !" << std::endl;
-			  this->fillTab((maker_monster)mkr);
-			}
-		      else
-			this->fillTab(NULL);
-		      //l->ACloseLib(hnd1);
+		      std::cout << "succes !" << std::endl;
+		      this->fillTab((maker_monster)mkr);
 		    }
 		  else
-		    std::cout << "Lib incorrect" << std::endl;
+		    this->fillTab(NULL);
+		  //l->ACloseLib(hnd1);
+		}
+	      else
+		std::cout << "Lib incorrect" << std::endl;
 	    }
         }
     }

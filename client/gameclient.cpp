@@ -47,6 +47,7 @@ void		gameClient::setLevel(int level)
 
 void		gameClient::findLevel(int score)
 {
+  //level
   if (score >= 6000)
     this->setLevel(4);
   if (score >= 4000)
@@ -55,6 +56,9 @@ void		gameClient::findLevel(int score)
     this->setLevel(2);
   else
     this->setLevel(1);
+  //type arme
+  if (getLevel() == 2)
+    _arme = 2;
 }
 
 sf::Sprite	gameClient::getSprite()
@@ -204,7 +208,8 @@ void		socketLoop(void * UserData)
   char			buffer[NBOCTETS];
   int			i;
   gameClient* Object = static_cast<gameClient*>(UserData);
-  while(1)
+  
+  while(true)
     {
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;
@@ -226,6 +231,7 @@ int		gameClient::mainClient()
   _score = 0;
   _weapondispo = 0;
   _weaponloop = 0;
+  _arme = 1;
   _life = 3;
   _exit = 0;
   setLevel(1);

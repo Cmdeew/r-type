@@ -13,6 +13,7 @@ class	MonsterOne : public Object
   MonsterOne(char id, char x, char y, char type = 11);
   void	move();
   ~MonsterOne();
+  char	getType();
 };
 
 typedef MonsterOne *(*maker_monster)(char id, char x, char y);

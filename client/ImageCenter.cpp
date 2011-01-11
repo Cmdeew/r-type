@@ -146,6 +146,19 @@ ImageCenter::ImageCenter()
   //shoot player
   img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
+  //shoot player level 2
+  img.LoadFromFile("sprite/shoot10_1.png");
+  _lweapon5.push_back(img);
+  img.LoadFromFile("sprite/shoot10_2.png");
+  _lweapon5.push_back(img);
+  img.LoadFromFile("sprite/shoot10_3.png");
+  _lweapon5.push_back(img);
+  img.LoadFromFile("sprite/shoot10_4.png");
+  _lweapon5.push_back(img);
+  img.LoadFromFile("sprite/shoot10_5.png");
+  _lweapon5.push_back(img);
+  img.LoadFromFile("sprite/shoot10_6.png");
+  _lweapon5.push_back(img);
   //shoot trash
   img.LoadFromFile("sprite/shoot6.png");
   _lweapon2.push_back(img);
@@ -157,7 +170,13 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/shoot7_3.png");
   _lweapon3.push_back(img);
   //shoot diagonale
-  img.LoadFromFile("sprite/shoot8.png");
+  img.LoadFromFile("sprite/shoot6_1.png");
+  _lweapon4.push_back(img);
+  img.LoadFromFile("sprite/shoot6_2.png");
+  _lweapon4.push_back(img);
+    img.LoadFromFile("sprite/shoot6_3.png");
+  _lweapon4.push_back(img);
+    img.LoadFromFile("sprite/shoot6_4.png");
   _lweapon4.push_back(img);
   //explosion
   img.LoadFromFile("sprite/explo1.png");
@@ -253,6 +272,11 @@ const std::list<sf::Image>    &ImageCenter::getLweapon3() const
 const std::list<sf::Image>    &ImageCenter::getLweapon4() const
 {
   return _lweapon4;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLweapon5() const
+{
+  return _lweapon5;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmeteor1() const

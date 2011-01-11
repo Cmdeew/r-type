@@ -26,6 +26,7 @@ class gameClient
   unsigned char		_life;
   int			_score;
   int			_level;
+  int			_arme;
   bool			_exit;
   AbstractWindow	_window;
   AbstractMusic		_music;
@@ -67,6 +68,7 @@ class gameClient
   void		replyLife(char buffer[NBOCTETS]);
   void		replyScore(char buffer[NBOCTETS]);
   void		replyDestroy(char buffer[NBOCTETS]);
+  void		bossExplosion(unsigned char posx, unsigned char posy);
 };
 
 
