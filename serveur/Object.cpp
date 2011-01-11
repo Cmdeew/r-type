@@ -44,15 +44,19 @@ void Object::move(Session *s)
     {
       static int k = 0;
       
-      if (k % 3 == 0)
+      if (k % 25 == 0)
 	{
 	  obj = new Object(s->mob_id++, m_x - 3, m_y, 6);
+	  s->_listObj.push_back(obj);
+	  if (s->mob_id > 127)
+	    s->mob_id = 11;
+	  obj = new Object(s->mob_id++, m_x - 3, m_y, 8);
 	  s->_listObj.push_back(obj);
 	}
       if (s->mob_id > 127)
 	s->mob_id = 11;
       m_x--;
-      if (k == 10)
+      if (k == 50000)
 	k = 0;
       k++;
     }
@@ -60,6 +64,11 @@ void Object::move(Session *s)
     m_x++;
   else if (m_type == 6 || m_type == 11 || m_type == 9)
     m_x--;
+  else if (m_type == 8)
+    {
+      m_x--;
+      m_y--;
+    }
 }
 
 char Object::getId()
