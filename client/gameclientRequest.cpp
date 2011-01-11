@@ -374,7 +374,7 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 
 void			gameClient::cleanexplosion()
 {
-  int			flag;
+int			flag;
   Element		*temp;
   std::list<Element *>::iterator lit;
 
@@ -404,6 +404,30 @@ void			gameClient::cleanexplosion()
 		      delete temp;
 		    }
 		}
+	    }
+	}
+    }  
+}
+
+void		gameClient::cleanListe()
+{
+  int			flag;
+  Element		*temp;
+  std::list<Element *>::iterator lit;
+
+  flag = 1;
+  while (flag == 1)
+    {
+      flag = 0;
+      lit = _object.begin();
+      for(;lit!=_object.end() && flag != 1;++lit)
+	{
+	  temp = *lit;
+	  if (temp->getID() != 0 && temp->getID() != 1 && temp->getID() != 2 && temp->getID() != 3 && temp->getID() != 4)
+	    {
+	      _object.erase(lit);
+	      flag = 1;
+	      delete temp;
 	    }
 	}
     }

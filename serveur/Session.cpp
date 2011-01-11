@@ -191,8 +191,10 @@ void  Session::sessionthreadElems()
 		  obj = *it;
 		  obj2 = *it2;
 		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
-			obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
-			obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
+		      obj->getType() != 9 && obj2->getType() != 9 &&
+		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
+		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
+		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
@@ -251,10 +253,12 @@ void  Session::sessionthreadElems()
                         {
                           _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
                           cmd.sendLife(_tabPlayer[j], _p);
-
-			  cmd.sendDestroy(obj->getId() , 0, _p); 
-			  _listObj.erase(it);
-			  it = _listObj.begin();
+			  if (obj->getType() != 9) // Les murs ne se detruisent pas
+			    {
+			      cmd.sendDestroy(obj->getId() , 0, _p); 
+			      _listObj.erase(it);
+			      it = _listObj.begin();
+			    }
 			  spawnPlayer(_tabPlayer[j]);
                         }
                       else
