@@ -291,9 +291,9 @@ void			gameClient::bossExplosion(unsigned char posx, unsigned char posy)
   unsigned char		c;
   Element		*nElem;
 
-  for(l=posx-4;l<=(posx+4);l++)
+  for(l=posx-4;l<=(posx+4);l+=2)
     {
-      for(c=posy-4;c<=(posy+4);c++)
+      for(c=posy-4;c<=(posy+4);c+=2)
 	{
 	  nElem = _factory.FactoryMethod(27, 0, l, c);
 	  if (nElem != NULL)
