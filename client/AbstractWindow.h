@@ -16,6 +16,12 @@ class	AbstractWindow
   sf::Sprite		_portrait;
   sf::Image		_backgroundImg;
   sf::Sprite		_background;
+  sf::Image		_background2Img;
+  sf::Sprite		_background2;
+  sf::Image		_background3Img;
+  sf::Sprite		_background3;
+  sf::Image		_background4Img;
+  sf::Sprite		_background4;
   sf::Image		_interfaceImg;
   sf::Sprite		_interface;
   sf::Image		_lifeImg;
@@ -35,7 +41,7 @@ class	AbstractWindow
 
   AbstractWindow();
   void	Clear();
-  void	Draw(const std::list<Element *> &list, int mode);
+  void	Draw(const std::list<Element *> &list, int mode, int level);
   void	Display();
   bool	Quit();
   bool	IsAnEvent();
