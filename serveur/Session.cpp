@@ -94,6 +94,7 @@ void	Session::Create_Mob(int i)
       //generation mob 12 BOULE
       static int b = 0;
       int r;
+
       if (a % 900 == 0 && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(1) != NULL)
@@ -122,20 +123,26 @@ void	Session::Create_Mob(int i)
 	}
       
 	  //generation mob_11
-	  if (a % 6000 == 0 && _score > LEVEL1)
+
+      if (a % 4000 == 0 && _score >= LEVEL1)
+	{
+	  int p = rand()%MAXRAND;
+	  if (lib->getMaillon(0) != NULL)
 	    {
-	      if (lib->getMaillon(0) != NULL)
-		  {
-		    obj = lib->getInstance(0, mob_id++, 55, 20);
-		    _listObj.push_back(obj);
-		    if (mob_id > 127)
-		      mob_id = 11;
-		  }
+	      obj = lib->getInstance(0, mob_id++, 55, p);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
+	      obj = new Object(mob_id++, 55, p + 4, 9);
+		  _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
 	    }
+	}
 
 
 	  //generation mob_13
-	  if (a % 6000 == 0 && _score > LEVEL1)
+	  /*if (a % 6000 == 0 && _score > LEVEL1)
 	    {
 	      if (lib->getMaillon(2) != NULL)
 		  {
@@ -144,7 +151,7 @@ void	Session::Create_Mob(int i)
 		    if (mob_id > 127)
 		      mob_id = 11;
 		  }
-	    }
+		  }*/
 	  
 
 
@@ -182,11 +189,11 @@ void	Session::Create_Boss(int i)
   static int boss1 = 0;
 
   //Generation du boss 1
-  if (_score == LEVEL_BOSS1 && boss1 == 0)
+  if (_score >= LEVEL_BOSS1 && boss1 == 0)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Object(mob_id++, 55, 16, 21);
+      obj = new Object(mob_id++, 40, 0, 21);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -219,7 +226,7 @@ void  Session::sessionthreadElems()
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      if (_score < LEVEL_BOSS1 || _score > LEVEL1)
+      if (_score < LEVEL_BOSS1 || _score >= LEVEL1)
 	Create_Mob(i);
 
       Create_Boss(i);
@@ -236,11 +243,43 @@ void  Session::sessionthreadElems()
 		  obj2 = *it2;
 		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
 		      obj->getType() != 9 && obj2->getType() != 9 &&
+		      (obj->getType() != 21 && obj2->getType() != 21) &&
 		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
 		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
+		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		      _listObj.erase(it);
+		      _listObj.erase(it2);
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
+		      it = _listObj.begin();
+		      it2 = _listObj.begin();
+		    }
+		  it2++;
+		}
+	      it++;
+	      }
+	  // Fin detection des collisions
 
+
+
+	  //Detection des collisions entre missiles joueur et boss1
+	  it = _listObj.begin();
+	  while (it != _listObj.end())
+	    {
+	      it2 = _listObj.begin();
+	      while (it2 != _listObj.end())
+		{
+		  obj = *it;
+		  obj2 = *it2;
+		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
+		      (obj->getType() == 21 || obj2->getType() == 21) &&
+		      obj->getType() != 9 && obj2->getType() != 9 &&
+		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
+		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
+		      obj->getY() < obj2->getY() + 20 && obj->getY() > obj2->getY() - 10)
+		    {
 		      if (obj->getType() == 21 && obj2->getType() != 21 && _score < LEVEL1)
 			{
 			  cmd.sendDestroy(obj2->getId() , 0, _p);
@@ -259,13 +298,13 @@ void  Session::sessionthreadElems()
 			}
 		      else
 			{
+			  if (obj->getType() == 21 || obj2->getType() == 21)//Update score boss1
+			    _score = LEVEL1;
+
 			  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 			  _listObj.erase(it);
 			  _listObj.erase(it2);
-			  _score += 10;
 			  cmd.sendScore(_score, _p);
-			  //obj = new Object(6, 55, 16, 11 + ((int)rand() %2));
-			  //_listObj.push_back(obj);
 			  it = _listObj.begin();
 			  it2 = _listObj.begin();
 			}
@@ -274,9 +313,14 @@ void  Session::sessionthreadElems()
 		}
 	      it++;
 	      }
+	  // Fin detection boss1
 
 
-	  // Fin detection des collisions
+
+
+
+
+
 	  it = _listObj.begin();
 	  while (it != _listObj.end())
 	    {
