@@ -1,13 +1,15 @@
 #include <stdlib.h>
 #include <iostream>
-#include "MonsterFour.h"
+#include "Object.h"
+#include "./inc/UMonsterFour.h"
 
-MonsterFour::MonsterFour(const char id, const char x, const char y, const char type)
+MonsterFour::MonsterFour(char id, char x, char y, char type)
 {
   m_id = id;
   m_x = x;
   m_y = y;
-  m_type = type;
+  m_type = 14;
+  m_lim = 0;
 }
 
 MonsterFour::~MonsterFour()
@@ -15,7 +17,13 @@ MonsterFour::~MonsterFour()
 
 }
 
-void MonsterFour::move()
+extern "C"
 {
+  Object *Create(char id, char x, char y)
+  {
+    Object *save;
 
+    save = new MonsterFour(id, x, y, 11);
+    return (save);
+  }
 }
