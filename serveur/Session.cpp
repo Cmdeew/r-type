@@ -1,4 +1,3 @@
-#include "Elem.h"
 #include "LoadLib.h"
 #include "Session.h"
 #include <stdlib.h>
@@ -102,7 +101,7 @@ void	Session::Create_Mob(int i)
 	    {
 	      obj = lib->getInstance(1, mob_id++, 55, 10);
 	      _listObj.push_back(obj);		    
-	      obj = new Elem(mob_id++, 55, 10, 5);
+	      obj = new Object(mob_id++, 55, 10, 5);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -118,7 +117,7 @@ void	Session::Create_Mob(int i)
 		    _listObj.push_back(obj);
 		    if (mob_id > 127)
 		      mob_id = 11;
-		    obj = new Elem(mob_id++, 52, 23, 9);
+		    obj = new Object(mob_id++, 52, 23, 9);
 		    _listObj.push_back(obj);
 		    if (mob_id > 127)
 		      mob_id = 11;
@@ -133,11 +132,11 @@ void	Session::Create_Mob(int i)
 	      j = 0;
 	      while (j < 3)
 		{
-		   obj = new Elem(mob_id++, 55, 0+i*2, 9);
+		   obj = new Object(mob_id++, 55, 0+i*2, 9);
 		  _listObj.push_back(obj);
 		  if (mob_id > 127)
 		    mob_id = 11;
-		  obj = new Elem(mob_id++, 55, 34-i*2, 9);
+		  obj = new Object(mob_id++, 55, 34-i*2, 9);
 		  _listObj.push_back(obj);
 		  if (mob_id > 127)
 		    mob_id = 11;
