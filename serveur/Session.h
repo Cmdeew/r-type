@@ -23,7 +23,7 @@
 #define LEVEL3 10000
 #define LEVEL_BOSS3 8500
 
-#define MAXRAND 30
+#define MAXRAND 35
 
 class	Session
 {

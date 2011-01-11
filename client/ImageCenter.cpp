@@ -113,7 +113,21 @@ ImageCenter::ImageCenter()
   img.LoadFromFile("sprite/monster13_8.png");
   _lmonster4.push_back(img);
   //boss one
-  img.LoadFromFile("sprite/boss_one.png");
+  img.LoadFromFile("sprite/boss1_1.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_2.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_3.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_4.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_5.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_4.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_3.png");
+  _lboss1.push_back(img);
+  img.LoadFromFile("sprite/boss1_2.png");
   _lboss1.push_back(img);
   //boss two
   img.LoadFromFile("sprite/boss_two.png");
