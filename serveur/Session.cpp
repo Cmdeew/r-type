@@ -97,7 +97,7 @@ void	Session::Create_Mob(int i)
       //generation mob 12
       if (a % 4000 == 0)
 	{
-	  if (lib->getMaillon(0) != NULL)
+	  if (lib->getMaillon(1) != NULL)
 	    {
 	      obj = lib->getInstance(1, mob_id++, 55, 10);
 	      _listObj.push_back(obj);		    
@@ -106,7 +106,7 @@ void	Session::Create_Mob(int i)
 	      if (mob_id > 127)
 		mob_id = 11;
 	    }
-	    }
+	}
       
 	  //generation mob_11
 	  if (a % 6000 == 0)
@@ -190,8 +190,10 @@ void  Session::sessionthreadElems()
 		  obj = *it;
 		  obj2 = *it2;
 		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
-			obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
-			obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
+		      obj->getType() != 9 && obj2->getType() != 9 &&
+		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
+		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
+		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
 		    {
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
 		      _listObj.erase(it);
@@ -250,10 +252,12 @@ void  Session::sessionthreadElems()
                         {
                           _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
                           cmd.sendLife(_tabPlayer[j], _p);
-
-			  cmd.sendDestroy(obj->getId() , 0, _p); 
-			  _listObj.erase(it);
-			  it = _listObj.begin();
+			  if (obj->getType() != 9) // Les murs ne se detruisent pas
+			    {
+			      cmd.sendDestroy(obj->getId() , 0, _p); 
+			      _listObj.erase(it);
+			      it = _listObj.begin();
+			    }
 			  spawnPlayer(_tabPlayer[j]);
                         }
                       else

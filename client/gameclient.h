@@ -57,6 +57,7 @@ class gameClient
   sf::Sprite	getSprite();
   void		cleanexplosion();
   void		setLife(unsigned char nb);
+  void		cleanListe();
   unsigned char	getLife();
   unsigned char	getGame();
   int		getId();
