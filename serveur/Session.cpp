@@ -124,7 +124,7 @@ void	Session::Create_Mob(int i)
       
 	  //generation mob_11
 
-      if (a % 4000 == 0 && _score >= LEVEL2)
+      if (a % 4000 == 0 && _score >= LEVEL1)
 	{
 	  int p = rand()%MAXRAND;
 	  if (lib->getMaillon(0) != NULL)
@@ -189,7 +189,7 @@ void	Session::Create_Boss(int i)
   static int boss1 = 0;
 
   //Generation du boss 1
-  if (_score == LEVEL_BOSS1 && boss1 == 0)
+  if (_score >= LEVEL_BOSS1 && boss1 == 0)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
@@ -226,7 +226,7 @@ void  Session::sessionthreadElems()
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      if (_score < LEVEL_BOSS1 || _score > LEVEL1)
+      if (_score < LEVEL_BOSS1 || _score >= LEVEL1)
 	Create_Mob(i);
 
       Create_Boss(i);
