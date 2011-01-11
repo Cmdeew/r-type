@@ -335,12 +335,6 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	  break;
 	}
     }
-  if ( buffer[5] != 0 && posx != 0 && posy != 0)
-    {
-      nElem = _factory.FactoryMethod(27, 0, posx, posy);
-      if (nElem != NULL)
-	_object.push_back(nElem);
-    }
   if (buffer[5] != 0)
     {
       lit = _object.begin();
@@ -359,6 +353,12 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
 	    }
 	}
       _score += 10;
+    }
+    if (buffer[5] != 0 && posx != 0 && posy != 0)
+    {
+      nElem = _factory.FactoryMethod(27, 0, posx, posy);
+      if (nElem != NULL)
+	_object.push_back(nElem);
     }
   if (type == 11 || type2 == 11)
     _die1.Play();
