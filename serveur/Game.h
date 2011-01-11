@@ -15,8 +15,8 @@ class	Game
   AbsMutex	*mt;
   AbsUDPNetwork *p;
   Session	**s;
-  hand		handles[3];
-  thread	threads[3];
+  hand		handles[4];
+  thread	threads[4];
   Game(Factory *_f, char **argv);
   ~Game();
   static void		*startMultiGame(Game *g);
