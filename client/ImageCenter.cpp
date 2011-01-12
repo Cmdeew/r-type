@@ -112,6 +112,15 @@ ImageCenter::ImageCenter()
   _lmonster4.push_back(img);
   img.LoadFromFile("sprite/monster13_8.png");
   _lmonster4.push_back(img);
+  //monster 15
+  img.LoadFromFile("sprite/monster3pos1.png");
+  _lmonster5.push_back(img);
+  img.LoadFromFile("sprite/monster3pos2.png");
+  _lmonster5.push_back(img);
+  img.LoadFromFile("sprite/monster3pos3.png");
+  _lmonster5.push_back(img);
+  img.LoadFromFile("sprite/monster3pos4.png");
+  _lmonster5.push_back(img);
   //boss one
   img.LoadFromFile("sprite/boss1_1.png");
   _lboss1.push_back(img);
