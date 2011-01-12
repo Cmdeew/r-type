@@ -111,7 +111,7 @@ void	Session::Create_Mob(int i)
 	}
 
       //generation mob_14 AVION
-      if (a % 1500 == 0  && _score < LEVEL1)
+      if (a % 1500 == 0)
 	{
 	  if (lib->getMaillon(3) != NULL)
 	    {
@@ -144,7 +144,7 @@ void	Session::Create_Mob(int i)
 
       static int t = 0;
       static int e = 0;
-      if (a % 400 == 0 && t < 3 && _score >= LEVEL3)
+      if (a % 400 == 0 && t < 3 && _score >= LEVEL2)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
