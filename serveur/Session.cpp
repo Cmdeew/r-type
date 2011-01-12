@@ -74,7 +74,7 @@ void  Session::sessionthread()
 }
 
 void	Session::Create_Mob(int i)
-{  
+{
   Object	*obj;
   static int a = 0;
   static int nb = 0;
@@ -93,7 +93,7 @@ void	Session::Create_Mob(int i)
       static int b = 0;
       int r;
 
-      if (a % 1500 == 0 && (_score < LEVEL1 || _score >= LEVEL3))
+      if (a % 1500 == 0 && _score < LEVEL2)
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
@@ -155,7 +155,7 @@ void	Session::Create_Mob(int i)
 	}
 	
       // mob_15 du bas
-      if (a % 400 == 0 && e < 3 && _score >= LEVEL3)
+      if (a % 400 == 0 && e < 3 && _score >= LEVEL2)
 	  {
 	    if (lib->getMaillon(4) != NULL)
 	      {
@@ -175,7 +175,7 @@ void	Session::Create_Mob(int i)
       //generation mob_30 MUR
 
       int	p = 0;
-      if (a %10000 == 0 && _score >= LEVEL3)
+      if (a %10000 == 0 && _score >= LEVEL2)
 	{
 	  while (p < 8)
 	    {
@@ -222,7 +222,7 @@ void	Session::Create_Boss(int i)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Elem(mob_id++, 40, 0, 21);
+      obj = new Elem(mob_id++, 90, 0, 21);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -233,7 +233,7 @@ void	Session::Create_Boss(int i)
     {
       boss2 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Elem(mob_id++, 40, 0, 22);
+      obj = new Elem(mob_id++, 90, 0, 22);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -244,7 +244,7 @@ void	Session::Create_Boss(int i)
     {
       boss3 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Elem(mob_id++, 40, 0, 24);
+      obj = new Elem(mob_id++, 90, 0, 24);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -459,7 +459,8 @@ void  Session::sessionthreadElems()
 
    LoadLib	*lib;
   // verification des libs
-  
+
+   _score = 1900;
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
