@@ -74,7 +74,7 @@ void  Session::sessionthread()
 }
 
 void	Session::Create_Mob(int i)
-{  
+{
   Object	*obj;
   static int a = 0;
   static int nb = 0;
@@ -93,7 +93,7 @@ void	Session::Create_Mob(int i)
       static int b = 0;
       int r;
 
-      if (a % 1500 == 0 && (_score < LEVEL1 || _score >= LEVEL3))
+      if (a % 1500 == 0 && _score < LEVEL2)
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
@@ -142,7 +142,7 @@ void	Session::Create_Mob(int i)
 
       static int t = 0;
       static int e = 0;
-      if (a % 400 == 0 && t < 3 && _score >= LEVEL2)
+      if (a % 400 == 0 && t < 3)  && _score >= LEVEL2)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
@@ -155,7 +155,7 @@ void	Session::Create_Mob(int i)
 	}
 	
       // mob_15 du bas
-      if (a % 400 == 0 && e < 3 && _score >= LEVEL3)
+      if (a % 400 == 0 && e < 3 ) && _score >= LEVEL2)
 	  {
 	    if (lib->getMaillon(4) != NULL)
 	      {
@@ -175,7 +175,7 @@ void	Session::Create_Mob(int i)
       //generation mob_30 MUR
 
       int	p = 0;
-      if (a %10000 == 0 && _score >= LEVEL3)
+      if (a %10000 == 0 && _score >= LEVEL2)
 	{
 	  while (p < 8)
 	    {
