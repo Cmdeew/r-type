@@ -348,7 +348,7 @@ void  Session::move_missile()
       obj = *it;
       if (obj->getType() == 5 || obj->getType() == 6)
 	{
-	  obj->move(this); //Mouvement des missiles
+	  obj->move(); //Mouvement des missiles
 	  cmd.sendObjMove(obj, _p);
 	  if (obj->getX() > 50) //Missile depassant la fenetre
 	    {
@@ -452,7 +452,7 @@ void  Session::sessionthreadElems()
 	  while (it != _listObj.end())
 	    {
 	      obj = *it;
-	      obj->move(this);
+	      obj->move();
 	      launchMissile(obj);
 	      cmd.sendObjMove(obj, _p);
 	      if (obj->getX() == 0) // depassant la fenetre
@@ -471,23 +471,40 @@ void  Session::sessionthreadElems()
 
 void	*Session::launchMissile(Object *obj)
 {
+  Object	*newObj;
   static int a = 0;
   if (obj->getType() == 11)
     {
       if (a % 10 == 0)
 	{
-	  obj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 6);
-	  _listObj.push_back(obj);
+	  newObj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 6);
+	  _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
-	  mob_id = 11;
-	  obj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 8);
-	  _listObj.push_back(obj);
+	    mob_id = 11;
+	  newObj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 8);
+	  _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
 	}
       a++;
       if (a > 10000)
 	a = 0;
+    }
+
+  if (obj->getType() == 21) //boss1
+    {
+      static int b1 = 0;
+
+      if (b1 % 3 == 0)
+        {
+          newObj = new Object(mob_id++, obj->getX(), obj->getY() + rand() % 30, 7);
+          _listObj.push_back(newObj);
+	  if (mob_id > 127)                                        
+	    mob_id = 11;
+        }
+      if (b1 == 50000)
+        b1 = 0;
+      b1++;
     }
 
   return (NULL);
