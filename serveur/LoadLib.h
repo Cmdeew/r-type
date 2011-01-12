@@ -1,7 +1,7 @@
 #ifndef LOADLIB_H_
 # define LOADLIB_H_
 
-#include "MonsterOne.h"
+#include "inc/UMonsterOne.h"
 #include "Object.h"
 #include "Factory.h"
 
