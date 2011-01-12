@@ -383,6 +383,9 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 24 boss _four - alien rouge
 		- 25 bonus astronaute - astronaute
 		- 26 bonus life - coeur
+		- 27 - explosion
+		- 28 - wall pop meduse up
+		- 29 - wall pop meduse down
 
 Hugon                      Experimental                      	[Page 8]
 
