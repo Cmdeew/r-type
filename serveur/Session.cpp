@@ -175,11 +175,11 @@ void	Session::Create_Mob(int i)
       //generation mob_30 MUR
 
       int	p = 0;
-      if (a %10000 == 0 && _score >= LEVEL2)
+      if (a %10000 == 0 && _score >= LEVEL3)
 	{
 	  while (p < 8)
 	    {
-	      obj = new Elem(mob_id++, 0 + p * 4, 0, 9);
+	      obj = new Elem(mob_id++, 0 + p * 4, 0, 31);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -188,7 +188,7 @@ void	Session::Create_Mob(int i)
 	  p = 0;
 	  while (p < 2)
 	    {
-	      obj = new Elem(mob_id++, 15 + p * 4, 40, 9);
+	      obj = new Elem(mob_id++, 15 + p * 4, 40, 30);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
