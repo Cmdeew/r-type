@@ -142,7 +142,7 @@ void	Session::Create_Mob(int i)
 
       static int t = 0;
       static int e = 0;
-      if (a % 400 == 0 && t < 3)  && _score >= LEVEL2)
+      if (a % 400 == 0 && t < 3 && _score >= LEVEL2)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
@@ -155,7 +155,7 @@ void	Session::Create_Mob(int i)
 	}
 	
       // mob_15 du bas
-      if (a % 400 == 0 && e < 3 ) && _score >= LEVEL2)
+      if (a % 400 == 0 && e < 3 && _score >= LEVEL2)
 	  {
 	    if (lib->getMaillon(4) != NULL)
 	      {
