@@ -22,7 +22,7 @@ Object::~Object()
 
 }
 
-void Object::move(Session *s)
+void Object::move()
 {
   Object *obj;
 
@@ -61,35 +61,12 @@ void Object::move(Session *s)
     }
   else if (m_type == 21) //Boss 1
     {
-
-      static int b1 = 0;
-      
-      if (b1 % 3 == 0)
-	{
-	  obj = new Object(s->mob_id++, m_x, m_y + rand() % 30, 7);
-	  s->_listObj.push_back(obj);
-	}
       if (m_x > 40)
 	m_x--;
-
       if (m_y >=0 && m_y <= 3)
 	m_y++;
       else if (m_y <= 6)
 	m_y--;
-      m_y = 0;
-      /*
-      if (m_y == 0)
-	m_y++;
-      else if (m_y == 32)
-	m_y--;
-      else if (rand() % 2 == 0)
-	m_y--;
-      else
-	m_y++;
-*/
-      if (b1 == 50000)
-	b1 = 0;
-      b1++;
     }
 }
 
