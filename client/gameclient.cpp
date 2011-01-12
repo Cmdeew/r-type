@@ -68,7 +68,7 @@ void		gameClient::findLevel(int score)
   else
     this->setLevel(1);
   //type arme
-  if (getLevel() == 2)
+  if (getLevel() >= 2)
     _arme = 2;
 }
 
@@ -273,8 +273,8 @@ int		gameClient::mainClient()
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
-      _window.SetText(_score, getLife(), getId(), getLevel());
       _mutex.Lock();
+      _window.SetText(_score, getLife(), getId(), getLevel());
       _window.Draw(_object, _exit, getLevel());
       _mutex.Unlock();
       _window.Display();
