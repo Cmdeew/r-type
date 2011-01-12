@@ -202,6 +202,20 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
 	nElement->_iter = nElement->getSprite().begin();
 	break;
       }
+    case 30:
+      {
+	nElement = new Element(posx, posy, 0, id, type);
+	nElement->setSprite(_imgCenter->getLwall4());
+	nElement->_iter = nElement->getSprite().begin();
+	break;
+      }
+    case 31:
+      {
+	nElement = new Element(posx, posy, 0, id, type);
+	nElement->setSprite(_imgCenter->getLwall5());
+	nElement->_iter = nElement->getSprite().begin();
+	break;
+      }
     default:
       return NULL;
     }

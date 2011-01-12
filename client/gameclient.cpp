@@ -257,7 +257,7 @@ int		gameClient::mainClient()
 	  cleanListe();
 	  loop = 0;
 	}
-      if (_weaponloop >= 10)
+      if (_weaponloop >= 30)
 	{
 	  _weapondispo = 1;
 	  _weaponloop = 0;
