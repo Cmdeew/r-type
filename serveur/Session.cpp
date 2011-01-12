@@ -143,7 +143,7 @@ void	Session::Create_Mob(int i)
       //generation mob_13 vers le bas meduse et mob_15
 
       static int t = 0;
-      if (a % 400 == 0 && t < 4)
+      if (a % 400 == 0 && t < 4 && _score > LEVEL3)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
@@ -165,7 +165,7 @@ void	Session::Create_Mob(int i)
 	t = 0;
       //generation mob_9 MUR
       int	p = 0;
-      if (a %10000 == 0)
+      if (a %10000 == 0 && _score > LEVEL3)
 	{
 	  while (p < 12)
 	    {
