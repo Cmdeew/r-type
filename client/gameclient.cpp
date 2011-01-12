@@ -252,16 +252,17 @@ int		gameClient::mainClient()
   _window.setPlayer(getSprite(), getId());
   while (_window.IsLaunch())
     {
-      if (loop >= 5000)
+      if (loop >= 1000)
 	{
 	  cleanListe();
 	  loop = 0;
 	}
+      if (_weaponloop >= 20)
+	cleanexplosion();	
       if (_weaponloop >= 30)
 	{
 	  _weapondispo = 1;
 	  _weaponloop = 0;
-	  cleanexplosion();
 	}
       findLevel(_score);
       if (!(keyEvent()))
