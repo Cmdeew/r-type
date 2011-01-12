@@ -17,6 +17,15 @@ MonsterFive::~MonsterFive()
 
 }
 
+
+void MonsterFive::move(Session *s)
+{
+  Object *obj;
+
+  m_x++;
+  m_y--;
+}
+
 extern "C"
 {
   Object *Create(char id, char x, char y)
