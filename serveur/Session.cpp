@@ -258,8 +258,13 @@ void  Session::collision_playermissile_mob()
 	      if (
 		  (obj->getType() == 5 && obj2->getType() == 6) ||
 		  (obj->getType() == 6 && obj2->getType() == 5) ||
-		  
-		  
+		    
+		  (obj->getType() == 5 && obj2->getType() == 8) ||
+		  (obj->getType() == 8 && obj2->getType() == 5) ||
+
+		  (obj->getType() == 6 && obj2->getType() == 8) ||
+		  (obj->getType() == 8 && obj2->getType() == 6) ||
+		    
 		  (obj->getType() == 5 && obj2->getType() == 7) ||
 		  (obj->getType() == 7 && obj2->getType() == 5)
 		  )
