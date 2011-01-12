@@ -217,7 +217,7 @@ void	Session::Create_Boss(int i)
 {
   Object	*obj;
   Command           cmd(_game_n);
-  static int boss1 = 1;
+  static int boss1 = 0;
   static int boss2 = 0;
   static int boss3 = 0;
 
