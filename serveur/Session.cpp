@@ -19,6 +19,17 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   _score = 0;
   mob_id = 11;
   _flagLoad = 0;
+  a = 0;
+  b = 0;
+  t = 0;
+  e = 0;
+  boss1 = 0; //TEST
+  boss2 = 0;
+  boss3 = 0;
+  m = 0;
+  b1 = 0;
+  b2 = 0;
+  b3 = 0;
 }
 
 
@@ -77,7 +88,6 @@ void  Session::sessionthread()
 void	Session::Create_Mob(int i)
 {
   Object	*obj;
-  static int a = 0;
 
   if (_flagLoad == 0)
     {
@@ -92,7 +102,6 @@ void	Session::Create_Mob(int i)
   if (i% 9999)
     {
       //generation mob 12 BOULE
-      static int b = 0;
       int r;
 
       if (lib == NULL)
@@ -148,8 +157,7 @@ void	Session::Create_Mob(int i)
 	
       //generation mob_13 vers le bas meduse et mob_15
 
-      static int t = 0;
-      static int e = 0;
+
       if (a % 400 == 0 && t < 3 && _score >= LEVEL2)
 	{
 	  if (lib->getMaillon(2) != NULL)
@@ -221,9 +229,7 @@ void	Session::Create_Boss(int i)
 {
   Object	*obj;
   Command           cmd(_game_n);
-  static int boss1 = 0;
-  static int boss2 = 0;
-  static int boss3 = 0;
+
 
   //Generation du boss 1
   if (_score >= LEVEL_BOSS1 && boss1 == 0)
@@ -363,7 +369,7 @@ void  Session::collision_playermissile_boss(unsigned char boss_type, short level
 		    }
 		  else
 		    {
-		      if (obj->getType() == boss_type || obj2->getType() == boss_type)//Update score boss
+		      //if (obj->getType() == boss_type || obj2->getType() == boss_type)//Update score boss
 			_score = level;
 
 		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
@@ -468,6 +474,8 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
+   //   _score = 4000; // TEST
+
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
@@ -522,10 +530,10 @@ void  Session::sessionthreadElems()
 void	*Session::launchMissile(Object *obj)
 {
   Object	*newObj;
-  static int a = 0;
+
   if (obj->getType() == 11)
     {
-      if (a % 30 == 0)
+      if (m % 30 == 0)
 	{
 	  newObj = new Elem(mob_id++, obj->getX() - 3, obj->getY(), 6);
 	  _listObj.push_back(newObj);
@@ -536,14 +544,14 @@ void	*Session::launchMissile(Object *obj)
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
 	}
-      a++;
-      if (a > 10000)
-	a = 0;
+      m++;
+      if (m > 10000)
+	m = 0;
     }
 
   if (obj->getType() == 21) //boss1
     {
-      static int b1 = 0;
+
 
       if (b1 % 3 == 0)
         {
@@ -559,7 +567,7 @@ void	*Session::launchMissile(Object *obj)
 
   if (obj->getType() == 22) //boss2
     {
-      static int b2 = 0;
+
 
       if (b2 % 10 == 0)
         {
@@ -575,7 +583,7 @@ void	*Session::launchMissile(Object *obj)
 
   if (obj->getType() == 24) //boss3
     {
-      static int b3 = 0;
+
 
       if (b3 % 4 == 0)
         {

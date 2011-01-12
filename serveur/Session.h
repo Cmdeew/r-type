@@ -44,6 +44,19 @@ class	Session
   int				_game_n;
   short				_score;
   int				_flagLoad;
+  int				a;
+  int				b;
+  int				t;
+  int				e;
+  int				boss1;
+  int				boss2;
+  int				boss3;
+  int				m;
+  int				b1;
+  int				b2;
+  int				b3;
+
+
 
   Session();
   Session(AbsUDPNetwork *, AbsThread *, AbsMutex *, int);

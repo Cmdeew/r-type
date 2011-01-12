@@ -14,6 +14,10 @@ Elem::Elem(const char id, const char x, const char y, const char type)
   m_y = y;
   m_type = type;
   m_lim = 0;
+  b2x = 0;
+  b2y = 0;
+  b3x = 0;
+  b3y = 0;
 }
 
 Elem::~Elem()
@@ -43,9 +47,6 @@ void Elem::move()
     }
   else if (m_type == 22) //Boss 2
     {
-      static int b2x = 0;
-      static int b2y = 0;
-
       if (m_x > 40)
 	b2x = 0;
       if (m_x <= 25)
@@ -68,9 +69,6 @@ void Elem::move()
     }
   else if (m_type == 24) //Boss 3
     {
-      static int b3x = 0;
-      static int b3y = 0;
-
       if (m_x > 40)
 	b3x = 0;
       if (m_x <= 25)
