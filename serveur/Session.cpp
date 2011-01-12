@@ -95,7 +95,7 @@ void	Session::Create_Mob(int i)
       lib = new LoadLib();
       lib->initTabMonster();
       lib->checkLib();
-      lib->freeLib();
+      //      lib->freeLib();
       _flagLoad = 1;
     }
    //Generation d'un mob
