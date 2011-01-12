@@ -53,6 +53,8 @@ class	Session
   void		Create_Mob(int i);
   void		Create_Boss(int i);
 
+  void		collision_playermissile_mob();
+
   unsigned char mob_id;
 
   void		spawnPlayer(Player *);

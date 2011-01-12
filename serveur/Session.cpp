@@ -200,6 +200,58 @@ void	Session::Create_Boss(int i)
     }
 }
 
+
+void  Session::collision_playermissile_mob()
+{
+  Command       cmd(_game_n);
+  Object	*obj;
+  Object	*obj2;
+  std::list<Object *>::iterator it;
+  std::list<Object *>::iterator it2;
+
+  it = _listObj.begin();
+  while (it != _listObj.end())
+    {
+      it2 = _listObj.begin();
+      while (it2 != _listObj.end())
+	{
+	  obj = *it;
+	  obj2 = *it2;
+	  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
+	      obj->getType() != 9 && obj2->getType() != 9 &&
+	      (obj->getType() != 21 && obj2->getType() != 21) &&
+	      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
+	      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
+	      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
+	    {
+	      if (
+		  (obj->getType() == 5 && obj2->getType() == 6) ||
+		  (obj->getType() == 6 && obj2->getType() == 5) ||
+		  
+		  
+		  (obj->getType() == 5 && obj2->getType() == 7) ||
+		  (obj->getType() == 7 && obj2->getType() == 5)
+		  )
+		{
+		  
+		}
+	      else
+		{
+		  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		  _listObj.erase(it);
+		  _listObj.erase(it2);
+		  _score += 10;
+		  cmd.sendScore(_score, _p);
+		  it = _listObj.begin();
+		  it2 = _listObj.begin();
+		}
+	    }
+	  it2++;
+	}
+      it++;
+    }
+}
+
 void  Session::sessionthreadElems()
 {
   int i = 0;
@@ -234,50 +286,7 @@ void  Session::sessionthreadElems()
 	{
 
 	  //Detection des collisions entre missiles joueur et mobs
-	  it = _listObj.begin();
-	  while (it != _listObj.end())
-	    {
-	      it2 = _listObj.begin();
-	      while (it2 != _listObj.end())
-		{
-		  obj = *it;
-		  obj2 = *it2;
-		  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
-		      obj->getType() != 9 && obj2->getType() != 9 &&
-		      (obj->getType() != 21 && obj2->getType() != 21) &&
-		      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
-		      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
-		      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
-		    {
-		      if (
-			  (obj->getType() == 5 && obj2->getType() == 6) ||
-			  (obj->getType() == 6 && obj2->getType() == 5) ||
-
-
-			  (obj->getType() == 5 && obj2->getType() == 7) ||
-			  (obj->getType() == 7 && obj2->getType() == 5)
-			  )
-			{
-
-			}
-		      else
-			{
-			  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
-			  _listObj.erase(it);
-			  _listObj.erase(it2);
-			  _score += 10;
-			  cmd.sendScore(_score, _p);
-			  it = _listObj.begin();
-			  it2 = _listObj.begin();
-			}
-		    }
-		  it2++;
-		}
-	      it++;
-	      }
-	  // Fin detection des collisions
-
-
+	  collision_playermissile_mob();
 
 
 	  //Detection des collisions entre missiles joueur et boss1
