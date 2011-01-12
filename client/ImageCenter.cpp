@@ -112,6 +112,15 @@ ImageCenter::ImageCenter()
   _lmonster4.push_back(img);
   img.LoadFromFile("sprite/monster13_8.png");
   _lmonster4.push_back(img);
+  //monster 15
+  img.LoadFromFile("sprite/monster3pos1.png");
+  _lmonster5.push_back(img);
+  img.LoadFromFile("sprite/monster3pos2.png");
+  _lmonster5.push_back(img);
+  img.LoadFromFile("sprite/monster3pos3.png");
+  _lmonster5.push_back(img);
+  img.LoadFromFile("sprite/monster3pos4.png");
+  _lmonster5.push_back(img);
   //boss one
   img.LoadFromFile("sprite/boss1_1.png");
   _lboss1.push_back(img);
@@ -155,6 +164,20 @@ ImageCenter::ImageCenter()
   //wall
   img.LoadFromFile("sprite/wall1.png");
   _lwall1.push_back(img);
+  //wall pop meduse up
+  img.LoadFromFile("sprite/wall28_1.png");
+  _lwall2.push_back(img);
+  img.LoadFromFile("sprite/wall28_2.png");
+  _lwall2.push_back(img);
+  img.LoadFromFile("sprite/wall28_3.png");
+  _lwall2.push_back(img);
+  //wall pop meduse down
+  img.LoadFromFile("sprite/wall29_1.png");
+  _lwall3.push_back(img);
+  img.LoadFromFile("sprite/wall29_2.png");
+  _lwall3.push_back(img);  
+  img.LoadFromFile("sprite/wall29_3.png");
+  _lwall3.push_back(img);
   //shoot player
   img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
@@ -304,6 +327,16 @@ const std::list<sf::Image>    &ImageCenter::getLedge1() const
 const std::list<sf::Image>    &ImageCenter::getLwall1() const
 {
   return _lwall1;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLwall2() const
+{
+  return _lwall2;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLwall3() const
+{
+  return _lwall3;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmonster1() const

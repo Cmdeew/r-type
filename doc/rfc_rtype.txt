@@ -369,9 +369,9 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 10 missile player level 2
 		- 11 ennemy_one - alien armure vert
 		- 12 ennemy_two - boule rouge
-		- 13 ennemy_three - metroid vert
+		- 13 ennemy_three - metroid vert down
 		- 14 ennemy_four - vaisseau rotatif rouge
-		- 15 ennemy_five
+		- 15 ennemy_five - metroid vert up
 		- 16 ennemy_six
 		- 17 ennemy_seven
 		- 18 ennemy_height
@@ -383,6 +383,9 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 24 boss _four - alien rouge
 		- 25 bonus astronaute - astronaute
 		- 26 bonus life - coeur
+		- 27 - explosion
+		- 28 - wall pop meduse up
+		- 29 - wall pop meduse down
 
 Hugon                      Experimental                      	[Page 8]
 

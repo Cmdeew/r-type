@@ -61,7 +61,7 @@ void		gameClient::findLevel(int score)
   //level
   if (score >= 10000)
     this->setLevel(4);
-  else if (score >= 8500)
+  else if (score >= 6000)
     this->setLevel(3);
   else if (score >= 2500)
     this->setLevel(2);

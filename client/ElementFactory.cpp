@@ -115,6 +115,8 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
     case 15:
       {
 	nElement = new Element(posx, posy, 1, id, type);
+	nElement->setSprite(_imgCenter->getLmonster5());
+	nElement->_iter = nElement->getSprite().begin();
 	break;
       }
     case 16:
@@ -183,6 +185,20 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
       {
 	nElement = new Element(posx, posy, 0, id, type);
 	nElement->setSprite(_imgCenter->getLexplo1());
+	nElement->_iter = nElement->getSprite().begin();
+	break;
+      }
+    case 28:
+      {
+	nElement = new Element(posx, posy, 0, id, type);
+	nElement->setSprite(_imgCenter->getLwall2());
+	nElement->_iter = nElement->getSprite().begin();
+	break;
+      }
+    case 29:
+      {
+	nElement = new Element(posx, posy, 0, id, type);
+	nElement->setSprite(_imgCenter->getLwall3());
 	nElement->_iter = nElement->getSprite().begin();
 	break;
       }

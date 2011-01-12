@@ -64,14 +64,20 @@ void Object::move(Session *s)
 
       static int b1 = 0;
       
-      if (b1 % 10 == 0)
+      if (b1 % 3 == 0)
 	{
-	  obj = new Object(s->mob_id++, m_x - 3, m_y, 7);
+	  obj = new Object(s->mob_id++, m_x, m_y + rand() % 30, 7);
 	  s->_listObj.push_back(obj);
 	}
-      if (m_x > 20)
+      if (m_x > 40)
 	m_x--;
 
+      if (m_y >=0 && m_y <= 3)
+	m_y++;
+      else if (m_y <= 6)
+	m_y--;
+      m_y = 0;
+      /*
       if (m_y == 0)
 	m_y++;
       else if (m_y == 32)
@@ -80,6 +86,7 @@ void Object::move(Session *s)
 	m_y--;
       else
 	m_y++;
+*/
       if (b1 == 50000)
 	b1 = 0;
       b1++;
