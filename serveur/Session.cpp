@@ -571,6 +571,22 @@ void	*Session::launchMissile(Object *obj)
       b2++;
     }
 
+  if (obj->getType() == 24) //boss3
+    {
+      static int b3 = 0;
+
+      if (b3 % 10 == 0)
+        {
+          newObj = new Object(mob_id++, obj->getX(), obj->getY(), 7);
+          _listObj.push_back(newObj);
+	  if (mob_id > 127)                                        
+	    mob_id = 11;
+        }
+      if (b3 == 50000)
+        b3 = 0;
+      b3++;
+    }
+
   return (NULL);
 }
 

@@ -68,12 +68,28 @@ void Object::move()
     }
   else if (m_type == 24) //Boss 3
     {
+      static int b3x = 0;
+      static int b3y = 0;
+
       if (m_x > 40)
+	b3x = 0;
+      if (m_x <= 25)
+	b3x = 1;
+
+      if (b3x == 0)
 	m_x--;
-      if (m_y >=0 && m_y <= 3)
-	m_y++;
-      else if (m_y <= 6)
-	m_y--;
+      if (b3x == 1)
+	m_x++;
+
+      if (b3y == 0)
+	m_y += 2;
+      else if (b3y == 1)
+	m_y -= 2;
+
+      if (m_y <= 3)
+	b3y = 0;
+     if (m_y >= 28)
+	b3y = 1;
     }
 }
 
