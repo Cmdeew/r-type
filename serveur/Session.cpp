@@ -77,7 +77,7 @@ void	Session::Create_Mob(int i)
   Object	*obj;
   static int a = 0;
   static int nb = 0;
-  static LoadLib * lib;
+  //static LoadLib * lib;
 
 
   if (nb == 0)
@@ -122,9 +122,9 @@ void	Session::Create_Mob(int i)
 	    } 
 	}
       
-	  //generation mob_11
+      //generation mob_11
 
-      if (a % 4000 == 0 && _score >= LEVEL2)
+      if (a % 4000 == 0)// && _score >= LEVEL2)
 	{
 	  int p = rand()%MAXRAND;
 	  if (lib->getMaillon(0) != NULL)
@@ -134,49 +134,68 @@ void	Session::Create_Mob(int i)
 	      if (mob_id > 127)
 		mob_id = 11;
 	      obj = new Object(mob_id++, 55, p + 4, 9);
-		  _listObj.push_back(obj);
+	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
 	    }
 	}
+	
+      //generation mob_13 vers le bas meduse et mob_15
 
-
-	  //generation mob_13
-	  /*if (a % 6000 == 0 && _score > LEVEL1)
+      static int t = 0;
+      if (a % 400 == 0 && t < 4)
+	{
+	  if (lib->getMaillon(2) != NULL)
 	    {
-	      if (lib->getMaillon(2) != NULL)
-		  {
-		    obj = lib->getInstance(2, mob_id++, 55, 25);
-		    _listObj.push_back(obj);
-		    if (mob_id > 127)
-		      mob_id = 11;
-		  }
-		  }*/
-	  
-
-
-	  //generation mob_9 MUR
-
-	  /*if (a % 10000 == 0)
+	      obj = lib->getInstance(2, mob_id++, 22, 3);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;	 
+	    }
+	  if (lib->getMaillon(4) != NULL)
 	    {
-	      int j;
-	      j = 0;
-	      while (j < 3)
-		{
-		   obj = new Object(mob_id++, 55, 0+i*2, 9);
-		  _listObj.push_back(obj);
-		  if (mob_id > 127)
-		    mob_id = 11;
-		  obj = new Object(mob_id++, 55, 34-i*2, 9);
-		  _listObj.push_back(obj);
-		  if (mob_id > 127)
-		    mob_id = 11;
-		  j++;
-		}
-		}*/
-	  a++;
-	  if (a == 10000)
-	    a = 0;
+	      obj = lib->getInstance(4, mob_id++, 28, 40);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;	 
+	    }
+	  t++;
+	}
+      if (a % 9000 == 0)
+	t = 0;
+      //generation mob_9 MUR
+      int	p = 0;
+      if (a %10000 == 0)
+	{
+	  while (p < 12)
+	    {
+	      obj = new Object(mob_id++, 0 + p * 4, 0, 9);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
+	      p++;
+	    }
+	  p = 0;
+	  while (p < 5)
+	    {
+	      obj = new Object(mob_id++, 15 + p * 4, 40, 9);
+	      _listObj.push_back(obj);
+	      if (mob_id > 127)
+		mob_id = 11;
+	      p++;
+	    }
+	  obj = new Object(mob_id++, 20, 1, 29);
+	  _listObj.push_back(obj);
+	  if (mob_id > 127)
+	    mob_id = 11;
+	  obj = new Object(mob_id++, 30, 37, 28);
+	  _listObj.push_back(obj);
+	  if (mob_id > 127)
+	    mob_id = 11;
+	}
+      a++;
+      if (a == 10000)
+	a = 0;
     }
   //lib->freeLib();
   //delete lib;
@@ -351,6 +370,7 @@ void  Session::sessionthreadElems()
 	    {
 	      obj = *it;
 	      obj->move(this);
+	      launchMissile(obj);
 	      cmd.sendObjMove(obj, _p);
 	      if (obj->getX() == 0) // depassant la fenetre
 		{
@@ -366,6 +386,29 @@ void  Session::sessionthreadElems()
     }
 }
 
+void	*Session::launchMissile(Object *obj)
+{
+  static int a = 0;
+  if (obj->getType() == 11)
+    {
+      if (a % 10 == 0)
+	{
+	  obj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 6);
+	  _listObj.push_back(obj);
+	  if (mob_id > 127)                                        
+	  mob_id = 11;
+	  obj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 8);
+	  _listObj.push_back(obj);
+	  if (mob_id > 127)                                        
+	    mob_id = 11;
+	}
+      a++;
+      if (a > 10000)
+	a = 0;
+    }
+
+  return (NULL);
+}
 
 void	*Session::sessionthreadElemsInit(Session *sess)
 {

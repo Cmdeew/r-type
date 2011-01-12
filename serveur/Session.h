@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "CUAbsDynamicLib.h"
 #include "Object.h"
+#include "LoadLib.h"
 
 #define MAX_PING_TIME 30000
 #define MID_PING_TIME 20000
@@ -29,6 +30,7 @@ class	Session
 {
  private:
  public:
+  LoadLib			*lib;
   AbsUDPNetwork			*_p;
   AbsThread			*_th;
   AbsMutex			*_mt;
@@ -57,6 +59,7 @@ class	Session
 
   void		spawnPlayer(Player *);
 
+  void		*launchMissile(Object *obj);
 };
 
 #include "Command.h"
