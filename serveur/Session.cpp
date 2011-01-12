@@ -95,7 +95,7 @@ void	Session::Create_Mob(int i)
       static int b = 0;
       int r;
 
-      if (a % 1500 == 0 && _score < LEVEL1)
+      if (a % 1500 == 0 && (_score < LEVEL1 || _score >= LEVEL3))
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
@@ -124,7 +124,7 @@ void	Session::Create_Mob(int i)
       
       //generation mob_11
 
-      if (a % 4000 == 0 && _score >= LEVEL1)
+      if (a % 4500 == 0 && _score >= LEVEL1)
 	{
 	  int p = rand()%MAXRAND;
 	  if (lib->getMaillon(0) != NULL)
@@ -143,7 +143,8 @@ void	Session::Create_Mob(int i)
       //generation mob_13 vers le bas meduse et mob_15
 
       static int t = 0;
-      if (a % 400 == 0 && t < 4 && _score > LEVEL3)
+      static int e = 0;
+      if (a % 400 == 0 && t < 3 && _score >= LEVEL3)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
@@ -152,34 +153,44 @@ void	Session::Create_Mob(int i)
 	      if (mob_id > 127)
 		mob_id = 11;	 
 	    }
-	  if (lib->getMaillon(4) != NULL)
-	    {
-	      obj = lib->getInstance(4, mob_id++, 28, 40);
-	      _listObj.push_back(obj);
-	      if (mob_id > 127)
-		mob_id = 11;	 
-	    }
 	  t++;
+	}
+	
+      // mob_15 du bas
+      if (a % 400 == 0 && e < 3 && _score >= LEVEL3)
+	  {
+	    if (lib->getMaillon(4) != NULL)
+	      {
+		
+		obj = lib->getInstance(4, mob_id++, 8, 10);
+		_listObj.push_back(obj);
+		if (mob_id > 127)
+		  mob_id = 11;	 
+	      }
+	    e++;
 	  }
       if (a % 9000 == 0)
-	t = 0;
-      //generation mob_9 MUR
+	{
+	  t = 0;
+	  e = 0;
+	}
+      //generation mob_30 MUR
 
       int	p = 0;
-      if (a %10000 == 0 && _score > LEVEL3)
+      if (a %10000 == 0 && _score >= LEVEL3)
 	{
-	  while (p < 12)
+	  while (p < 8)
 	    {
-	      obj = new Object(mob_id++, 0 + p * 4, 0, 9);
+	      obj = new Object(mob_id++, 0 + p *11, 0, 31);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
 	      p++;
 	    }
 	  p = 0;
-	  while (p < 5)
+	  while (p < 2)
 	    {
-	      obj = new Object(mob_id++, 15 + p * 4, 40, 9);
+	      obj = new Object(mob_id++, 15 + p * 6, 39, 30);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -476,7 +487,7 @@ void	*Session::launchMissile(Object *obj)
   static int a = 0;
   if (obj->getType() == 11)
     {
-      if (a % 10 == 0)
+      if (a % 30 == 0)
 	{
 	  newObj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 6);
 	  _listObj.push_back(newObj);
