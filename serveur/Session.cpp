@@ -421,8 +421,8 @@ void Session::collision_player_mob()
       while (j <= 3)
 	{
 	  if (_tabPlayer[j] != NULL && obj->getType() != 5 && 
-	      obj->getX() < _tabPlayer[j]->getPosx() + 3 && obj->getX() > _tabPlayer[j]->getPosx() - 3 &&
-	      obj->getY() < _tabPlayer[j]->getPosy() + 3 && obj->getY() > _tabPlayer[j]->getPosy() - 3)
+	      obj->getX() < _tabPlayer[j]->getPosx() + 2 && obj->getX() > _tabPlayer[j]->getPosx() - 2 &&
+	      obj->getY() < _tabPlayer[j]->getPosy() + 2 && obj->getY() > _tabPlayer[j]->getPosy() - 2)
 	    {
 	      if ((_tabPlayer[j]->getLife() - 1) > 0)
 		{
@@ -464,7 +464,6 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
   
-   //   _score = LEVEL_BOSS2 - 20; // TEST
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
