@@ -207,11 +207,6 @@ void	Session::Create_Mob(int i)
       if (a == 10000)
 	a = 0;
     }
-  if (lib != NULL)
-    {
-      lib->freeLib();
-      delete lib;
-    }
 }
 
 void	Session::Create_Boss(int i)
