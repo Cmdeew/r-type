@@ -18,6 +18,7 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   _game_n = nbGame;
   _score = 0;
   mob_id = 11;
+  _flagLoad = 0;
 }
 
 
@@ -77,14 +78,15 @@ void	Session::Create_Mob(int i)
 {
   Object	*obj;
   static int a = 0;
-  static int nb = 0;
 
-  if (nb == 0)
+  if (_flagLoad == 0)
     {
+      std::cout << "LOAD LIB" << std::endl;
       lib = new LoadLib();
       lib->initTabMonster();
       lib->checkLib();
-      nb = 1;
+      lib->freeLib();
+      _flagLoad = 1;
     }
    //Generation d'un mob
   if (i% 9999)
@@ -92,6 +94,12 @@ void	Session::Create_Mob(int i)
       //generation mob 12 BOULE
       static int b = 0;
       int r;
+
+      if (lib == NULL)
+	{
+	  std::cout << "LOAD LIB FAILED" << std::endl;
+	  exit(0);
+	}
 
       if (a % 1500 == 0 && _score < LEVEL2)
 	{
