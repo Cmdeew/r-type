@@ -1,6 +1,7 @@
 #include "LoadLib.h"
 #include "Session.h"
 #include <stdlib.h>
+#include "Elem.h"
 
 Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
 {
@@ -77,8 +78,6 @@ void	Session::Create_Mob(int i)
   Object	*obj;
   static int a = 0;
   static int nb = 0;
-  //static LoadLib * lib;
-
 
   if (nb == 0)
     {
@@ -87,7 +86,6 @@ void	Session::Create_Mob(int i)
       lib->checkLib();
       nb = 1;
     }
-
    //Generation d'un mob
   if (i% 9999)
     {
@@ -133,7 +131,7 @@ void	Session::Create_Mob(int i)
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
-	      obj = new Object(mob_id++, 55, p + 4, 9);
+	      obj = new Elem(mob_id++, 55, p + 4, 9);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -181,7 +179,7 @@ void	Session::Create_Mob(int i)
 	{
 	  while (p < 8)
 	    {
-	      obj = new Object(mob_id++, 0 + p *11, 0, 31);
+	      obj = new Elem(mob_id++, 0 + p * 4, 0, 9);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
@@ -190,17 +188,17 @@ void	Session::Create_Mob(int i)
 	  p = 0;
 	  while (p < 2)
 	    {
-	      obj = new Object(mob_id++, 15 + p * 6, 39, 30);
+	      obj = new Elem(mob_id++, 15 + p * 4, 40, 9);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
 		mob_id = 11;
 	      p++;
 	    }
-	  obj = new Object(mob_id++, 20, 1, 29);
+	  obj = new Elem(mob_id++, 20, 1, 29);
 	  _listObj.push_back(obj);
 	  if (mob_id > 127)
 	    mob_id = 11;
-	  obj = new Object(mob_id++, 30, 37, 28);
+	  obj = new Elem(mob_id++, 30, 37, 28);
 	  _listObj.push_back(obj);
 	  if (mob_id > 127)
 	    mob_id = 11;
@@ -209,8 +207,6 @@ void	Session::Create_Mob(int i)
       if (a == 10000)
 	a = 0;
     }
-  //lib->freeLib();
-  //delete lib;
 }
 
 void	Session::Create_Boss(int i)
@@ -226,7 +222,7 @@ void	Session::Create_Boss(int i)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Object(mob_id++, 40, 0, 21);
+      obj = new Elem(mob_id++, 40, 0, 21);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -237,7 +233,7 @@ void	Session::Create_Boss(int i)
     {
       boss2 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Object(mob_id++, 40, 0, 22);
+      obj = new Elem(mob_id++, 40, 0, 22);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -248,7 +244,7 @@ void	Session::Create_Boss(int i)
     {
       boss3 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Object(mob_id++, 40, 0, 24);
+      obj = new Elem(mob_id++, 40, 0, 24);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -523,11 +519,11 @@ void	*Session::launchMissile(Object *obj)
     {
       if (a % 30 == 0)
 	{
-	  newObj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 6);
+	  newObj = new Elem(mob_id++, obj->getX() - 3, obj->getY(), 6);
 	  _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
-	  newObj = new Object(mob_id++, obj->getX() - 3, obj->getY(), 8);
+	  newObj = new Elem(mob_id++, obj->getX() - 3, obj->getY(), 8);
 	  _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
@@ -543,7 +539,7 @@ void	*Session::launchMissile(Object *obj)
 
       if (b1 % 3 == 0)
         {
-          newObj = new Object(mob_id++, obj->getX(), rand() % 28, 7);
+          newObj = new Elem(mob_id++, obj->getX(), obj->getY() + rand() % 30, 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
@@ -559,7 +555,7 @@ void	*Session::launchMissile(Object *obj)
 
       if (b2 % 10 == 0)
         {
-          newObj = new Object(mob_id++, obj->getX(), obj->getY(), 7);
+          newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
@@ -575,7 +571,7 @@ void	*Session::launchMissile(Object *obj)
 
       if (b3 % 10 == 0)
         {
-          newObj = new Object(mob_id++, obj->getX(), obj->getY(), 7);
+          newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;

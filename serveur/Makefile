@@ -27,7 +27,8 @@ SRC		= main.cpp\
 		  LoadLib.cpp\
                   Player.cpp\
                   Object.cpp\
-                  Game.cpp
+                  Game.cpp\
+		  Elem.cpp
 
 
 OBJ		= $(SRC:.cpp=.o)
