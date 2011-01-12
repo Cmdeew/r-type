@@ -438,7 +438,7 @@ void Session::collision_player_mob()
 		{
 		  _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
 		  cmd.sendLife(_tabPlayer[j], _p);
-		  if (obj->getType() != 9) // Les murs ne se detruisent pas
+		  if (obj->getType() != 9 && obj->getType() != 21 && obj->getType() != 22 && obj->getType() != 24) // Les murs et les boss ne se detruisent pas
 		    {
 		      cmd.sendDestroy(obj->getId() , 0, _p); 
 		      _listObj.erase(it);
