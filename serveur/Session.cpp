@@ -93,7 +93,7 @@ void	Session::Create_Mob(int i)
       static int b = 0;
       int r;
 
-      if (a % 900 == 0 && _score < LEVEL1)
+      if (a % 1500 == 0 && (_score < LEVEL1 || _score >= LEVEL3))
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
@@ -109,7 +109,7 @@ void	Session::Create_Mob(int i)
 	}
 
       //generation mob_14 AVION
-      if (a % 900 == 0 && _score < LEVEL1)
+      if (a % 1500 == 0  && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(3) != NULL)
 	    {
@@ -122,7 +122,7 @@ void	Session::Create_Mob(int i)
       
       //generation mob_11
 
-      if (a % 4000 == 0 && _score >= LEVEL1)
+      if (a % 4500 == 0 && _score >= LEVEL1)
 	{
 	  int p = rand()%MAXRAND;
 	  if (lib->getMaillon(0) != NULL)
@@ -141,7 +141,8 @@ void	Session::Create_Mob(int i)
       //generation mob_13 vers le bas meduse et mob_15
 
       static int t = 0;
-      if (a % 400 == 0 && t < 4 && _score > LEVEL3)
+      static int e = 0;
+      if (a % 400 == 0 && t < 3 && _score >= LEVEL3)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
@@ -150,22 +151,33 @@ void	Session::Create_Mob(int i)
 	      if (mob_id > 127)
 		mob_id = 11;	 
 	    }
-	  if (lib->getMaillon(4) != NULL)
-	    {
-	      obj = lib->getInstance(4, mob_id++, 28, 40);
-	      _listObj.push_back(obj);
-	      if (mob_id > 127)
-		mob_id = 11;	 
-	    }
 	  t++;
 	}
+	
+      // mob_15 du bas
+      if (a % 400 == 0 && e < 3 && _score >= LEVEL3)
+	  {
+	    if (lib->getMaillon(4) != NULL)
+	      {
+		
+		obj = lib->getInstance(4, mob_id++, 8, 10);
+		_listObj.push_back(obj);
+		if (mob_id > 127)
+		  mob_id = 11;	 
+	      }
+	    e++;
+	  }
       if (a % 9000 == 0)
-	t = 0;
-      //generation mob_9 MUR
-      int	p = 0;
-      if (a %10000 == 0 && _score > LEVEL3)
 	{
-	  while (p < 12)
+	  t = 0;
+	  e = 0;
+	}
+      //generation mob_30 MUR
+
+      int	p = 0;
+      if (a %10000 == 0 && _score >= LEVEL3)
+	{
+	  while (p < 8)
 	    {
 	      obj = new Elem(mob_id++, 0 + p * 4, 0, 9);
 	      _listObj.push_back(obj);
@@ -174,7 +186,7 @@ void	Session::Create_Mob(int i)
 	      p++;
 	    }
 	  p = 0;
-	  while (p < 5)
+	  while (p < 2)
 	    {
 	      obj = new Elem(mob_id++, 15 + p * 4, 40, 9);
 	      _listObj.push_back(obj);
@@ -207,6 +219,8 @@ void	Session::Create_Boss(int i)
   Object	*obj;
   Command           cmd(_game_n);
   static int boss1 = 0;
+  static int boss2 = 0;
+  static int boss3 = 0;
 
   //Generation du boss 1
   if (_score >= LEVEL_BOSS1 && boss1 == 0)
@@ -214,6 +228,28 @@ void	Session::Create_Boss(int i)
       boss1 = 1;
       cmd.sendScore(_score, _p);
       obj = new Elem(mob_id++, 40, 0, 21);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = 11;
+    }
+
+  //Generation du boss 2
+  if (_score >= LEVEL_BOSS2 && boss2 == 0)
+    {
+      boss2 = 1;
+      cmd.sendScore(_score, _p);
+      obj = new Elem(mob_id++, 40, 0, 22);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = 11;
+    }
+
+  //Generation du boss 3
+  if (_score >= LEVEL_BOSS3 && boss3 == 0)
+    {
+      boss3 = 1;
+      cmd.sendScore(_score, _p);
+      obj = new Elem(mob_id++, 40, 0, 24);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -239,7 +275,9 @@ void  Session::collision_playermissile_mob()
 	  obj2 = *it2;
 	  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
 	      obj->getType() != 9 && obj2->getType() != 9 &&
-	      (obj->getType() != 21 && obj2->getType() != 21) &&
+	      (obj->getType() != 21 && obj2->getType() != 21) && //BOSS1
+	      (obj->getType() != 22 && obj2->getType() != 22) && //BOSS2
+	      (obj->getType() != 24 && obj2->getType() != 24) && //BOSS3
 	      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
 	      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 	      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
@@ -247,8 +285,13 @@ void  Session::collision_playermissile_mob()
 	      if (
 		  (obj->getType() == 5 && obj2->getType() == 6) ||
 		  (obj->getType() == 6 && obj2->getType() == 5) ||
-		  
-		  
+		    
+		  (obj->getType() == 5 && obj2->getType() == 8) ||
+		  (obj->getType() == 8 && obj2->getType() == 5) ||
+
+		  (obj->getType() == 6 && obj2->getType() == 8) ||
+		  (obj->getType() == 8 && obj2->getType() == 6) ||
+		    
 		  (obj->getType() == 5 && obj2->getType() == 7) ||
 		  (obj->getType() == 7 && obj2->getType() == 5)
 		  )
@@ -422,13 +465,15 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
   
-
+   //   _score = LEVEL_BOSS2 - 20; // TEST
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      if (_score < LEVEL_BOSS1 || _score >= LEVEL1)
+      if ((_score < LEVEL_BOSS1 || _score >= LEVEL1) &&
+	  (_score < LEVEL_BOSS2 || _score >= LEVEL2) &&
+	  (_score < LEVEL_BOSS3 || _score >= LEVEL3))
 	Create_Mob(i);
 
       Create_Boss(i);
@@ -437,8 +482,10 @@ void  Session::sessionthreadElems()
 	  //Detection des collisions entre missiles joueur et mobs
 	  collision_playermissile_mob();
 
-	  //Detection des collisions entre missiles joueur et boss1
+	  //Detection des collisions entre missiles joueur et boss
 	  collision_playermissile_boss(21, LEVEL_BOSS1, LEVEL1, 3, 3, 20, 10);
+	  collision_playermissile_boss(22, LEVEL_BOSS2, LEVEL2, 3, 3, 3, 3);
+	  collision_playermissile_boss(24, LEVEL_BOSS3, LEVEL3, 3, 3, 20, 10);
 
 	  move_missile();
 
@@ -476,7 +523,7 @@ void	*Session::launchMissile(Object *obj)
   static int a = 0;
   if (obj->getType() == 11)
     {
-      if (a % 10 == 0)
+      if (a % 30 == 0)
 	{
 	  newObj = new Elem(mob_id++, obj->getX() - 3, obj->getY(), 6);
 	  _listObj.push_back(newObj);
@@ -506,6 +553,22 @@ void	*Session::launchMissile(Object *obj)
       if (b1 == 50000)
         b1 = 0;
       b1++;
+    }
+
+  if (obj->getType() == 22) //boss2
+    {
+      static int b2 = 0;
+
+      if (b2 % 10 == 0)
+        {
+          newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
+          _listObj.push_back(newObj);
+	  if (mob_id > 127)                                        
+	    mob_id = 11;
+        }
+      if (b2 == 50000)
+        b2 = 0;
+      b2++;
     }
 
   return (NULL);

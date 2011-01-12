@@ -386,6 +386,8 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 27 - explosion
 		- 28 - wall pop meduse up
 		- 29 - wall pop meduse down
+		- 30 - wall tete verte up
+		- 31 - wall tete verte down
 
 Hugon                      Experimental                      	[Page 8]
 

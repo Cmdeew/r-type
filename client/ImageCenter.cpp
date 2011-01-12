@@ -178,6 +178,16 @@ ImageCenter::ImageCenter()
   _lwall3.push_back(img);  
   img.LoadFromFile("sprite/wall29_3.png");
   _lwall3.push_back(img);
+  //wall tete verte up
+  img.LoadFromFile("sprite/wall30_1.png");
+  _lwall4.push_back(img);
+  img.LoadFromFile("sprite/wall30_2.png");
+  _lwall4.push_back(img);
+  //wall tete verte down
+  img.LoadFromFile("sprite/wall31_1.png");
+  _lwall5.push_back(img);
+  img.LoadFromFile("sprite/wall31_2.png");
+  _lwall5.push_back(img);
   //shoot player
   img.LoadFromFile("sprite/shoot1.png");
   _lweapon1.push_back(img);
@@ -337,6 +347,16 @@ const std::list<sf::Image>    &ImageCenter::getLwall2() const
 const std::list<sf::Image>    &ImageCenter::getLwall3() const
 {
   return _lwall3;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLwall4() const
+{
+  return _lwall4;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLwall5() const
+{
+  return _lwall5;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmonster1() const
