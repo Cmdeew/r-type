@@ -206,7 +206,9 @@ void	Session::Create_Boss(int i)
 {
   Object	*obj;
   Command           cmd(_game_n);
-  static int boss1 = 0;
+  static int boss1 = 1;
+  static int boss2 = 0;
+  static int boss3 = 0;
 
   //Generation du boss 1
   if (_score >= LEVEL_BOSS1 && boss1 == 0)
@@ -214,6 +216,28 @@ void	Session::Create_Boss(int i)
       boss1 = 1;
       cmd.sendScore(_score, _p);
       obj = new Object(mob_id++, 40, 0, 21);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = 11;
+    }
+
+  //Generation du boss 2
+  if (_score >= LEVEL_BOSS2 && boss2 == 0)
+    {
+      boss2 = 1;
+      cmd.sendScore(_score, _p);
+      obj = new Object(mob_id++, 40, 0, 22);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = 11;
+    }
+
+  //Generation du boss 3
+  if (_score >= LEVEL_BOSS3 && boss3 == 0)
+    {
+      boss3 = 1;
+      cmd.sendScore(_score, _p);
+      obj = new Object(mob_id++, 40, 0, 24);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -239,7 +263,9 @@ void  Session::collision_playermissile_mob()
 	  obj2 = *it2;
 	  if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
 	      obj->getType() != 9 && obj2->getType() != 9 &&
-	      (obj->getType() != 21 && obj2->getType() != 21) &&
+	      (obj->getType() != 21 && obj2->getType() != 21) && //BOSS1
+	      (obj->getType() != 22 && obj2->getType() != 22) && //BOSS2
+	      (obj->getType() != 24 && obj2->getType() != 24) && //BOSS3
 	      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
 	      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 	      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
@@ -427,13 +453,15 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
   
-
+   //   _score = LEVEL_BOSS2 - 20; // TEST
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
 	i = 0; 
       //std::cout << "ID : " << (int)mob_id << std::endl;
-      if (_score < LEVEL_BOSS1 || _score >= LEVEL1)
+      if ((_score < LEVEL_BOSS1 || _score >= LEVEL1) &&
+	  (_score < LEVEL_BOSS2 || _score >= LEVEL2) &&
+	  (_score < LEVEL_BOSS3 || _score >= LEVEL3))
 	Create_Mob(i);
 
       Create_Boss(i);
@@ -442,8 +470,10 @@ void  Session::sessionthreadElems()
 	  //Detection des collisions entre missiles joueur et mobs
 	  collision_playermissile_mob();
 
-	  //Detection des collisions entre missiles joueur et boss1
+	  //Detection des collisions entre missiles joueur et boss
 	  collision_playermissile_boss(21, LEVEL_BOSS1, LEVEL1, 3, 3, 20, 10);
+	  collision_playermissile_boss(22, LEVEL_BOSS2, LEVEL2, 3, 3, 3, 3);
+	  collision_playermissile_boss(24, LEVEL_BOSS3, LEVEL3, 3, 3, 20, 10);
 
 	  move_missile();
 
@@ -503,7 +533,7 @@ void	*Session::launchMissile(Object *obj)
 
       if (b1 % 3 == 0)
         {
-          newObj = new Object(mob_id++, obj->getX(), obj->getY() + rand() % 30, 7);
+          newObj = new Object(mob_id++, obj->getX(), rand() % 28, 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
@@ -511,6 +541,22 @@ void	*Session::launchMissile(Object *obj)
       if (b1 == 50000)
         b1 = 0;
       b1++;
+    }
+
+  if (obj->getType() == 22) //boss2
+    {
+      static int b2 = 0;
+
+      if (b2 % 10 == 0)
+        {
+          newObj = new Object(mob_id++, obj->getX(), obj->getY(), 7);
+          _listObj.push_back(newObj);
+	  if (mob_id > 127)                                        
+	    mob_id = 11;
+        }
+      if (b2 == 50000)
+        b2 = 0;
+      b2++;
     }
 
   return (NULL);
