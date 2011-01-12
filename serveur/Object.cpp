@@ -73,9 +73,9 @@ void Object::move(Session *s)
 
       static int b1 = 0;
       
-      if (b1 % 10 == 0)
+      if (b1 % 3 == 0)
 	{
-	  obj = new Object(s->mob_id++, m_x - 3, m_y + 20, 7);
+	  obj = new Object(s->mob_id++, m_x, m_y + rand() % 30, 7);
 	  s->_listObj.push_back(obj);
 	}
       if (m_x > 40)
