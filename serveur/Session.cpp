@@ -577,7 +577,7 @@ void	*Session::launchMissile(Object *obj)
 
       if (b3 % 10 == 0)
         {
-          newObj = new Object(mob_id++, obj->getX(), obj->getY(), 7);
+          newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
 	    mob_id = 11;
