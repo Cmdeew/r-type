@@ -460,7 +460,6 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
-   _score = 1900;
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
@@ -570,7 +569,7 @@ void	*Session::launchMissile(Object *obj)
     {
       static int b3 = 0;
 
-      if (b3 % 10 == 0)
+      if (b3 % 4 == 0)
         {
           newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
