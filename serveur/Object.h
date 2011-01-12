@@ -15,7 +15,7 @@ public:
 	Object();
 	Object(char id, char x, char y, char type);
 	~Object();
-	void	move(Session *s);
+	void	move();
 	char	getId();
 	char	getX();
 	char	getY();
