@@ -95,7 +95,7 @@ void	Session::Create_Mob(int i)
       static int b = 0;
       int r;
 
-      if (a % 900 == 0 && _score < LEVEL1)
+      if (a % 1500 == 0 && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
@@ -111,7 +111,7 @@ void	Session::Create_Mob(int i)
 	}
 
       //generation mob_14 AVION
-      if (a % 900 == 0 && _score < LEVEL1)
+      if (a % 1500 == 0  && _score < LEVEL1)
 	{
 	  if (lib->getMaillon(3) != NULL)
 	    {
@@ -160,10 +160,11 @@ void	Session::Create_Mob(int i)
 		mob_id = 11;	 
 	    }
 	  t++;
-	}
+	  }
       if (a % 9000 == 0)
 	t = 0;
       //generation mob_9 MUR
+
       int	p = 0;
       if (a %10000 == 0 && _score > LEVEL3)
 	{
