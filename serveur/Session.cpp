@@ -222,7 +222,7 @@ void	Session::Create_Boss(int i)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Elem(mob_id++, 40, 0, 21);
+      obj = new Elem(mob_id++, 90, 0, 21);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -233,7 +233,7 @@ void	Session::Create_Boss(int i)
     {
       boss2 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Elem(mob_id++, 40, 0, 22);
+      obj = new Elem(mob_id++, 90, 0, 22);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -244,7 +244,7 @@ void	Session::Create_Boss(int i)
     {
       boss3 = 1;
       cmd.sendScore(_score, _p);
-      obj = new Elem(mob_id++, 40, 0, 24);
+      obj = new Elem(mob_id++, 90, 0, 24);
       _listObj.push_back(obj);
       if (mob_id > 127)
 	mob_id = 11;
@@ -459,7 +459,8 @@ void  Session::sessionthreadElems()
 
    LoadLib	*lib;
   // verification des libs
-  
+
+   _score = 1900;
   while (1) // On envoie des elements à l'infini
     {
       if (i == 10000)
