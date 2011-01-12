@@ -1,58 +1,31 @@
 #include <stdlib.h>
 #include <iostream>
 #include "Object.h"
-#include "Session.h"
 
 Object::Object()
 {
-
 }
 
 Object::Object(const char id, const char x, const char y, const char type)
 {
-	m_id = id;
-	m_x = x;
-	m_y = y;
-	m_type = type;
-	m_lim = 0;
+  m_id = id;
+  m_x = x;
+  m_y = y;
+  m_type = type;
+  m_lim = 0;
 }
 
 Object::~Object()
 {
-
 }
 
 void Object::move()
 {
   Object *obj;
 
-  if (m_type == 12)
-    {
-      m_x--;
-     if (m_lim < 5)
-       m_y++;
-     else
-       m_y--;
-     if (m_lim == 10)
-       m_lim = 0;
-     else
-       m_lim++;
-   }
-  else if (m_type == 11)
-    m_x--;
-  else if (m_type == 13)
-    {
-      m_x--;
-      m_y++;
-    }
-  else if (m_type == 15)
-    {
-      m_x++;
-      m_y--;
-    }
-  else if (m_type == 5)
+  if (m_type == 5)
     m_x++;
-  else if (m_type == 6 || m_type == 14 || m_type == 7 || m_type == 9)
+  else if (m_type == 6 || m_type == 7 || m_type == 9)
     m_x--;
   else if (m_type == 8)
     {
@@ -67,6 +40,56 @@ void Object::move()
 	m_y++;
       else if (m_y <= 6)
 	m_y--;
+    }
+  else if (m_type == 22) //Boss 2
+    {
+      static int b2x = 0;
+      static int b2y = 0;
+
+      if (m_x > 40)
+	b2x = 0;
+      if (m_x <= 25)
+	b2x = 1;
+
+      if (b2x == 0)
+	m_x--;
+      if (b2x == 1)
+	m_x++;
+
+      if (b2y == 0)
+	m_y += 2;
+      else if (b2y == 1)
+	m_y -= 2;
+
+      if (m_y <= 3)
+	b2y = 0;
+     if (m_y >= 28)
+	b2y = 1;
+    }
+  else if (m_type == 24) //Boss 3
+    {
+      static int b3x = 0;
+      static int b3y = 0;
+
+      if (m_x > 40)
+	b3x = 0;
+      if (m_x <= 25)
+	b3x = 1;
+
+      if (b3x == 0)
+	m_x--;
+      if (b3x == 1)
+	m_x++;
+
+      if (b3y == 0)
+	m_y += 2;
+      else if (b3y == 1)
+	m_y -= 2;
+
+      if (m_y <= 3)
+	b3y = 0;
+     if (m_y >= 28)
+	b3y = 1;
     }
 }
 

@@ -1,15 +1,14 @@
 #ifndef _MONSTERFOUR_H_
 # define _MONSTERFOUR_H_
 
-#include "../Session.h"
+#include "../Object.h"
 
 class	MonsterFour : public Object
 {
  public:
   MonsterFour(char id, char x, char y, char type = 11);
-  void	move(Session *s);
+  void	move();
   ~MonsterFour();
-  char getType();
 };
 
 typedef MonsterFour *(*maker_monster)(char id, char x, char y);

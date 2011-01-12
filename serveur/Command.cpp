@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "Elem.h"
 
 Command::Command(int _id_game)
 {
@@ -191,13 +192,13 @@ int	Command::receiveFromClient(Session *session, AbsUDPNetwork *p)
 
 int	Command::receiveShoot(Session *session, unsigned char playerId)
 {
-  Object *o;
+  Elem *o;
   //static int id = 51; //TO CHANGE
 
   if (!(session->_tabPlayer[playerId - 1]))
     return (1);
 
-  o = new Object(session->mob_id++, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
+  o = new Elem(session->mob_id++, session->_tabPlayer[playerId - 1]->getPosx() + 1, session->_tabPlayer[playerId - 1]->getPosy() + 1, 5);
 
   session->_listObj.push_back(o);
 

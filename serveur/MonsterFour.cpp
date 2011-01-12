@@ -17,6 +17,11 @@ MonsterFour::~MonsterFour()
 
 }
 
+void MonsterFour::move()
+{
+  m_x--;
+}
+
 extern "C"
 {
   Object *Create(char id, char x, char y)

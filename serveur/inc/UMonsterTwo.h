@@ -1,13 +1,12 @@
 #ifndef _MONSTERTWO_H_
 # define _MONSTERTWO_H_
 #include "../Object.h"
-#include "../Session.h"
 
 class	MonsterTwo : public Object
 {
  public:
   MonsterTwo(char id, char x, char y, char type = 11);
-  void	move(Session *s);
+  void	move();
   ~MonsterTwo();
 };
 

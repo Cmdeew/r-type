@@ -17,7 +17,7 @@ MonsterTwo::~MonsterTwo()
 
 }
 
-void MonsterTwo::move(Session *s)
+void MonsterTwo::move()
 {
   m_x--;
   if (m_lim < 5)

@@ -17,30 +17,10 @@ MonsterOne::~MonsterOne()
 
 }
 
-void MonsterOne::move(Session *s)
+void MonsterOne::move()
 {
-  Object *obj;
-
-  static int k = 0;
-
-  
-
-  if (k % 25 == 0)
-    {
-      std::cout << "SHOOT" << std::endl;
-      obj = new Object(s->mob_id++, m_x - 3, m_y, 6);
-      s->_listObj.push_back(obj);
-      if (s->mob_id > 127)
-	s->mob_id = 11;
-      obj = new Object(s->mob_id++, m_x - 3, m_y, 8);
-      s->_listObj.push_back(obj);
-    }
-  if (s->mob_id > 127)
-    s->mob_id = 11;
+  std::cout << "Mouvement du type monstre 1" << std::endl;
   m_x--;
-  if (k == 50000)
-    k = 0;
-    k++;
 }
 
 extern "C"
