@@ -110,7 +110,10 @@ void		gameClient::fillnetwork(udpNetwork* network)
       stream.close();
     }
   else
+    {
     std::cout << "Error: can't open file!"<< std::endl;
+    exit(0);
+    }
 }
 
 void		gameClient::choosePort(int nb)
@@ -150,7 +153,7 @@ void		gameClient::loopClient()
       this->requestConnect(temp);
       this->_network->getSocket().SetBlocking(false);
       nb = 0;
-      std::cout << "Awaiting connection to the server..." <<std::endl;
+      //std::cout << "Awaiting connection to the server..." <<std::endl;
       while(flag == 0 && nb <= WAITINGTIME)
 	{
 	  if(this->_network->getSocket().Receive(buffer, NBOCTETS,
