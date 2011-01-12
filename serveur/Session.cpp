@@ -252,6 +252,139 @@ void  Session::collision_playermissile_mob()
     }
 }
 
+
+void  Session::collision_playermissile_boss(unsigned char boss_type, short level_boss, short level, 
+					    int limit_x_plus, int limit_x_minus, int limit_y_plus, int limit_y_minus)
+{
+  Command       cmd(_game_n);
+  Object	*obj;
+  Object	*obj2;
+  std::list<Object *>::iterator it;
+  std::list<Object *>::iterator it2;
+
+  if (_score >= level_boss && _score <= level)
+    {
+      it = _listObj.begin();
+      while (it != _listObj.end())
+	{
+	  it2 = _listObj.begin();
+	  while (it2 != _listObj.end())
+	    {
+	      obj = *it;
+	      obj2 = *it2;
+	      if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
+		  (obj->getType() == boss_type || obj2->getType() == boss_type) &&
+		  obj->getType() != 9 && obj2->getType() != 9 &&
+		  (!(obj->getType() == 5 && obj2->getType() == 5)) &&
+		  obj->getX() < obj2->getX() + limit_x_plus && obj->getX() > obj2->getX() - limit_x_minus &&
+		  obj->getY() < obj2->getY() + limit_y_plus && obj->getY() > obj2->getY() - limit_y_minus)
+		{
+		  if (obj->getType() == boss_type && obj2->getType() != boss_type && _score < level)
+		    {
+		      cmd.sendDestroy(obj2->getId() , 0, _p);
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
+		      _listObj.erase(it2);
+		      it2 = _listObj.begin();
+		    }
+		  else if (obj->getType() != boss_type && obj2->getType() == boss_type && _score < level)
+		    {
+		      cmd.sendDestroy(obj->getId() , 0, _p); 
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
+		      _listObj.erase(it);
+		      it = _listObj.begin();
+		    }
+		  else
+		    {
+		      if (obj->getType() == boss_type || obj2->getType() == boss_type)//Update score boss
+			_score = level;
+
+		      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		      _listObj.erase(it);
+		      _listObj.erase(it2);
+		      cmd.sendScore(_score, _p);
+		      it = _listObj.begin();
+		      it2 = _listObj.begin();
+		    }
+		}
+	      it2++;
+	    }
+	  it++;
+	}
+    }
+}
+
+void  Session::move_missile()
+{
+  Command       cmd(_game_n);
+  Object	*obj;
+  Object	*obj2;
+  std::list<Object *>::iterator it;
+  std::list<Object *>::iterator it2;
+
+  it = _listObj.begin();
+  while (it != _listObj.end())
+    {
+      obj = *it;
+      if (obj->getType() == 5 || obj->getType() == 6)
+	{
+	  obj->move(this); //Mouvement des missiles
+	  cmd.sendObjMove(obj, _p);
+	  if (obj->getX() > 50) //Missile depassant la fenetre
+	    {
+	      cmd.sendDestroy(obj->getId() , 0, _p);
+	      _listObj.erase(it);
+	      it = _listObj.begin();
+	    }
+	}
+      it++;
+    }
+}
+
+void Session::collision_player_mob()
+{
+  Command       cmd(_game_n);
+  Object	*obj;
+  Object	*obj2;
+  std::list<Object *>::iterator it;
+  std::list<Object *>::iterator it2;
+  int   j;
+
+  it = _listObj.begin();
+  while (it != _listObj.end())
+    {
+      j = 0;
+      obj = *it;
+      while (j <= 3)
+	{
+	  if (_tabPlayer[j] != NULL && obj->getType() != 5 && 
+	      obj->getX() < _tabPlayer[j]->getPosx() + 3 && obj->getX() > _tabPlayer[j]->getPosx() - 3 &&
+	      obj->getY() < _tabPlayer[j]->getPosy() + 3 && obj->getY() > _tabPlayer[j]->getPosy() - 3)
+	    {
+	      if ((_tabPlayer[j]->getLife() - 1) > 0)
+		{
+		  _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
+		  cmd.sendLife(_tabPlayer[j], _p);
+		  if (obj->getType() != 9) // Les murs ne se detruisent pas
+		    {
+		      cmd.sendDestroy(obj->getId() , 0, _p); 
+		      _listObj.erase(it);
+		      it = _listObj.begin();
+		    }
+		  spawnPlayer(_tabPlayer[j]);
+		}
+	      else
+		_pingTime[j] = 0;
+	    }
+	  j++;
+	}
+      it++;
+    }
+}
+
+
+
 void  Session::sessionthreadElems()
 {
   int i = 0;
@@ -262,10 +395,7 @@ void  Session::sessionthreadElems()
   std::list<Object *>::iterator it;
   std::list<Object *>::iterator it2;
 
-  //creer la liste des objs tout les x secondes et setter leur positions
-  //Mettre une liste d'obj dans la classe Session List<Object> listObj;
-  //      obj = new Object(5, 46, 16, 11);
-  //  static unsigned char mob_id = 10; // TO CHANGE
+
   std::cout << "Success for threadElems" << std::endl;
 
 
@@ -284,128 +414,17 @@ void  Session::sessionthreadElems()
       Create_Boss(i);
       if (i % 100 == 0)
 	{
-
 	  //Detection des collisions entre missiles joueur et mobs
 	  collision_playermissile_mob();
 
-
 	  //Detection des collisions entre missiles joueur et boss1
-	  if (_score >= LEVEL_BOSS1 && _score <= LEVEL1)
-	    {
-	      it = _listObj.begin();
-	      while (it != _listObj.end())
-		{
-		  it2 = _listObj.begin();
-		  while (it2 != _listObj.end())
-		    {
-		      obj = *it;
-		      obj2 = *it2;
-		      if ((obj != obj2) && (obj->getType() == 5 || obj2->getType() == 5) &&
-			  (obj->getType() == 21 || obj2->getType() == 21) &&
-			  obj->getType() != 9 && obj2->getType() != 9 &&
-			  (!(obj->getType() == 5 && obj2->getType() == 5)) &&
-			  obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
-			  obj->getY() < obj2->getY() + 20 && obj->getY() > obj2->getY() - 10)
-			{
-			  if (obj->getType() == 21 && obj2->getType() != 21 && _score < LEVEL1)
-			    {
-			      cmd.sendDestroy(obj2->getId() , 0, _p);
-			      _score += 10;
-			      cmd.sendScore(_score, _p);
-			      _listObj.erase(it2);
-			      it2 = _listObj.begin();
-			    }
-			  else if (obj->getType() != 21 && obj2->getType() == 21 && _score < LEVEL1)
-			    {
-			      cmd.sendDestroy(obj->getId() , 0, _p); 
-			      _score += 10;
-			      cmd.sendScore(_score, _p);
-			      _listObj.erase(it);
-			      it = _listObj.begin();
-			    }
-			  else
-			    {
-			      if (obj->getType() == 21 || obj2->getType() == 21)//Update score boss1
-				_score = LEVEL1;
+	  collision_playermissile_boss(21, LEVEL_BOSS1, LEVEL1, 3, 3, 20, 10);
 
-			      cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
-			      _listObj.erase(it);
-			      _listObj.erase(it2);
-			      cmd.sendScore(_score, _p);
-			      it = _listObj.begin();
-			      it2 = _listObj.begin();
-			    }
-			}
-		      it2++;
-		    }
-		  it++;
-		}
-	    }
-	  // Fin detection boss1
+	  move_missile();
 
-
-
-
-
-
-
-	  it = _listObj.begin();
-	  while (it != _listObj.end())
-	    {
-	      obj = *it;
-	      if (obj->getType() == 5 || obj->getType() == 6)
-		{
-		  obj->move(this); //Mouvement des missiles
-		  cmd.sendObjMove(obj, _p); //TEST
-		  if (obj->getX() > 50) //Missile depassant la fenetre
-		    {
-		      cmd.sendDestroy(obj->getId() , 0, _p);
-		      _listObj.erase(it);
-		      it = _listObj.begin();
-		    }
-		}
-	      it++;
-	    }
+	  // Debut collision player et mob
+	  collision_player_mob();
 	}
-
-      // Debut collision player ++ mob
-
-      if (i % 100 == 0)
-	{
-	  int   j;
-          it = _listObj.begin();
-          while (it != _listObj.end())
-            {
-              j = 0;
-	      obj = *it;
-              while (j <= 3)
-                {
-		  if (_tabPlayer[j] != NULL && obj->getType() != 5 && 
-                      obj->getX() < _tabPlayer[j]->getPosx() + 3 && obj->getX() > _tabPlayer[j]->getPosx() - 3 &&
-                      obj->getY() < _tabPlayer[j]->getPosy() + 3 && obj->getY() > _tabPlayer[j]->getPosy() - 3)
-                    {
-		      if ((_tabPlayer[j]->getLife() - 1) > 0)
-                        {
-                          _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
-                          cmd.sendLife(_tabPlayer[j], _p);
-			  if (obj->getType() != 9) // Les murs ne se detruisent pas
-			    {
-			      cmd.sendDestroy(obj->getId() , 0, _p); 
-			      _listObj.erase(it);
-			      it = _listObj.begin();
-			    }
-			  spawnPlayer(_tabPlayer[j]);
-                        }
-                      else
-                        _pingTime[j] = 0;
-                    }
-                  j++;
-                }
-              it++;
-            }
-	}
-
-      // Fin collision player ++ mob
 
       if (i % 200 == 0)
 	{

@@ -54,6 +54,11 @@ class	Session
   void		Create_Boss(int i);
 
   void		collision_playermissile_mob();
+  void		collision_playermissile_boss(unsigned char boss_type, short level_boss, short level,
+					     int limit_x_plus, int limit_x_minus, int limit_y_plus, int limit_y_minus);
+
+  void		move_missile();
+  void		collision_player_mob();
 
   unsigned char mob_id;
 
