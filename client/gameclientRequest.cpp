@@ -291,9 +291,9 @@ void			gameClient::bossExplosion(unsigned char posx, unsigned char posy)
   unsigned char		c;
   Element		*nElem;
 
-  for(l=posx-4;l<=(posx+4);l+=2)
+  for(l=posx-4;l<=(posx+4);l+=4)
     {
-      for(c=posy-4;c<=(posy+4);c+=2)
+      for(c=posy-10;c<=(posy+10);c+=4)
 	{
 	  nElem = _factory.FactoryMethod(27, 0, l, c);
 	  if (nElem != NULL)
@@ -361,14 +361,21 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
       if (nElem != NULL)
 	_object.push_back(nElem);
     }
-  if (type == 11 || type2 == 11)
-    _die1.Play();
-  else if (type == 12 || type2 == 12)
-    _die2.Play();
-  else if (type == 13 || type2 == 13)
-    _die3.Play();
-  else if (type == 14 || type2 == 14)
-    _die4.Play();
+  if((type == 0 && type2 != 0) || (type !=0 && type2 == 0))
+    {
+      //nosound
+    }
+  else
+    {
+      if (type == 11 || type2 == 11)
+	_die1.Play();
+      else if (type == 12 || type2 == 12)
+	_die2.Play();
+      else if (type == 13 || type2 == 13)
+	_die3.Play();
+      else if (type == 14 || type2 == 14)
+	_die4.Play();
+    }
   if (boss == 1)
     bossExplosion(posx, posy);
 }
