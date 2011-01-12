@@ -1,8 +1,6 @@
 #ifndef _OBJECT_H_
 # define _OBJECT_H_
 
-class Session;
-
 class	Object
 {
 protected:
@@ -15,7 +13,7 @@ public:
 	Object();
 	Object(char id, char x, char y, char type);
 	~Object();
-	void	move();
+	virtual void	move() = 0;
 	char	getId();
 	char	getX();
 	char	getY();

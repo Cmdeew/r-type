@@ -1,13 +1,13 @@
 #ifndef _MONSTERONE_H_
 # define _MONSTERONE_H_
 
-#include "../Session.h"
+#include "../Object.h"
 
 class	MonsterOne : public Object
 {
  public:
   MonsterOne(char id, char x, char y, char type = 11);
-  void	move(Session *s);
+  void	move();
   ~MonsterOne();
   char getType();
 };

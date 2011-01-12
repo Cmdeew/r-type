@@ -17,22 +17,10 @@ MonsterThree::~MonsterThree()
 
 }
 
-void MonsterThree::move(Session *s)
+void MonsterThree::move()
 {
-  Object *obj;
-
-  if (m_type == 13)
-    {
-      m_x--;
-      if (m_lim < 5)
-	m_y++;
-      else
-	m_y--;
-      if (m_lim == 10)
-	m_lim = 0;
-      else
-	m_lim++;
-    }
+  m_x--;
+  m_y++;
 }
 
 extern "C"

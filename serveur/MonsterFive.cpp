@@ -18,10 +18,8 @@ MonsterFive::~MonsterFive()
 }
 
 
-void MonsterFive::move(Session *s)
+void MonsterFive::move()
 {
-  Object *obj;
-
   m_x++;
   m_y--;
 }
