@@ -52,7 +52,7 @@ void Object::move(Session *s)
     }
   else if (m_type == 5)
     m_x++;
-  else if (m_type == 6 || m_type == 14 || m_type == 7)
+  else if (m_type == 6 || m_type == 14 || m_type == 7 || m_type == 9)
     m_x--;
   else if (m_type == 8)
     {
