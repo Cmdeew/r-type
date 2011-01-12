@@ -115,6 +115,8 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
     case 15:
       {
 	nElement = new Element(posx, posy, 1, id, type);
+	nElement->setSprite(_imgCenter->getLmonster5());
+	nElement->_iter = nElement->getSprite().begin();
 	break;
       }
     case 16:
