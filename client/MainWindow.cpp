@@ -35,8 +35,8 @@ void	MainWindow::InitMenu()
     }
   _tPlay.SetText("1 : Launch game!");
   _tCredits.SetText("2 : Credits");
-  _tItems.SetText("3 : Items");
-  _tExit.SetText("4 : Exit!");
+  _tItems.SetText("3 : Exit!");
+  _tExit.SetText("");
   _tPlay.SetSize(25);
   _tCredits.SetSize(25);
   _tItems.SetSize(25);
@@ -145,7 +145,7 @@ unsigned char	MainWindow::MainMenuLoop()
       while (_mainWindow.GetEvent(_event))
 	{
 	  if (CloseEvent() || 
-	      (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num4))
+	      (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num3))
 	    Close();
 	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num1)
 	    {
