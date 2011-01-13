@@ -29,7 +29,15 @@ void Elem::move()
 {
   if (m_type == 5)
     m_x++;
-  else if (m_type == 6 || m_type == 7 || m_type == 9)
+  else if (m_type == 7)
+    {
+      m_x--;
+      if (rand()%4 == 0)
+	m_y++;
+      else
+	m_y--;
+    }
+  else if (m_type == 6 || m_type == 9)
     m_x--;
   else if (m_type == 8)
     {
