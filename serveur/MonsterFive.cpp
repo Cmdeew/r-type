@@ -20,7 +20,10 @@ MonsterFive::~MonsterFive()
 
 void MonsterFive::move()
 {
-  m_x--;
+  if (rand()%5)
+    m_x--;
+  else
+    m_x++;
   m_y--;
 }
 

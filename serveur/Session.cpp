@@ -23,8 +23,8 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   b = 0;
   t = 0;
   e = 0;
-  boss1 = 1; //TEST
-  boss2 = 1;
+  boss1 = 0; //TEST
+  boss2 = 0;
   boss3 = 0;
   m = 0;
   b1 = 0;
@@ -97,6 +97,43 @@ void	Session::Create_Mob(int i)
       lib->checkLib();
       _flagLoad = 1;
     }
+
+  //verifier le nombre de joeur
+  int				k;
+  int				count;
+  std::list<Object *>::iterator it;
+
+  k = 0;
+  count = 0;
+  while (k <= 3)
+    {
+      if (_pingTime[k] != 0)
+	count++;
+      k++;
+    }
+  
+  if (count == 0)
+    {
+      a = 0;
+      b = 0;
+      t = 0;
+      e = 0;
+      boss1 = 0; //TEST                                                                                                                                                                                       
+      boss2 = 0;
+      boss3 = 0;
+      m = 0;
+      b1 = 0;
+      b2 = 0;
+      b3 = 0;
+      _score = 0;
+      it = _listObj.begin();
+      while (it != _listObj.end())
+	{
+	  _listObj.erase(it);
+	  it = _listObj.begin();
+	}
+    }
+  
    //Generation d'un mob
   if (i% 9999)
     {
@@ -225,16 +262,20 @@ void	Session::Create_Mob(int i)
       if (a == 10000)
 	a = 0;
     }
+
+
+  //generation du cosmonaute
+
 }
 
 void	Session::Create_Boss(int i)
 {
   Object	*obj;
-  Command           cmd(_game_n);
+  Command	cmd(_game_n);
 
 
   //Generation du boss 1
-  if (_score >= LEVEL_BOSS1 && boss1 == 0)
+  if (_score >= LEVEL_BOSS1 && _score <= LEVEL2 && boss1 == 0)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
@@ -244,8 +285,16 @@ void	Session::Create_Boss(int i)
 	mob_id = MIN_MOB_ID;
     }
 
+  /*if (((_score / 100) % 10) == 0)
+    {
+      obj = new Elem(mob_id++, 90, 0, 25);
+      _listObj.push_back(obj);
+      if (mob_id > 127)
+	mob_id = MIN_MOB_ID;
+	}*/
+    
   //Generation du boss 2
-  if (_score >= LEVEL_BOSS2 && boss2 == 0)
+  if (_score >= LEVEL_BOSS2 && _score <= LEVEL3 && boss2 == 0)
     {
       boss2 = 1;
       cmd.sendScore(_score, _p);
@@ -273,6 +322,7 @@ void  Session::collision_playermissile_mob()
   Command       cmd(_game_n);
   Object	*obj;
   Object	*obj2;
+  Object	*obj3;
   std::list<Object *>::iterator it;
   std::list<Object *>::iterator it2;
 
@@ -311,11 +361,24 @@ void  Session::collision_playermissile_mob()
 		}
 	      else
 		{
-		  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		  cmd.sendDestroy(obj->getId() , obj2->getId(), _p);
+		  if (obj->getType() == 25 || obj2->getType() == 25)
+		    {
+		      if (obj->getType() == 25)
+			obj3 = new Elem(mob_id++, obj->getY(), 0, 26);
+		      else
+			obj3 = new Elem(mob_id++, obj2->getY(), 0, 26);
+		      _listObj.push_back(obj);
+		      if (mob_id > 127)
+			mob_id = MIN_MOB_ID;
+		    }
 		  _listObj.erase(it);
 		  _listObj.erase(it2);
-		  _score += 10;
-		  cmd.sendScore(_score, _p);
+		  if (obj->getType() != 25 && obj2->getType() != 25)
+		    {
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
+		    }
 		  it = _listObj.begin();
 		  it2 = _listObj.begin();
 		}
@@ -438,13 +501,24 @@ void Session::collision_player_mob()
 	    {
 	      if ((_tabPlayer[j]->getLife() - 1) > 0)
 		{
-		  _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
-		  cmd.sendLife(_tabPlayer[j], _p);
-		  if (obj->getType() != 9 && obj->getType() != 21 && obj->getType() != 22 && obj->getType() != 24) // Les murs et les boss ne se detruisent pas
+		  if (obj->getX() == 26)
 		    {
-		      cmd.sendDestroy(obj->getId() , 0, _p); 
+		      _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() + 1);
+		      cmd.sendLife(_tabPlayer[j], _p);
+		      cmd.sendDestroy(obj->getId() , 0, _p);
 		      _listObj.erase(it);
 		      it = _listObj.begin();
+		    }
+		  else
+		    {
+		      _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
+		      cmd.sendLife(_tabPlayer[j], _p);
+		      if (obj->getType() != 9 && obj->getType() != 21 && obj->getType() != 22 && obj->getType() != 24) // Les murs et les boss ne se detruisent pas
+			{
+			  cmd.sendDestroy(obj->getId() , 0, _p); 
+			  _listObj.erase(it);
+			  it = _listObj.begin();
+			}
 		    }
 		  spawnPlayer(_tabPlayer[j]);
 		}
@@ -476,7 +550,7 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
-   _score = 6000; // TEST
+   //_score = 6000; // TEST
 
   while (1) // On envoie des elements à l'infini
     {
@@ -487,7 +561,6 @@ void  Session::sessionthreadElems()
 	  (_score < LEVEL_BOSS2 || _score >= LEVEL2) &&
 	  (_score < LEVEL_BOSS3 || _score >= LEVEL3))
 	Create_Mob(i);
-
       Create_Boss(i);
       if (i % 100 == 0)
 	{
