@@ -207,7 +207,7 @@ int	Command::receiveShoot(Session *session, unsigned char playerId)
 
   //id++;
   if (session->mob_id > 127)
-    session->mob_id = 11;
+    session->mob_id = MIN_MOB_ID;
   return (0);
 }
 

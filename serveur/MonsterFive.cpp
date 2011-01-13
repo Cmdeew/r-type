@@ -20,7 +20,7 @@ MonsterFive::~MonsterFive()
 
 void MonsterFive::move()
 {
-  m_x++;
+  m_x--;
   m_y--;
 }
 
