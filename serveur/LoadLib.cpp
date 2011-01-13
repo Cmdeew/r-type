@@ -90,30 +90,29 @@ void LoadLib::checkLib()
       while ((ls = readdir(dir)) != NULL)
         {
           name.assign(ls->d_name);
-	  file.assign(ls->d_name);
-	  if (this->ifLib(name) == true)
-	    {
-	      name.insert(0, "./lib/");
-	      std::cout << name.c_str() << std::endl;
-	      hnd1 = l->AOpenLib((char *)name.c_str());
-	      if (hnd1 != NULL)
-		{
-		  void *mkr = l->ASymLib(hnd1, "Create");
-		  if (mkr != NULL)
-		    {
-			  exit (0);
-		      std::cout << "succes !" << std::endl;
-		      this->fillTab((maker_monster)mkr);
-		    }
-		  else
-		    this->fillTab(NULL);
+		  file.assign(ls->d_name);
+		  if (this->ifLib(name) == true)
+	       {
+				name.insert(0, "./lib/");
+				std::cout << name.c_str() << std::endl;
+				hnd1 = l->AOpenLib((char *)name.c_str());
+				if (hnd1 != NULL)
+				{
+					void *mkr = l->ASymLib(hnd1, "Create");
+					if (mkr != NULL)
+					{
+						std::cout << "succes !" << std::endl;
+						this->fillTab((maker_monster)mkr);
+					}
+				}
+				else
+					this->fillTab(NULL);
 		  //l->ACloseLib(hnd1);
-		}
-	      else
-		std::cout << "Lib incorrect" << std::endl;
-	    }
-        }
-    }
+		  }
+		  else
+			std::cout << "Lib incorrect" << std::endl;
+	  }
+  }
 }
 
 LoadLib::LoadLib()

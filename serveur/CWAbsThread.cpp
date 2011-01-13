@@ -29,9 +29,9 @@ bool	CWAbsThread::AExitThread(thread_attr ThreadAttr)
   return (false);
 }
 
-void	CWAbsThread::ASleep(unsigned int seconds)
+void	CWAbsThread::ASleep(unsigned long seconds)
 {
-	Sleep(seconds * 0.001);
+	Sleep((DWORD)seconds * 0.002);
 }
 
 void	CWAbsThread::APause()

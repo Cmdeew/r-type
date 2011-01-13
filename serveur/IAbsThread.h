@@ -15,7 +15,7 @@ public:
   virtual hand	ACreateThread(thread Thread, thread_attr ThreadAttr,
 			     typefunc StartRoutine, typeparam Param) = 0;
   virtual bool	AExitThread(thread_attr ThreadAttr) = 0;
-  virtual void	ASleep(unsigned int seconds) = 0;
+  virtual void	ASleep(unsigned long seconds) = 0;
   virtual void	APause() = 0;
 };
 

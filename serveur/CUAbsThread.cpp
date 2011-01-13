@@ -32,7 +32,7 @@ bool	CUAbsThread::AExitThread(thread_attr ThreadAttr)
   return (true);
 }
 
-void	CUAbsThread::ASleep(unsigned int seconds)
+void	CUAbsThread::ASleep(unsigned long seconds)
 {
 	usleep(seconds);
 }

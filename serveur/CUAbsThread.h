@@ -10,7 +10,7 @@ class	CUAbsThread : public AbsThread
   hand  ACreateThread(thread Thread, thread_attr ThreadAttr,
 		     typefunc StartRoutine, typeparam Param);
   bool	AExitThread(thread_attr ThreadAttr);
-  void	ASleep(unsigned int seconds);
+  void	ASleep(unsigned long seconds);
   void	APause();
   CUAbsThread();
   ~CUAbsThread();
