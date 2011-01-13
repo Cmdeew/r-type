@@ -68,7 +68,9 @@ void		gameClient::findLevel(int score)
   else
     this->setLevel(1);
   //type arme
-  if (getLevel() >= 2)
+  if (getLevel() >= 3)
+    _arme = 3;
+  else if (getLevel() >= 2)
     _arme = 2;
 }
 

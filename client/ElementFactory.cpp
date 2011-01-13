@@ -216,6 +216,13 @@ Element	*ElementFactory::FactoryMethod(unsigned char type, unsigned char id, uns
 	nElement->_iter = nElement->getSprite().begin();
 	break;
       }
+    case 32:
+      {
+	nElement = new Element(posx, posy, 0, id, type);
+	nElement->setSprite(_imgCenter->getLweapon6());
+	nElement->_iter = nElement->getSprite().begin();
+	break;
+      }
     default:
       return NULL;
     }

@@ -388,6 +388,7 @@ RFC 4242          R-Type Client Server Protocol           December 2010
 		- 29 - wall pop meduse down
 		- 30 - wall tete verte up
 		- 31 - wall tete verte down
+		- 32 - missile player level 3
 
 Hugon                      Experimental                      	[Page 8]
 

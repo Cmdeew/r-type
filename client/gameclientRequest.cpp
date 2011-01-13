@@ -248,8 +248,10 @@ void			gameClient::replyMove(char buffer[NBOCTETS])
 	{
 	  if (_arme == 1)
 	    nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);
-	  else
+	  else if (_arme == 2)
 	    nElem = _factory.FactoryMethod(10, buffer[6], buffer[4], buffer[5]);
+	  else
+	    nElem = _factory.FactoryMethod(32, buffer[6], buffer[4], buffer[5]);
 	}
       else
 	nElem = _factory.FactoryMethod(buffer[7], buffer[6], buffer[4], buffer[5]);

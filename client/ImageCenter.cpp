@@ -204,6 +204,11 @@ ImageCenter::ImageCenter()
   _lweapon5.push_back(img);
   img.LoadFromFile("sprite/shoot10_6.png");
   _lweapon5.push_back(img);
+  //shoot player level 3
+  img.LoadFromFile("sprite/shoot32_1.png");
+  _lweapon6.push_back(img);
+  img.LoadFromFile("sprite/shoot32_2.png");
+  _lweapon6.push_back(img);
   //shoot trash
   img.LoadFromFile("sprite/shoot6.png");
   _lweapon2.push_back(img);
@@ -322,6 +327,11 @@ const std::list<sf::Image>    &ImageCenter::getLweapon4() const
 const std::list<sf::Image>    &ImageCenter::getLweapon5() const
 {
   return _lweapon5;
+}
+
+const std::list<sf::Image>    &ImageCenter::getLweapon6() const
+{
+  return _lweapon6;
 }
 
 const std::list<sf::Image>    &ImageCenter::getLmeteor1() const
