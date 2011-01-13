@@ -97,6 +97,43 @@ void	Session::Create_Mob(int i)
       lib->checkLib();
       _flagLoad = 1;
     }
+
+  //verifier le nombre de joeur
+  int				k;
+  int				count;
+  std::list<Object *>::iterator it;
+
+  k = 0;
+  count = 0;
+  while (k <= 3)
+    {
+      if (_pingTime[k] != 0)
+	count++;
+      k++;
+    }
+  
+  if (count == 0)
+    {
+      a = 0;
+      b = 0;
+      t = 0;
+      e = 0;
+      boss1 = 0; //TEST                                                                                                                                                                                       
+      boss2 = 0;
+      boss3 = 0;
+      m = 0;
+      b1 = 0;
+      b2 = 0;
+      b3 = 0;
+      _score = 0;
+      it = _listObj.begin();
+      while (it != _listObj.end())
+	{
+	  _listObj.erase(it);
+	  it = _listObj.begin();
+	}
+    }
+  
    //Generation d'un mob
   if (i% 9999)
     {
@@ -221,6 +258,17 @@ void	Session::Create_Mob(int i)
 	  if (id > MIN_MOB_ID)
 	    id = 11;
 	}
+
+      //generation du cosmonaute
+      
+      if (_score > 100 && ((_score / 100) % 10) == 0 && a % 18000 == 0)
+	{
+	  std::cout << "Astronaute !" << std::endl;
+	  obj = new Elem(mob_id++, 55, 20, 25);
+	  _listObj.push_back(obj);
+	  if (mob_id > 127)
+	    mob_id = MIN_MOB_ID;
+	}
       a++;
       if (a == 10000)
 	a = 0;
@@ -230,11 +278,11 @@ void	Session::Create_Mob(int i)
 void	Session::Create_Boss(int i)
 {
   Object	*obj;
-  Command           cmd(_game_n);
+  Command	cmd(_game_n);
 
 
   //Generation du boss 1
-  if (_score >= LEVEL_BOSS1 && boss1 == 0)
+  if (_score >= LEVEL_BOSS1 && _score <= LEVEL2 && boss1 == 0)
     {
       boss1 = 1;
       cmd.sendScore(_score, _p);
@@ -245,7 +293,7 @@ void	Session::Create_Boss(int i)
     }
 
   //Generation du boss 2
-  if (_score >= LEVEL_BOSS2 && boss2 == 0)
+  if (_score >= LEVEL_BOSS2 && _score <= LEVEL3 && boss2 == 0)
     {
       boss2 = 1;
       cmd.sendScore(_score, _p);
@@ -273,6 +321,7 @@ void  Session::collision_playermissile_mob()
   Command       cmd(_game_n);
   Object	*obj;
   Object	*obj2;
+  Object	*obj3;
   std::list<Object *>::iterator it;
   std::list<Object *>::iterator it2;
 
@@ -289,6 +338,7 @@ void  Session::collision_playermissile_mob()
 	      (obj->getType() != 21 && obj2->getType() != 21) && //BOSS1
 	      (obj->getType() != 22 && obj2->getType() != 22) && //BOSS2
 	      (obj->getType() != 24 && obj2->getType() != 24) && //BOSS3
+	      (obj->getType() != 26 && obj2->getType() != 26) && // COEUR
 	      (!(obj->getType() == 5 && obj2->getType() == 5)) &&
 	      obj->getX() < obj2->getX() + 3 && obj->getX() > obj2->getX() - 3 &&
 	      obj->getY() < obj2->getY() + 3 && obj->getY() > obj2->getY() - 3)
@@ -311,11 +361,24 @@ void  Session::collision_playermissile_mob()
 		}
 	      else
 		{
-		  cmd.sendDestroy(obj->getId() , obj2->getId(), _p); 
+		  cmd.sendDestroy(obj->getId() , obj2->getId(), _p);
+		  if (obj->getType() == 25 || obj2->getType() == 25)
+		    {
+		      if (obj->getType() == 25)
+			obj3 = new Elem(mob_id++, obj->getX(), obj->getY(), 26);
+		      else
+			obj3 = new Elem(mob_id++, obj2->getX(), obj2->getY(), 26);
+		      _listObj.push_back(obj3);
+		      if (mob_id > 127)
+			mob_id = MIN_MOB_ID;
+		    }
 		  _listObj.erase(it);
 		  _listObj.erase(it2);
-		  _score += 10;
-		  cmd.sendScore(_score, _p);
+		  if (obj->getType() != 25 && obj2->getType() != 25)
+		    {
+		      _score += 10;
+		      cmd.sendScore(_score, _p);
+		    }
 		  it = _listObj.begin();
 		  it2 = _listObj.begin();
 		}
@@ -436,8 +499,18 @@ void Session::collision_player_mob()
 	      obj->getX() < _tabPlayer[j]->getPosx() + 2 && obj->getX() > _tabPlayer[j]->getPosx() - 2 &&
 	      obj->getY() < _tabPlayer[j]->getPosy() + 2 && obj->getY() > _tabPlayer[j]->getPosy() - 2)
 	    {
-	      if ((_tabPlayer[j]->getLife() - 1) > 0)
+	      if (obj->getType() == 26)
 		{
+		  std::cout << "Collison avec coeur !!!" << std::endl;
+		  _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() + 1);
+		  cmd.sendLife(_tabPlayer[j], _p);
+		  cmd.sendDestroy(obj->getId() , 0, _p);
+		  _listObj.erase(it);
+		  it = _listObj.begin();
+		}
+	      else if ((_tabPlayer[j]->getLife() - 1) > 0)
+		{
+		  std::cout << "ca pas Collison avec coeur !!!" << std::endl;
 		  _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
 		  cmd.sendLife(_tabPlayer[j], _p);
 		  if (obj->getType() != 9 && obj->getType() != 21 && obj->getType() != 22 && obj->getType() != 24) // Les murs et les boss ne se detruisent pas
@@ -476,6 +549,7 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
+
    //_score = 10000; // TEST
 
   while (1) // On envoie des elements à l'infini
@@ -487,7 +561,6 @@ void  Session::sessionthreadElems()
 	  (_score < LEVEL_BOSS2 || _score >= LEVEL2) &&
 	  (_score < LEVEL_BOSS3 || _score >= LEVEL3))
 	Create_Mob(i);
-
       Create_Boss(i);
       if (i % 100 == 0)
 	{

@@ -44,6 +44,10 @@ void Elem::move()
       m_x--;
       m_y--;
     }
+  else if (m_type == 25 || m_type == 26)
+    {
+      m_x--;
+    }
   else if (m_type == 21) //Boss 1
     {
       if (m_x > 40)

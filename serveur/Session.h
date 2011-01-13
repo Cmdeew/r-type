@@ -37,11 +37,8 @@ class	Session
   AbsMutex			*_mt;
   thread			threads[4];
   hand				handles[4];
-  std::vector<Player *>	_tabPlayer;
-  //  Command		_cmd;
   int				_pingTime[4];
   int				_session_n;
-  std::list<Object *>	_listObj;
   int				_game_n;
   short				_score;
   int				_flagLoad;
@@ -56,32 +53,33 @@ class	Session
   int				b1;
   int				b2;
   int				b3;
-
-
+  unsigned char			mob_id;
+  std::vector<Player *>		_tabPlayer;
+  std::list<Object *>		_listObj;
+  //  Command		_cmd;
 
   Session();
   Session(AbsUDPNetwork *, AbsThread *, AbsMutex *, int);
   ~Session();
-  void sessionthread();
-  static void    *sessionthreadInit(Session *sess);
-
-  void sessionthreadElems();
-  static void    *sessionthreadElemsInit(Session *sess);
+  static void	*sessionthreadElemsInit(Session *sess);
+  static void	*sessionthreadInit(Session *sess);
+  void		sessionthread();
+  void		sessionthreadElems();
   void		Create_Mob(int i);
   void		Create_Boss(int i);
-
   void		collision_playermissile_mob();
-  void		collision_playermissile_boss(unsigned char boss_type, short level_boss, short level,
-					     int limit_x_plus, int limit_x_minus, int limit_y_plus, int limit_y_minus);
-
   void		move_missile();
   void		collision_player_mob();
-
-  unsigned char mob_id;
-
   void		spawnPlayer(Player *);
-
   void		*launchMissile(Object *obj);
+  void		collision_playermissile_boss(unsigned char boss_type,
+					     short level_boss, short level,
+					     int limit_x_plus,
+					     int limit_x_minus,
+					     int limit_y_plus,
+					     int limit_y_minus);
+
+  
 };
 
 #include "Command.h"
