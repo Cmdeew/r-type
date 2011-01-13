@@ -92,7 +92,7 @@ int	Command::sendScore(short score, AbsUDPNetwork *p)
   unsigned char score_part_one;
   unsigned char score_part_two;
 
-  score_part_one = score;
+  score_part_one = (unsigned char)score;
   score_part_two = score >> 8;
   buffer[0] = id_game;
   buffer[1] = SERVER;

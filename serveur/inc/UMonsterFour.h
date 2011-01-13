@@ -13,4 +13,4 @@ class	MonsterFour : public Object
 
 typedef MonsterFour *(*maker_monster)(char id, char x, char y);
 
-#endif // _MONSTERONE_H_
+#endif // _MONSTERFOUR_H_

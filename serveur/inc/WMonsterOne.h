@@ -1,7 +1,7 @@
 #ifndef MONSTERONE_H
 # define MONSTERONE_H
 
-#include "Object.h"
+#include "../Object.h"
 
 class	MonsterOne : public Object
 {

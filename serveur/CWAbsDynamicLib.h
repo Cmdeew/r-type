@@ -2,7 +2,7 @@
 # define _CWABSDYNAMICLIB_H_
 
 #ifdef _WIN32
-#include "./inc/WMonsterOne.h"
+//#include "./inc/WMonsterOne.h"
 #include "AbsDynamicLib.h"
 #include "dirent.h"
 
