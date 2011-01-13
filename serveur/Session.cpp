@@ -17,14 +17,14 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   _pingTime[3] = 0;
   _game_n = nbGame;
   _score = 0;
-  mob_id = 11;
+  mob_id = MIN_MOB_ID;
   _flagLoad = 0;
   a = 0;
   b = 0;
   t = 0;
   e = 0;
-  boss1 = 0; //TEST
-  boss2 = 0;
+  boss1 = 1; //TEST
+  boss2 = 1;
   boss3 = 0;
   m = 0;
   b1 = 0;
@@ -95,7 +95,7 @@ void	Session::Create_Mob(int i)
       lib = new LoadLib();
       lib->initTabMonster();
       lib->checkLib();
-      lib->freeLib();
+      //lib->freeLib();
       _flagLoad = 1;
     }
    //Generation d'un mob
@@ -121,7 +121,7 @@ void	Session::Create_Mob(int i)
 		  _listObj.push_back(obj);
 		}
 	      if (mob_id > 127)
-		mob_id = 11;
+		mob_id = MIN_MOB_ID;
 	    }
 	}
 
@@ -130,11 +130,13 @@ void	Session::Create_Mob(int i)
 	{
 	  if (lib->getMaillon(3) != NULL)
 	    {
+	      
 	      obj = lib->getInstance(3, mob_id++, 55, rand()%MAXRAND);
 	      _listObj.push_back(obj);
+	      
 	      if (mob_id > 127)
-		mob_id = 11;
-	    } 
+		mob_id = MIN_MOB_ID;
+	    }
 	}
       
       //generation mob_11
@@ -147,39 +149,39 @@ void	Session::Create_Mob(int i)
 	      obj = lib->getInstance(0, mob_id++, 55, p);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
-		mob_id = 11;
+		mob_id = MIN_MOB_ID;
 	      obj = new Elem(mob_id++, 55, p + 4, 9);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
-		mob_id = 11;
+		mob_id = MIN_MOB_ID;
 	    }
 	}
 	
       //generation mob_13 vers le bas meduse et mob_15
 
-
-      if (a % 400 == 0 && t < 3 && _score >= LEVEL2)
+      r = rand();
+      if (a % 400 == 0 && t < 3 && _score >= LEVEL2 && r%5 == 0)
 	{
 	  if (lib->getMaillon(2) != NULL)
 	    {
-	      obj = lib->getInstance(2, mob_id++, 22, 3);
+	      obj = lib->getInstance(2, mob_id++, 29, 3);
 	      _listObj.push_back(obj);
 	      if (mob_id > 127)
-		mob_id = 11;	 
+		mob_id = MIN_MOB_ID;
 	    }
 	  t++;
-	}
+	  }
 	
       // mob_15 du bas
-      if (a % 400 == 0 && e < 3 && _score >= LEVEL2)
+      r = rand();
+      if (a % 400 == 0 && e < 3 && _score >= LEVEL2 && r%10 == 0)
 	  {
 	    if (lib->getMaillon(4) != NULL)
 	      {
-		
-		obj = lib->getInstance(4, mob_id++, 8, 10);
+		obj = lib->getInstance(4, mob_id++, 32, 40);
 		_listObj.push_back(obj);
 		if (mob_id > 127)
-		  mob_id = 11;	 
+		  mob_id = MIN_MOB_ID;
 	      }
 	    e++;
 	  }
@@ -191,33 +193,34 @@ void	Session::Create_Mob(int i)
       //generation mob_30 MUR
 
       int	p = 0;
-      if (a %10000 == 0 && _score >= LEVEL3)
+      int	id = 11;
+      if (a %10000 == 0 && _score >= LEVEL2)
 	{
 	  while (p < 8)
 	    {
-	      obj = new Elem(mob_id++, 0 + p * 4, 0, 31);
+	      obj = new Elem(id++, 0 + p * 4, 0, 31);
 	      _listObj.push_back(obj);
-	      if (mob_id > 127)
-		mob_id = 11;
+	      if (id > MIN_MOB_ID)
+		id = 11;
 	      p++;
 	    }
 	  p = 0;
 	  while (p < 2)
 	    {
-	      obj = new Elem(mob_id++, 15 + p * 4, 40, 30);
+	      obj = new Elem(id++, 15 + p * 4, 40, 30);
 	      _listObj.push_back(obj);
-	      if (mob_id > 127)
-		mob_id = 11;
+	      if (id > MIN_MOB_ID)
+		id = 11;
 	      p++;
 	    }
-	  obj = new Elem(mob_id++, 20, 1, 29);
+	  obj = new Elem(id++, 30, 1, 29);
 	  _listObj.push_back(obj);
-	  if (mob_id > 127)
-	    mob_id = 11;
-	  obj = new Elem(mob_id++, 30, 37, 28);
+	  if (id > MIN_MOB_ID)
+		id = 11;
+	  obj = new Elem(id++, 30, 37, 28);
 	  _listObj.push_back(obj);
-	  if (mob_id > 127)
-	    mob_id = 11;
+	  if (id > MIN_MOB_ID)
+	    id = 11;
 	}
       a++;
       if (a == 10000)
@@ -239,7 +242,7 @@ void	Session::Create_Boss(int i)
       obj = new Elem(mob_id++, 90, 0, 21);
       _listObj.push_back(obj);
       if (mob_id > 127)
-	mob_id = 11;
+	mob_id = MIN_MOB_ID;
     }
 
   //Generation du boss 2
@@ -250,7 +253,7 @@ void	Session::Create_Boss(int i)
       obj = new Elem(mob_id++, 90, 0, 22);
       _listObj.push_back(obj);
       if (mob_id > 127)
-	mob_id = 11;
+	mob_id = MIN_MOB_ID;
     }
 
   //Generation du boss 3
@@ -261,7 +264,7 @@ void	Session::Create_Boss(int i)
       obj = new Elem(mob_id++, 90, 0, 24);
       _listObj.push_back(obj);
       if (mob_id > 127)
-	mob_id = 11;
+	mob_id = MIN_MOB_ID;
     }
 }
 
@@ -474,7 +477,7 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
-   //   _score = 4000; // TEST
+   _score = 6000; // TEST
 
   while (1) // On envoie des elements à l'infini
     {
@@ -538,11 +541,11 @@ void	*Session::launchMissile(Object *obj)
 	  newObj = new Elem(mob_id++, obj->getX() - 3, obj->getY(), 6);
 	  _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
-	    mob_id = 11;
+	    mob_id = MIN_MOB_ID;
 	  newObj = new Elem(mob_id++, obj->getX() - 3, obj->getY(), 8);
 	  _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
-	    mob_id = 11;
+	    mob_id = MIN_MOB_ID;
 	}
       m++;
       if (m > 10000)
@@ -558,7 +561,7 @@ void	*Session::launchMissile(Object *obj)
           newObj = new Elem(mob_id++, obj->getX(), obj->getY() + rand() % 30, 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
-	    mob_id = 11;
+	    mob_id = MIN_MOB_ID;
         }
       if (b1 == 50000)
         b1 = 0;
@@ -574,7 +577,7 @@ void	*Session::launchMissile(Object *obj)
           newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
-	    mob_id = 11;
+	    mob_id = MIN_MOB_ID;
         }
       if (b2 == 50000)
         b2 = 0;
@@ -590,7 +593,7 @@ void	*Session::launchMissile(Object *obj)
           newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
 	  if (mob_id > 127)                                        
-	    mob_id = 11;
+	    mob_id = MIN_MOB_ID;
         }
       if (b3 == 50000)
         b3 = 0;

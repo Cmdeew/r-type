@@ -16,6 +16,7 @@
 #define MID_PING_TIME 20000
 #define WARN_PING_TIME 10000
 
+#define MIN_MOB_ID 25
 
 #define LEVEL1 2500
 #define LEVEL_BOSS1 2000
