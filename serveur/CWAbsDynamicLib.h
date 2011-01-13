@@ -6,15 +6,15 @@
 #include "AbsDynamicLib.h"
 #include "dirent.h"
 
-#define	MONSTERONE	"MonsterOne.dll"
-#define	MONSTERTWO	"MonsterTwo.dll"
+#define	MONSTERONE		"MonsterOne.dll"
+#define	MONSTERTWO		"MonsterTwo.dll"
 #define	MONSTERTHREE	"MonsterThree.dll"
-#define	MONSTERFOUR	"MonsterFour.dll"
-#define	MONSTERFIVE	"MonsterFive.dll"
-#define	MONSTERSIX	"MonsterSix.dll"
+#define	MONSTERFOUR		"MonsterFour.dll"
+#define	MONSTERFIVE		"MonsterFive.dll"
+#define	MONSTERSIX		"MonsterSix.dll"
 #define	MONSTERSEVEN	"MonsterSeven.dll"
 #define	MONSTERHEIGHT	"MonsterHeight.dll"
-#define	MONSTERNINE	"MonsterNine.dll"
+#define	MONSTERNINE		"MonsterNine.dll"
 
 class	CWAbsDynamicLib : public AbsDynamicLib
 {

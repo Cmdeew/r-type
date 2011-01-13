@@ -101,6 +101,7 @@ void LoadLib::checkLib()
 		  void *mkr = l->ASymLib(hnd1, "Create");
 		  if (mkr != NULL)
 		    {
+			  exit (0);
 		      std::cout << "succes !" << std::endl;
 		      this->fillTab((maker_monster)mkr);
 		    }

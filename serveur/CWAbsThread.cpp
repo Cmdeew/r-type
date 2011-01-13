@@ -31,7 +31,7 @@ bool	CWAbsThread::AExitThread(thread_attr ThreadAttr)
 
 void	CWAbsThread::ASleep(unsigned int seconds)
 {
-	Sleep(seconds * 0.002);
+	Sleep(seconds * 0.001);
 }
 
 void	CWAbsThread::APause()
