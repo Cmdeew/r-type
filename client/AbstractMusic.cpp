@@ -75,6 +75,23 @@ void	AbstractMusic::PlayMusic()
 void	AbstractMusic::StopMusic()
 {
 
+  std::list<sf::Music *>::iterator	it;
+  sf::Music				*Music;
+  int	flag = 1;
+
+  while (flag == 1)
+    {
+      flag = 0;
+      for(it = _lMusic.begin();it != _lMusic.end();it++)
+	{
+	  Music = *it;
+	  Music->Stop();
+	  _lMusic.erase(it);
+	  delete(Music);
+	  flag = 1;
+	  break;
+	}
+    }
 }
 
 void	AbstractMusic::PauseMusic()

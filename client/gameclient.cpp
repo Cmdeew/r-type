@@ -143,6 +143,7 @@ void		gameClient::loopClient()
     {
       if (!(temp = _mainWindow.MainMenuLoop()))
 	{
+	  _music.StopMusic();
 	  _mainWindow.Close();
 	  exit(0);
 	}
@@ -284,5 +285,6 @@ int		gameClient::mainClient()
       loop++;
     }
   Thread.Terminate();
+  _music.StopMusic();
   return 0;
 }
