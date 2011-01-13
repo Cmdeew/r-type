@@ -95,7 +95,11 @@ void	Session::Create_Mob(int i)
       lib = new LoadLib();
       lib->initTabMonster();
       lib->checkLib();
+<<<<<<< HEAD
       //lib->freeLib();
+=======
+      //      lib->freeLib();
+>>>>>>> 785f556a10f21df27e6e63fbbd7ee023eb1d34da
       _flagLoad = 1;
     }
    //Generation d'un mob
@@ -441,7 +445,7 @@ void Session::collision_player_mob()
 		{
 		  _tabPlayer[j]->setLife(_tabPlayer[j]->getLife() - 1);
 		  cmd.sendLife(_tabPlayer[j], _p);
-		  if (obj->getType() != 9) // Les murs ne se detruisent pas
+		  if (obj->getType() != 9 && obj->getType() != 21 && obj->getType() != 22 && obj->getType() != 24) // Les murs et les boss ne se detruisent pas
 		    {
 		      cmd.sendDestroy(obj->getId() , 0, _p); 
 		      _listObj.erase(it);
