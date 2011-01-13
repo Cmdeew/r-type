@@ -109,7 +109,7 @@ void	Session::Create_Mob(int i)
 	  exit(0);
 	}
 
-      if (a % 1500 == 0 && _score < LEVEL2)
+      if (a % 1500 == 0 && (_score < LEVEL2 || _score >= LEVEL3))
 	{
 	  if (lib->getMaillon(1) != NULL)
 	    {
@@ -140,7 +140,7 @@ void	Session::Create_Mob(int i)
       
       //generation mob_11
 
-      if (a % 4500 == 0 && _score >= LEVEL1)
+	if (a % 4500 == 0 && _score >= LEVEL1)
 	{
 	  int p = rand()%MAXRAND;
 	  if (lib->getMaillon(0) != NULL)
@@ -476,7 +476,7 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
-   //_score = 6000; // TEST
+   //_score = 10000; // TEST
 
   while (1) // On envoie des elements à l'infini
     {
@@ -550,12 +550,9 @@ void	*Session::launchMissile(Object *obj)
       if (m > 10000)
 	m = 0;
     }
-
   if (obj->getType() == 21) //boss1
     {
-
-
-      if (b1 % 3 == 0)
+      if (b1 % 8 == 0)
         {
           newObj = new Elem(mob_id++, obj->getX(), obj->getY() + rand() % 30, 7);
           _listObj.push_back(newObj);
@@ -569,9 +566,7 @@ void	*Session::launchMissile(Object *obj)
 
   if (obj->getType() == 22) //boss2
     {
-
-
-      if (b2 % 10 == 0)
+      if (b2 % 5 == 0)
         {
           newObj = new Elem(mob_id++, obj->getX(), obj->getY(), 7);
           _listObj.push_back(newObj);
