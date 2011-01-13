@@ -23,8 +23,8 @@ Session::Session(AbsUDPNetwork *p, AbsThread *th, AbsMutex *mt, int nbGame)
   b = 0;
   t = 0;
   e = 0;
-  boss1 = 1; //TEST
-  boss2 = 1;
+  boss1 = 0; //TEST
+  boss2 = 0;
   boss3 = 0;
   m = 0;
   b1 = 0;
@@ -476,7 +476,7 @@ void  Session::sessionthreadElems()
    LoadLib	*lib;
   // verification des libs
 
-   _score = 6000; // TEST
+   //_score = 6000; // TEST
 
   while (1) // On envoie des elements à l'infini
     {
