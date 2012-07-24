@@ -105,10 +105,10 @@ void		gameClient::fillnetwork(udpNetwork* network)
     {
       stream.getline(temp, 256, ':');
       buffer = temp;
-      network->setIP(buffer);
+      network->setServerIP(buffer);
       stream.getline(temp, 256);
       port = atoi(temp);
-      network->setPort(port);
+      network->setServerPort(port);
       stream.close();
     }
   else
@@ -116,14 +116,6 @@ void		gameClient::fillnetwork(udpNetwork* network)
     std::cout << "Error: can't open file!"<< std::endl;
     exit(0);
     }
-}
-
-void		gameClient::choosePort(int nb)
-{
-  if (nb == 2)
-    _network->setPort(_network->getPort() + 1);
-  else if (nb == 3)
-    _network->setPort(_network->getPort() + 2);
 }
 
 void		gameClient::loopClient()
@@ -135,6 +127,7 @@ void		gameClient::loopClient()
   int			flag = 0;
   int			temp;
   int			nb;
+  unsigned int           status;
 
   this->_network = new udpNetwork();
   this->fillnetwork(_network);
@@ -142,39 +135,43 @@ void		gameClient::loopClient()
   while(1)
     {
       if (!(temp = _mainWindow.MainMenuLoop()))
-	{
-	  _music.StopMusic();
-	  _mainWindow.Close();
-	  exit(0);
-	}
-      choosePort(temp);
-      if (!(_network->getSocket().bind(_network->getPort())))
-	{
-	  std::cout << "Error: Socket Listen! You must change the port." << std::endl;
-	  exit(0);
-	}
+        {
+          _music.StopMusic();
+          _mainWindow.Close();
+          exit(0);
+        }
+
+      _network->setBindPort(50000);
+
+	  std::cout << "Trying binding on " << sf::IpAddress::getLocalAddress().toString() << ":" << _network->getBindPort() << "..." << std::endl;
+      status = _network->bind();
+      if (status != sf::Socket::Done)
+        {
+          std::cout << "Error: Socket Can't bind to " << sf::IpAddress::getLocalAddress().toString() << ":" << _network->getBindPort() << " (" << status << ")" << std::endl;
+          exit(0);
+        }
       this->requestConnect(temp);
       this->_network->getSocket().setBlocking(false);
       nb = 0;
-      //std::cout << "Awaiting connection to the server..." <<std::endl;
+      std::cout << "Awaiting connection to the server (server -> "<< _network->getServerIP() <<  ":" << _network->getServerPort() <<")..." <<std::endl;
       while(flag == 0 && nb <= WAITINGTIME)
-	{
-	  if(this->_network->getSocket().receive(buffer, NBOCTETS,
-						received, sender, port) == sf::Socket::Done)
-	    {
-	      if (buffer[3] == 0 && buffer[1] == 0)
-		{
-		  if (!(flag = replyConnect(buffer)))
-		    {
-		      std::cout << "Error: Server full" << std::endl;
-		      break;
-		    }
-		}
-	    }
-	  nb++;
-	}
+        {
+          if(this->_network->getSocket().receive(buffer, NBOCTETS,
+                                                 received, sender, port) == sf::Socket::Done)
+            {
+              if (buffer[3] == 0 && buffer[1] == 0)
+                {
+                  if (!(flag = replyConnect(buffer)))
+                    {
+                      std::cout << "Error: Server full" << std::endl;
+                      break;
+                    }
+                }
+            }
+          nb++;
+        }
       if (flag != 0)
-	break;
+        break;
     }
   _mainWindow.Close();
   mainClient();
@@ -231,7 +228,7 @@ void		socketLoop(void * UserData)
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;
       if (Object->_network->getSocket().receive(buffer, NBOCTETS, received,
-						sender, port) == sf::Socket::Done)
+                                                       sender, port) == sf::Socket::Done)
 	{
 	  Object->_mutex.lock();
 	  if (received == NBOCTETS && buffer[0] == Object->getGame())

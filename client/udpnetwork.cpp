@@ -11,14 +11,19 @@ udpNetwork::~udpNetwork()
   ;
 }
 
-int		udpNetwork::getPort()
+int		udpNetwork::getBindPort()
 {
-  return(_port);
+  return(_bind_port);
 }
 
-std::string&	udpNetwork::getIP()
+int		udpNetwork::getServerPort()
 {
-  return(_ip);
+  return(_server_port);
+}
+
+std::string&	udpNetwork::getServerIP()
+{
+  return(_server_ip);
 }
 
 sf::UdpSocket	&udpNetwork::getSocket()
@@ -26,26 +31,29 @@ sf::UdpSocket	&udpNetwork::getSocket()
   return(_socket);
 }
 
-/*
-sf::SelectorUDP	&udpNetwork::getSelector()
+int udpNetwork::bind()
 {
-  return(_selector);
-}
-*/
-
-void			udpNetwork::setPort(int port)
-{
-  _port = port;
+  return _socket.bind(_bind_port);
 }
 
-void			udpNetwork::setIP(std::string& ip)
+void			udpNetwork::setBindPort(int port)
 {
-  _ip = ip;
+  _bind_port = port;
+}
+
+void			udpNetwork::setServerPort(int port)
+{
+  _server_port = port;
+}
+
+void			udpNetwork::setServerIP(std::string& ip)
+{
+  _server_ip = ip;
 }
 
 void			udpNetwork::sendMessage(char buffer[NBOCTETS])
 {
-  if(_socket.send(buffer, NBOCTETS, this->getIP(), this->getPort())
+  if(_socket.send(buffer, NBOCTETS, this->getServerIP(), this->getServerPort())
      !=  sf::Socket::Done)
     std::cout << "Error: Socket send." << std::endl;
 }

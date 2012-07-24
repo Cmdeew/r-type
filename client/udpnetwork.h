@@ -8,19 +8,21 @@
 class udpNetwork
 {
  private:
-  std::string	_ip;
+  std::string	_server_ip;
   sf::UdpSocket	_socket;
-  //  sf::SelectorUDP	_selector;
-  int		_port;
+  int		_server_port;
+  int    	_bind_port;
  public:
   udpNetwork();
   ~udpNetwork();
-  std::string&		getIP();
-  int			getPort();
+  std::string&		getServerIP();
+  int			getServerPort();
+  int			getBindPort();
   sf::UdpSocket		&getSocket();
-  //  sf::SelectorUDP	&getSelector();
-  void			setIP(std::string& ip);
-  void			setPort(int port);
+  int             bind();
+  void			setServerIP(std::string& ip);
+  void			setServerPort(int port);
+  void			setBindPort(int port);
   void			sendMessage(char buffer[NBOCTETS]);
 };
 

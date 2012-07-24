@@ -62,13 +62,17 @@ int	CUAbsUDPNetwork::Receive(void *Buffer)
   int ttl = 1;
   int a =  sizeof(struct sockaddr);
   struct sockaddr_in addr_r;
+  ssize_t ll;
 
   if (setsockopt((int)_socket,SOL_SOCKET,SO_REUSEADDR,&ttl,sizeof(ttl)) < 0) 
   {
     std::cout << "Error" << std::endl;
     return (0);
   }
-  return (recvfrom((int)_socket, Buffer, CMD_SIZE, 0, (struct sockaddr *)&addr_r, (socklen_t *)&a));
+  ll = recvfrom((int)_socket, Buffer, CMD_SIZE, 0, (struct sockaddr *)&addr_r, (socklen_t *)&a);
+  //std::cout << "RECV FROM " << ntohs(addr_r.sin_port) <<std::endl;
+  my_addr->sin_port= addr_r.sin_port;
+  return ll;
 }
 
 int	CUAbsUDPNetwork::Send(const void *Buffer, size_t size)
@@ -81,6 +85,7 @@ int	CUAbsUDPNetwork::Send(const void *Buffer, size_t size)
     }
   if (sendto((int)_socket, Buffer, size, 0, (struct sockaddr *)my_addr, sizeof(struct sockaddr)) < 0)
     std::cout << ERROR_SEND << std::endl;
+  //std::cout << "SENDING TO " << ntohs(my_addr->sin_port) <<std::endl;
   return 0;
 }
 
