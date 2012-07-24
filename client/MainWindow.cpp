@@ -28,10 +28,10 @@ void	MainWindow::InitMenu()
     }
   else
     {
-      /*_tPlay.SetFont(_menuFont);
-      _tCredits.SetFont(_menuFont);
-      _tItems.SetFont(_menuFont);
-      _tExit.SetFont(_menuFont);*/
+      _tPlay.setFont(_menuFont);
+      _tCredits.setFont(_menuFont);
+      _tItems.setFont(_menuFont);
+      _tExit.setFont(_menuFont);
     }
   _tPlay.setString("1 : Launch game!");
   _tCredits.setString("2 : Credits");
