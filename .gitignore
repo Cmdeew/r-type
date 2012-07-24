@@ -1,0 +1,4 @@
+serveur/serveur
+serveur/*.o
+client/client
+client/*.o

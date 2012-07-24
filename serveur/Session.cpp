@@ -547,7 +547,7 @@ void  Session::sessionthreadElems()
 
 
    LoadLib	*lib;
-  // verification des libs
+
 
 
    //_score = 10000; // TEST
