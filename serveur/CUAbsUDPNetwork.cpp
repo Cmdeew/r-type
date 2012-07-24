@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <unistd.h>
 
 #include	"CUAbsUDPNetwork.h"
 

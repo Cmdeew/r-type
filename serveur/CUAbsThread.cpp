@@ -1,6 +1,7 @@
 #ifndef _WIN32
 
 #include <iostream>
+#include <unistd.h>
 #include <pthread.h>
 #include "CUAbsThread.h"
 
