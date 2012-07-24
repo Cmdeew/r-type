@@ -19,7 +19,7 @@ void	AbstractMusic::LoadMusic()
 	{
 	  Music = new sf::Music;
 	  buf = "./music/" + buf;
-	  if (!Music->OpenFromFile(buf.c_str()))
+	  if (!Music->openFromFile(buf.c_str()))
 	    {
 	      std::cerr << "Error: " << buf << " no such file or directory ..." << std::endl;
 	    }
@@ -44,7 +44,7 @@ void	AbstractMusic::PlayMusic()
       if (_idSongPlayed == 0)
 	{
 	  Music = *it;
-	  Music->Play();
+	  Music->play();
 	  _idSongPlayed = 1;
 	}
       else
@@ -55,7 +55,7 @@ void	AbstractMusic::PlayMusic()
 	      it++;
 	    }
 	  Music = *it;
-	  if (Music->GetStatus() != sf::Music::Playing)
+	  if (Music->getStatus() != sf::Music::Playing)
 	    {
 	      it++;
 	      if (it == _lMusic.end())
@@ -66,7 +66,7 @@ void	AbstractMusic::PlayMusic()
 	      else
 		_idSongPlayed = count + 2;
 	      Music = *it;
-	      Music->Play();
+	      Music->play();
 	    }
 	}
     }
@@ -85,7 +85,7 @@ void	AbstractMusic::StopMusic()
       for(it = _lMusic.begin();it != _lMusic.end();it++)
 	{
 	  Music = *it;
-	  Music->Stop();
+	  Music->stop();
 	  _lMusic.erase(it);
 	  delete(Music);
 	  flag = 1;

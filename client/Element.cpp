@@ -74,15 +74,15 @@ unsigned char	&Element::getType()
   return (_type);
 }
 
-void		Element::setSprite(const std::list<sf::Image> &list)
+void		Element::setSprite(const std::list<sf::Texture> &list)
 {
   sf::Sprite	sprite;
-  std::list<sf::Image>::const_iterator	it;
+  std::list<sf::Texture>::const_iterator	it;
 
   it = list.begin();
   while (it != list.end())
     {
-      sprite.SetImage(*it);
+      sprite.setTexture(*it);
       _lSprite.push_back(sprite);
       it++;
     }
@@ -90,7 +90,7 @@ void		Element::setSprite(const std::list<sf::Image> &list)
 
 void			Element::setPosSprite(sf::Sprite &sprite)
 {
-  sprite.SetPosition((int)_posX * 16, (int)_posY * 16);
+  sprite.setPosition((int)_posX * 16, (int)_posY * 16);
 }	
 
 std::list<sf::Sprite>	&Element::getSprite()

@@ -12,19 +12,19 @@
 class	AbstractWindow
 {
  private:
-  sf::Image		_portraitImg;
+  sf::Texture		_portraitImg;
   sf::Sprite		_portrait;
-  sf::Image		_backgroundImg;
+  sf::Texture		_backgroundImg;
   sf::Sprite		_background;
-  sf::Image		_background2Img;
+  sf::Texture		_background2Img;
   sf::Sprite		_background2;
-  sf::Image		_background3Img;
+  sf::Texture		_background3Img;
   sf::Sprite		_background3;
-  sf::Image		_background4Img;
+  sf::Texture		_background4Img;
   sf::Sprite		_background4;
-  sf::Image		_interfaceImg;
+  sf::Texture		_interfaceImg;
   sf::Sprite		_interface;
-  sf::Image		_lifeImg;
+  sf::Texture		_lifeImg;
   sf::Sprite		_lifeSprite;
   sf::Event		_event;
   sf::RenderWindow	_App;
@@ -34,7 +34,7 @@ class	AbstractWindow
   sf::String		_life;
   sf::String		_id;
   sf::Sprite		_player;
-  sf::Image		_gameOverImg;
+  sf::Texture		_gameOverImg;
   sf::Sprite		_gameOver;
 
  public:

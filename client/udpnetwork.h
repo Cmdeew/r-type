@@ -9,16 +9,16 @@ class udpNetwork
 {
  private:
   std::string	_ip;
-  sf::SocketUDP	_socket;
-  sf::SelectorUDP	_selector;
+  sf::UdpSocket	_socket;
+  //  sf::SelectorUDP	_selector;
   int		_port;
  public:
   udpNetwork();
   ~udpNetwork();
   std::string&		getIP();
   int			getPort();
-  sf::SocketUDP		&getSocket();
-  sf::SelectorUDP	&getSelector();
+  sf::UdpSocket		&getSocket();
+  //  sf::SelectorUDP	&getSelector();
   void			setIP(std::string& ip);
   void			setPort(int port);
   void			sendMessage(char buffer[NBOCTETS]);

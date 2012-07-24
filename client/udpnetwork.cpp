@@ -21,15 +21,17 @@ std::string&	udpNetwork::getIP()
   return(_ip);
 }
 
-sf::SocketUDP	&udpNetwork::getSocket()
+sf::UdpSocket	&udpNetwork::getSocket()
 {
   return(_socket);
 }
 
+/*
 sf::SelectorUDP	&udpNetwork::getSelector()
 {
   return(_selector);
 }
+*/
 
 void			udpNetwork::setPort(int port)
 {
@@ -43,7 +45,7 @@ void			udpNetwork::setIP(std::string& ip)
 
 void			udpNetwork::sendMessage(char buffer[NBOCTETS])
 {
-  if(_socket.Send(buffer, NBOCTETS, this->getIP(), this->getPort())
+  if(_socket.send(buffer, NBOCTETS, this->getIP(), this->getPort())
      !=  sf::Socket::Done)
     std::cout << "Error: Socket send." << std::endl;
 }

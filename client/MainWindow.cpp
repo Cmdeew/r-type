@@ -2,8 +2,8 @@
 
 MainWindow::MainWindow()
 {
-  _mainWindow.Create(sf::VideoMode(800, 600, 32), "Best R-Type ever!!");
-  _mainWindow.SetFramerateLimit(60);
+  _mainWindow.create(sf::VideoMode(800, 600, 32), "Best R-Type ever!!");
+  _mainWindow.setFramerateLimit(60);
 }
 
 MainWindow::~MainWindow()
@@ -12,101 +12,101 @@ MainWindow::~MainWindow()
 
 void	MainWindow::InitMenu()
 {
-  if (!_Ibackground.LoadFromFile("./img/background_menu.jpg"))
+  if (!_Ibackground.loadFromFile("./img/background_menu.jpg"))
     {
       std::cerr << "Error: LoadFromFile img/background_menu.jpg failed!" 
 		<< std::endl;
     }
-  _background.SetImage(_Ibackground);
-  _background.SetPosition(0, 0);
-  _background.Resize(800, 600);
+  _background.setTexture(_Ibackground);
+  _background.setPosition(0, 0);
+  //_background.scale(800, 600);
 
-  if (!_menuFont.LoadFromFile("font/menuFont.ttf"))
+  if (!_menuFont.loadFromFile("font/menuFont.ttf"))
     {
       std::cerr << "Error: LoadFromFile font/menuFont.ttf failed!" 
 		<< std::endl;
     }
   else
     {
-      _tPlay.SetFont(_menuFont);
+      /*_tPlay.SetFont(_menuFont);
       _tCredits.SetFont(_menuFont);
       _tItems.SetFont(_menuFont);
-      _tExit.SetFont(_menuFont); 
+      _tExit.SetFont(_menuFont);*/
     }
-  _tPlay.SetText("1 : Launch game!");
-  _tCredits.SetText("2 : Credits");
-  _tItems.SetText("3 : Exit!");
-  _tExit.SetText("");
-  _tPlay.SetSize(25);
-  _tCredits.SetSize(25);
-  _tItems.SetSize(25);
-  _tExit.SetSize(25);
-  _tPlay.SetColor(sf::Color(0, 0, 0));
-  _tCredits.SetColor(sf::Color(0, 0, 0));
-  _tItems.SetColor(sf::Color(0, 0, 0));
-  _tExit.SetColor(sf::Color(0, 0, 0));
-  _tPlay.SetPosition(325, 250);
-  _tCredits.SetPosition(275, 350);
-  _tItems.SetPosition(225, 450);
-  _tExit.SetPosition(175, 550);
+  _tPlay.setString("1 : Launch game!");
+  _tCredits.setString("2 : Credits");
+  _tItems.setString("3 : Exit!");
+  _tExit.setString("");
+  _tPlay.setCharacterSize(25);
+  _tCredits.setCharacterSize(25);
+  _tItems.setCharacterSize(25);
+  _tExit.setCharacterSize(25);
+  _tPlay.setColor(sf::Color(0, 0, 0));
+  _tCredits.setColor(sf::Color(0, 0, 0));
+  _tItems.setColor(sf::Color(0, 0, 0));
+  _tExit.setColor(sf::Color(0, 0, 0));
+  _tPlay.setPosition(325, 250);
+  _tCredits.setPosition(275, 350);
+  _tItems.setPosition(225, 450);
+  _tExit.setPosition(175, 550);
 }
 
 void	MainWindow::InitGameList()
 {
-  if (!_Ibackground.LoadFromFile("./img/background_menu.jpg"))
+  if (!_Ibackground.loadFromFile("./img/background_menu.jpg"))
     {
       std::cerr << "Error: LoadFromFile img/background_menu.jpg failed!" 
 		<< std::endl;
     }
-  _background.SetImage(_Ibackground);
-  _background.SetPosition(0, 0);
-  _background.Resize(800, 600);
+  _background.setTexture(_Ibackground);
+  _background.setPosition(0, 0);
+  //_background.scale(800, 600);
 
-  _tPlay.SetText("1 : Join Game 1");
-  _tCredits.SetText("2 : Join Game 2");
-  _tItems.SetText("3 : Join Game 3");
-  _tExit.SetText("4 : Menu");
-  _tPlay.SetPosition(325, 250);
-  _tCredits.SetPosition(275, 350);
-  _tItems.SetPosition(225, 450);
-  _tExit.SetPosition(175, 550);
+  _tPlay.setString("1 : Join Game 1");
+  _tCredits.setString("2 : Join Game 2");
+  _tItems.setString("3 : Join Game 3");
+  _tExit.setString("4 : Menu");
+  _tPlay.setPosition(325, 250);
+  _tCredits.setPosition(275, 350);
+  _tItems.setPosition(225, 450);
+  _tExit.setPosition(175, 550);
 }
 
 void	MainWindow::InitCredits()
 {
- if (!_Ibackground.LoadFromFile("./img/credits.jpg"))
+ if (!_Ibackground.loadFromFile("./img/credits.jpg"))
     {
       std::cerr << "Error: LoadFromFile img/background_menu.jpg failed!" 
 		<< std::endl;
     }
-  _background.SetImage(_Ibackground);
-  _background.SetPosition(0, 0);
-  _background.Resize(800, 600);
+  _background.setTexture(_Ibackground);
+  _background.setPosition(0, 0);
+  //_background.scale(800, 600);
 
-  _tPlay.SetText("1 : Menu");
-  _tCredits.SetText("");
-  _tItems.SetText("");
-  _tExit.SetText("");
-  _tPlay.SetPosition(600, 500);
+  _tPlay.setString("1 : Menu");
+  _tCredits.setString("");
+  _tItems.setString("");
+  _tExit.setString("");
+  _tPlay.setPosition(600, 500);
 }
 
 void	MainWindow::DrawAll()
 {
-  _mainWindow.Draw(_background);
-  _mainWindow.Draw(_tPlay);
-  _mainWindow.Draw(_tCredits);
-  _mainWindow.Draw(_tItems);
-  _mainWindow.Draw(_tExit);
+  _mainWindow.draw(_background);
+  _mainWindow.draw(_tPlay);
+  _mainWindow.draw(_tCredits);
+  _mainWindow.draw(_tItems);
+  _mainWindow.draw(_tExit);
 }
 
 bool	MainWindow::IsOpened()
 {
-  return _mainWindow.IsOpened();
+  return _mainWindow.isOpen();
 }
 
 bool	MainWindow::GetEvent()
 {
-  if (_mainWindow.GetEvent(_event))
+  if (_mainWindow.pollEvent(_event))
     return true;
   else
     return false;
@@ -114,7 +114,7 @@ bool	MainWindow::GetEvent()
 
 bool	MainWindow::CloseEvent()
 {
-  if (_event.Type == sf::Event::Closed || _mainWindow.GetInput().IsKeyDown(sf::Key::Escape))
+  if (_event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     return true;
   else
     return false;
@@ -122,38 +122,38 @@ bool	MainWindow::CloseEvent()
 
 void	MainWindow::Close()
 {
-  _mainWindow.Close();
+  _mainWindow.close();
 }
 
 void	MainWindow::Clear()
 {
-  _mainWindow.Clear(sf::Color(0, 0, 0));
+  _mainWindow.clear(sf::Color(0, 0, 0));
 }
 
 void	MainWindow::Display()
 {
-  _mainWindow.Display();
+  _mainWindow.display();
 }
 
 unsigned char	MainWindow::MainMenuLoop()
 {
   unsigned char	tmp;
 
-  while (_mainWindow.IsOpened())
+  InitMenu();
+  while (_mainWindow.isOpen())
     {
-      InitMenu();
-      while (_mainWindow.GetEvent(_event))
+      while (_mainWindow.pollEvent(_event))
 	{
 	  if (CloseEvent() || 
-	      (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num3))
+	      (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)))
 	    Close();
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num1)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    {
 	      tmp = GameListLoop();
 	      if (tmp != 0)
 		return tmp;
 	    }
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num2)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	    CreditsLoop();
 	}
       Clear();
@@ -165,20 +165,20 @@ unsigned char	MainWindow::MainMenuLoop()
 
 unsigned char  MainWindow::GameListLoop()
 {
-  while (_mainWindow.IsOpened())
+  while (_mainWindow.isOpen())
     {
-      InitGameList(); 
-      while (_mainWindow.GetEvent(_event))
+      InitGameList();
+      while (_mainWindow.pollEvent(_event))
 	{
 	  if (CloseEvent())
 	    Close();
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num1)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    return 1;
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num2)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	    return 2;
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num3)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 	    return 3;
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num4)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 	    return 0;
 	}
       Clear();
@@ -190,14 +190,14 @@ unsigned char  MainWindow::GameListLoop()
 
 int	MainWindow::CreditsLoop()
 {
-  while (_mainWindow.IsOpened())
+  while (_mainWindow.isOpen())
     {
       InitCredits();
-      while (_mainWindow.GetEvent(_event))
+      while (_mainWindow.pollEvent(_event))
 	{
 	  if (CloseEvent())
 	    Close();
-	  if (_event.Type == sf::Event::KeyPressed && _event.Key.Code == sf::Key::Num1)
+	  if (_event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    return 0;
 	}
       Clear();

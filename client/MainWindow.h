@@ -12,14 +12,14 @@ class	MainWindow
   sf::RenderWindow	_mainWindow;
   sf::Font	_menuFont;
   sf::Event	_event;
-  sf::Image	_Ibackground;
-  sf::Image	_Icredits;
+  sf::Texture	_Ibackground;
+  sf::Texture	_Icredits;
   sf::Sprite	_background;
   sf::Sprite	_credit;
-  sf::String	_tPlay;
-  sf::String	_tCredits;
-  sf::String	_tExit;
-  sf::String	_tItems;
+  sf::Text	_tPlay;
+  sf::Text	_tCredits;
+  sf::Text	_tExit;
+  sf::Text	_tItems;
  public:
   MainWindow();
   ~MainWindow();

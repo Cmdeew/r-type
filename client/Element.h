@@ -27,7 +27,7 @@ class Element
   void			setLife(unsigned char);
   void			setID(unsigned char);
   void			setType(unsigned char);
-  void			setSprite(const std::list<sf::Image> &list);
+  void			setSprite(const std::list<sf::Texture> &list);
   void			setPosSprite(sf::Sprite &sprite);
   unsigned char&	getPosX();
   unsigned char&	getPosY();

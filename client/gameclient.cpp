@@ -7,18 +7,18 @@
 
 gameClient::gameClient()
 {
-  if (_shootBuf.LoadFromFile("sound/SpaceGun04.wav"))
-    _shoot.SetBuffer(_shootBuf);
-  if (_die1Buf.LoadFromFile("sound/enemy_dies1.wav"))
-    _die1.SetBuffer(_die1Buf);
-  if (_die2Buf.LoadFromFile("sound/enemy_dies2.wav"))
-    _die2.SetBuffer(_die2Buf);
-  if (_die3Buf.LoadFromFile("sound/enemy_dies3.wav"))
-    _die3.SetBuffer(_die3Buf);
-  if (_die4Buf.LoadFromFile("sound/enemy_dies4.wav"))
-    _die4.SetBuffer(_die4Buf);
-  if (_dieBossBuf.LoadFromFile("sound/boss_dies.wav"))
-    _dieBoss.SetBuffer(_dieBossBuf);
+  if (_shootBuf.loadFromFile("sound/SpaceGun04.wav"))
+    _shoot.setBuffer(_shootBuf);
+  if (_die1Buf.loadFromFile("sound/enemy_dies1.wav"))
+    _die1.setBuffer(_die1Buf);
+  if (_die2Buf.loadFromFile("sound/enemy_dies2.wav"))
+    _die2.setBuffer(_die2Buf);
+  if (_die3Buf.loadFromFile("sound/enemy_dies3.wav"))
+    _die3.setBuffer(_die3Buf);
+  if (_die4Buf.loadFromFile("sound/enemy_dies4.wav"))
+    _die4.setBuffer(_die4Buf);
+  if (_dieBossBuf.loadFromFile("sound/boss_dies.wav"))
+    _dieBoss.setBuffer(_dieBossBuf);
 }
 
 gameClient::~gameClient()
@@ -129,7 +129,7 @@ void		gameClient::choosePort(int nb)
 void		gameClient::loopClient()
 {
   std::size_t           received;
-  sf::IPAddress         sender;
+  sf::IpAddress         sender;
   unsigned short        port;
   char			buffer[NBOCTETS];
   int			flag = 0;
@@ -148,18 +148,18 @@ void		gameClient::loopClient()
 	  exit(0);
 	}
       choosePort(temp);
-      if (!(_network->getSocket().Bind(_network->getPort())))
+      if (!(_network->getSocket().bind(_network->getPort())))
 	{
 	  std::cout << "Error: Socket Listen! You must change the port." << std::endl;
 	  exit(0);
 	}
       this->requestConnect(temp);
-      this->_network->getSocket().SetBlocking(false);
+      this->_network->getSocket().setBlocking(false);
       nb = 0;
       //std::cout << "Awaiting connection to the server..." <<std::endl;
       while(flag == 0 && nb <= WAITINGTIME)
 	{
-	  if(this->_network->getSocket().Receive(buffer, NBOCTETS,
+	  if(this->_network->getSocket().receive(buffer, NBOCTETS,
 						received, sender, port) == sf::Socket::Done)
 	    {
 	      if (buffer[3] == 0 && buffer[1] == 0)
@@ -197,16 +197,16 @@ int		gameClient::keyEvent()
 	nb +=2;
       if (nb != 0)
 	{
-	  _mutex.Lock();
+	  _mutex.lock();
 	  requestMove(nb);
-	  _mutex.Unlock();
+	  _mutex.unlock();
 	}
       if (_window.IsShooting() && _weapondispo == 1)
 	{
 	  _weapondispo = 0;
-	  _mutex.Lock();
+	  _mutex.lock();
 	  requestShoot();
-	  _mutex.Unlock();
+	  _mutex.unlock();
 	}
       if (_window.Quit())
 	{
@@ -220,7 +220,7 @@ int		gameClient::keyEvent()
 void		socketLoop(void * UserData)
 {
   std::size_t           received;
-  sf::IPAddress         sender;
+  sf::IpAddress         sender;
   unsigned short        port;
   char			buffer[NBOCTETS];
   int			i;
@@ -230,13 +230,13 @@ void		socketLoop(void * UserData)
     {
       for (i = 0; i != NBOCTETS; i++)
 	buffer[i] = 0;
-      if (Object->_network->getSocket().Receive(buffer, NBOCTETS, received,
+      if (Object->_network->getSocket().receive(buffer, NBOCTETS, received,
 						sender, port) == sf::Socket::Done)
 	{
-	  Object->_mutex.Lock();
+	  Object->_mutex.lock();
 	  if (received == NBOCTETS && buffer[0] == Object->getGame())
 	    Object->findCommand(buffer);
-	  Object->_mutex.Unlock();
+	  Object->_mutex.unlock();
 	}
     }
 }
@@ -254,7 +254,7 @@ int		gameClient::mainClient()
   _exit = 0;
   setLevel(1);
   _music.LoadMusic();
-  Thread.Launch();
+  Thread.launch();
   _window.setPlayer(getSprite(), getId());
   while (_window.IsLaunch())
     {
@@ -276,15 +276,15 @@ int		gameClient::mainClient()
       _music.PlayMusic();
       _window.Clear();
       _window.MoveBackground();
-      _mutex.Lock();
+      _mutex.lock();
       _window.SetText(_score, getLife(), getId(), getLevel());
       _window.Draw(_object, _exit, getLevel());
-      _mutex.Unlock();
+      _mutex.unlock();
       _window.Display();
       _weaponloop++;
       loop++;
     }
-  Thread.Terminate();
+  Thread.terminate();
   _music.StopMusic();
   return 0;
 }

@@ -168,7 +168,7 @@ void			gameClient::requestShoot()
     }
   for(int i=6;i<NBOCTETS;i++)
     buffer[i] = 0;
-  _shoot.Play();
+  _shoot.play();
   this->_network->sendMessage(buffer);
 }
 
@@ -302,7 +302,7 @@ void			gameClient::bossExplosion(unsigned char posx, unsigned char posy)
 	    _object.push_back(nElem);
 	}
     }
-  _dieBoss.Play();
+  _dieBoss.play();
 }
 
 void			gameClient::replyDestroy(char buffer[NBOCTETS])
@@ -370,13 +370,13 @@ void			gameClient::replyDestroy(char buffer[NBOCTETS])
   else
     {
       if (type == 11 || type2 == 11)
-	_die1.Play();
+	_die1.play();
       else if (type == 12 || type2 == 12)
-	_die2.Play();
+	_die2.play();
       else if (type == 13 || type2 == 13)
-	_die3.Play();
+	_die3.play();
       else if (type == 14 || type2 == 14)
-	_die4.Play();
+	_die4.play();
     }
   if (boss == 1)
     bossExplosion(posx, posy);
