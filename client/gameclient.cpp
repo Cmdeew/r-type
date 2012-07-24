@@ -128,6 +128,7 @@ void		gameClient::loopClient()
   int			temp;
   int			nb;
   unsigned int           status;
+  int           is_bound = 0;
 
   this->_network = new udpNetwork();
   this->fillnetwork(_network);
@@ -141,8 +142,8 @@ void		gameClient::loopClient()
           exit(0);
         }
 
+      if (is_bound == 0) {
       _network->setBindPort(50000);
-
 	  std::cout << "Trying binding on " << sf::IpAddress::getLocalAddress().toString() << ":" << _network->getBindPort() << "..." << std::endl;
       status = _network->bind();
       if (status != sf::Socket::Done)
@@ -150,6 +151,9 @@ void		gameClient::loopClient()
           std::cout << "Error: Socket Can't bind to " << sf::IpAddress::getLocalAddress().toString() << ":" << _network->getBindPort() << " (" << status << ")" << std::endl;
           exit(0);
         }
+      is_bound = 1;
+      }
+
       this->requestConnect(temp);
       this->_network->getSocket().setBlocking(false);
       nb = 0;
