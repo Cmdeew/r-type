@@ -29,10 +29,10 @@ class	AbstractWindow
   sf::Event		_event;
   sf::RenderWindow	_App;
   sf::Font		_font;
-  sf::String		_level;
-  sf::String		_score;
-  sf::String		_life;
-  sf::String		_id;
+  sf::Text		_level;
+  sf::Text		_score;
+  sf::Text		_life;
+  sf::Text		_id;
   sf::Sprite		_player;
   sf::Texture		_gameOverImg;
   sf::Sprite		_gameOver;

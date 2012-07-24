@@ -24,20 +24,17 @@ AbstractWindow::AbstractWindow()
     std::cerr << "Error: Unable to load font" << std::endl;
   else
     {
-      /*
-        Looking for sf::String::setFont() in SFML 2
-      _score.SetFont(_font);
-      _life.SetFont(_font);
-      _id.SetFont(_font);
-      _level.SetFont(_font);
-      */
+      _score.setFont(_font);
+      _life.setFont(_font);
+      _id.setFont(_font);
+      _level.setFont(_font);
     }
-  _score = "score:";
-  //_score.SetSize(25);
-  //_score.SetPosition(605, 650);
-  //_level.SetSize(25);
-  //_level.SetPosition(310, 660);
-  //_score.SetColor(sf::Color(255, 255, 255));
+  _score.setString("score:");
+  _score.setCharacterSize(25);
+  _score.setPosition(605, 650);
+  _level.setCharacterSize(25);
+  _level.setPosition(310, 660);
+  _score.setColor(sf::Color(255, 255, 255));
 
   _background.setTexture(_backgroundImg);
   _background2.setTexture(_background2Img);
@@ -48,10 +45,10 @@ AbstractWindow::AbstractWindow()
   _interface.setTexture(_interfaceImg);
   _lifeSprite.setPosition(605, 700);
   _lifeSprite.scale(45,40);
-  //  _life.SetSize(25);
-  //  _life.SetPosition(645, 700);
-  //  _id.SetSize(25);
-  //  _id.SetPosition(300, 700);
+  _life.setCharacterSize(25);
+  _life.setPosition(645, 700);
+  _id.setCharacterSize(25);
+  _id.setPosition(300, 700);
   _background.setOrigin(0, 50);
   _interface.setPosition(0, 600);
 }
@@ -71,19 +68,20 @@ void	AbstractWindow::Draw(const std::list<Element *> &list, int mode, int level)
     {
       it = list.begin();
       if (level == 1)
-	_App.draw(_background);
+        _App.draw(_background);
       else if (level == 2)
-	_App.draw(_background2);
+        _App.draw(_background2);
       else if (level == 3)
-	_App.draw(_background3);
+        _App.draw(_background3);
       else if (level == 4)
-	_App.draw(_background4);
+        _App.draw(_background4);
+
       _App.draw(_interface);
-      //_App.draw(_level);
-      //_App.draw(_score);
-      //_App.draw(_lifeSprite);
-      //_App.draw(_life);
-      //_App.draw(_id);
+      _App.draw(_level);
+      _App.draw(_score);
+      _App.draw(_lifeSprite);
+      _App.draw(_life);
+      _App.draw(_id);
       _App.draw(_player);
       _App.draw(_portrait);
       while (it != list.end())
@@ -114,8 +112,6 @@ void	AbstractWindow::Display()
 
 bool	AbstractWindow::Quit()
 {
-  //if (_event.Type == sf::Event::Closed || _App.GetInput().IsKeyDown(sf::Key::Escape))
-  //  if (_event.type == sf::Event::Closed || _App.GetInput().IsKeyDown(sf::Keyboard::Escape))
   if (_event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
       _App.close();
@@ -166,31 +162,26 @@ bool	AbstractWindow::IsLaunch()
 
 bool	AbstractWindow::IsKeyUp()
 {
-  //return _App.GetInput().IsKeyDown(sf::Key::Up);
   return sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
 }
 
 bool	AbstractWindow::IsKeyDown()
 {
-  //return _App.GetInput().IsKeyDown(sf::Key::Down);
   return sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
 }
 
 bool	AbstractWindow::IsKeyLeft()
 {
-  //return _App.GetInput().IsKeyDown(sf::Key::Left);
   return sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 }
 
 bool	AbstractWindow::IsKeyRight()
 {
-  //return _App.GetInput().IsKeyDown(sf::Key::Right);
   return sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 }
 
 bool	AbstractWindow::IsShooting()
 {
-  //return _App.GetInput().IsKeyDown(sf::Key::Space);
   return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 }
 
@@ -200,12 +191,6 @@ void	AbstractWindow::MoveBackground()
 
   if (_background.getPosition().x == -1100)
     {
-      /*
-      _background.SetX(0);
-      _background2.SetX(0);
-      _background3.SetX(0);
-      _background4.SetX(0);
-      */
       _background.setPosition(0, 0);
       _background2.setPosition(0, 0);
       _background3.setPosition(0, 0);
@@ -224,19 +209,19 @@ void	AbstractWindow::SetText(int score, int life, int id, int level)
 
   oss << score;
   tmp = oss.str();
-  _score = "score: " + tmp;
+  _score.setString("score: " + tmp);
   oss.str("");
   oss << life;
   tmp = oss.str();
-  _life = " x" + tmp;
+  _life.setString(" x" + tmp);
   oss.str("");
   oss << id;
   tmp = oss.str();
-  _id = "player " + tmp;
+  _id.setString("player " + tmp);
   oss.str("");
   oss << level;
   tmp = oss.str();
-  _level = "level " + tmp;
+  _level.setString("level " + tmp);
 }
 
 void	AbstractWindow::Close()
