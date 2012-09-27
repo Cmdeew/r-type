@@ -143,7 +143,7 @@ void		gameClient::loopClient()
         }
 
       if (is_bound == 0) {
-      _network->setBindPort(50000);
+      _network->setBindPort(50001);
 	  std::cout << "Trying binding on " << sf::IpAddress::getLocalAddress().toString() << ":" << _network->getBindPort() << "..." << std::endl;
       status = _network->bind();
       if (status != sf::Socket::Done)
